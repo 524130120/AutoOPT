@@ -1,9 +1,9 @@
-.. SphinxDemo documentation master file, created by
+.. AutoOPT documentation master file, created by
    sphinx-quickstart on Tue Sep 19 17:43:11 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to SphinxDemo's documentation!
+Welcome to AutoOPT documentation!
 ======================================
 
 .. toctree::
