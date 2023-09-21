@@ -1,0 +1,7 @@
+subcs
+===========================
+
+.. toctree::
+   :maxdepth: 2
+
+   sub1/contents

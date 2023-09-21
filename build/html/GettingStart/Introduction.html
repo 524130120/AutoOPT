@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.1 Introduction &mdash; SphinxDemo v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e160b93e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.2 Installation" href="Installation.html" />
+    <link rel="prev" title="Welcome to SphinxDemo’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SphinxDemo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">1. Getting Started:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1.1 Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">1.2 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="QuickStart.html">1.3 Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2. User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../UserGuide/auto_alg_design.html">2.1 What is automated algorithm design?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UserGuide/AutoOptLib_Arch.html">2.2 AutoOptLib Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UserGuide/Use_AutoOptLib.html">2.3 Use AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">3. Developer Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../DeveloperGuide/Extend_AutoOptLib.html">3.1 Extend AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">4. References:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../References/ref.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SphinxDemo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">1.1 Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GettingStart/Introduction.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>1.1 Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>AutoOptLib is a Matlab library for automatically designing metaheuristic optimizers. It provides:</p>
+<ul class="simple">
+<li><p>Rich library of design choices - Over 40 representative metaheuristic components for designing algorithms for continuous, discrete, and permutation problems with/without constraints and uncertainties.</p></li>
+</ul>
+<p><a name="table1"></a></p>
+<div style="text-align: center;">Table 1: Metaheuristic algorithm components in AutoOptLib.</div><table border="1" class="docutils">
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Continuous search:</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td>cross_arithmetic</td>
+<td>Whole arithmetic crossover</td>
+</tr>
+<tr>
+<td>cross_sim_binary</td>
+<td>Simulated binary crossover <a href="../References/ref.html#DA+95">[DA+95]</a></td>
+</tr>
+<tr>
+<td>cross_point_one</td>
+<td>One-point crossover</td>
+</tr>
+<tr>
+<td>cross_point_two</td>
+<td>Two-point crossover</td>
+</tr>
+<tr>
+<td>cross_point_n</td>
+<td>n-point crossover</td>
+</tr>
+<tr>
+<td>cross_point_uniform</td>
+<td>Uniform crossover</td>
+</tr>
+<tr>
+<td>search_cma</td>
+<td>The evolution strategy with covariance matrix adaption</td>
+</tr>
+<tr>
+<td>search_eda</td>
+<td>The estimation of distribution</td>
+</tr>
+<tr>
+<td>search_mu_cauchy</td>
+<td>Cauchy mutation   <a href="../References/ref.html#YLL99">[YLL99]</a></td>
+</tr>
+<tr>
+<td>search_mu_gaussian</td>
+<td>Gaussian mutation <a href="../References/ref.html#Fog98">[Fog98]</a></td>
+</tr>
+<tr>
+<td>search_mu_polynomial</td>
+<td>Polynomial mutation <a href="../References/ref.html#DA+96">[DA+96]</a></td>
+</tr>
+<tr>
+<td>search_mu_uniform</td>
+<td>Uniform mutation</td>
+</tr>
+<tr>
+<td>search_pso</td>
+<td>Particle swarm optimization's particle fly and update <a href="../References/ref.html#SE98">[SE98]</a></td>
+</tr>
+<tr>
+<td>search_de_random</td>
+<td>The "random/1" differential mutation    <a href="../References/ref.html#SP97">[SP97]</a></td>
+</tr>
+<tr>
+<td>search_de_current</td>
+<td>The "current/1" differential mutation</td>
+</tr>
+<tr>
+<td>search_de_current_best</td>
+<td>The "current-to-best/1" differential mutation</td>
+</tr>
+<tr>
+<td>reinit_continuous</td>
+<td>Random reinitialization for continuous problems</td>
+</tr>
+<tr>
+<td><strong>Discrete search:</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td>cross_point_one</td>
+<td>One-point crossover</td>
+</tr>
+<tr>
+<td>cross_point_two</td>
+<td>Two-point crossover</td>
+</tr>
+<tr>
+<td>cross_point_n</td>
+<td>n-point crossover</td>
+</tr>
+<tr>
+<td>cross_point_uniform</td>
+<td>Uniform crossover</td>
+</tr>
+<tr>
+<td>search_reset_one</td>
+<td>Reset a randomly selected entity to a random value</td>
+</tr>
+<tr>
+<td>search_reset_rand</td>
+<td>Reset each entity to a random value with a probability</td>
+</tr>
+<tr>
+<td>search_reset_creep</td>
+<td>Add a small positive or negative value to each entity with a probability, for problems with ordinal attributes</td>
+</tr>
+<tr>
+<td>reinit_discrete</td>
+<td>Random reinitialization for discrete problems</td>
+</tr>
+<tr>
+<td><strong>Permutation search:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>cross_order_two</td>
+<td>Two-order crossover</td>
+</tr>
+<tr>
+<td>cross_order_n</td>
+<td>n-order crossover</td>
+</tr>
+<tr>
+<td>search_swap</td>
+<td>Swap two randomly selected entities</td>
+</tr>
+<tr>
+<td>search_swap_multi</td>
+<td>Swap each pair of entities between two randomly selected indices</td>
+</tr>
+<tr>
+<td>search_scramble</td>
+<td>Scramble all the entities between two randomly selected indices</td>
+</tr>
+<tr>
+<td>search_insert</td>
+<td>Randomly select two entities, insert the second entity to the position following the first one</td>
+</tr>
+<tr>
+<td>reinit_permutation</td>
+<td>Random reinitialization for permutation problems</td>
+</tr>
+<tr>
+<td><strong>Choose where to search from:</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td>choose_roulette_wheel</td>
+<td>Roulette wheel selection</td>
+</tr>
+<tr>
+<td>choose_tournament</td>
+<td>K-tournament selection</td>
+</tr>
+<tr>
+<td>choose_traverse</td>
+<td>Choose each of the current solutions to search from</td>
+</tr>
+<tr>
+<td>choose_cluster</td>
+<td>Brain storm optimization's idea picking up for choosing solutions to search from <a href="../References/ref.html#Shi15">[Shi15]</a></td>
+</tr>
+<tr>
+<td>choose_nich</td>
+<td>Adaptive niching based on the nearest-better clustering</td>
+</tr>
+<tr>
+<td><strong>Select promising solutions:</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td>update_always</td>
+<td>Always select new solutions</td>
+</tr>
+<tr>
+<td>update_greedy</td>
+<td>Select the best solutions</td>
+</tr>
+<tr>
+<td>update_pairwise</td>
+<td>Select the better solution from each pair of old and new solutions</td>
+</tr>
+<tr>
+<td>update_round_robin</td>
+<td>Select solutions by round-robin tournament</td>
+</tr>
+<tr>
+<td>update_simulated_annealing</td>
+<td>Simulated annealing's update mechanism, i.e., accept worse solution with a probability <a href="../References/ref.html#KGJV83">[KGJV83]</a></td>
+</tr>
+<tr>
+<td><strong>Archive:</strong></td>
+<td>-</td>
+</tr>
+<tr>
+<td>archive_best</td>
+<td>Collect the best solutions found so far</td>
+</tr>
+<tr>
+<td>archive_diversity</td>
+<td>Collect most diversified solutions found so far</td>
+</tr>
+<tr>
+<td>archive_tabu</td>
+<td>The tabu list <a href="../References/ref.html#Glo89">[Glo89]</a></td>
+</tr>
+</tbody>
+</table><ul>
+<li><p>Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a single run, enables great possibility to find novel and efficient algorithms.
+Fair benchmark of various design objectives and techniques.</p>
+<ul>
+<li><p>Various design objectives, e.g., solution quality, runtime, and anytime performance.</p>
+<p><a name="table2"></a></p>
+<div style="text-align: center;">Table 2: Design objectives involved in AutoOptLib.</div></li>
+<li><p>Different design techniques, e.g., racing, intensification, and surrogate.</p>
+<p><a name="table3"></a></p>
+<div style="text-align: center;">Table 3: Algorithm performance evaluation methods provided in AutoOptLib.</div></li>
+</ul>
+</li>
+<li><p>Good accessibility - Graphical user interface (GUI) for users to input problems, manage the algorithm design process, make experimental comparisons, and visualize results with simple one-clicks.</p></li>
+<li><p>Easy extensibility - Easily add new algorithmic components, objectives, and techniques by a uniform interface.</p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to SphinxDemo’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Installation.html" class="btn btn-neutral float-right" title="1.2 Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cxl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

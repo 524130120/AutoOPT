@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.1 What is automated algorithm design? &mdash; SphinxDemo v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e160b93e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.2 AutoOptLib Architecture" href="AutoOptLib_Arch.html" />
+    <link rel="prev" title="1.3 Quick Start" href="../GettingStart/QuickStart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SphinxDemo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">1. Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/Introduction.html">1.1 Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/Installation.html">1.2 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/QuickStart.html">1.3 Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2. User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2.1 What is automated algorithm design?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AutoOptLib_Arch.html">2.2 AutoOptLib Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Use_AutoOptLib.html">2.3 Use AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">3. Developer Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../DeveloperGuide/Extend_AutoOptLib.html">3.1 Extend AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">3. References:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../References/ref.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SphinxDemo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">2.1 What is automated algorithm design?</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/UserGuide/auto_alg_design.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="what-is-automated-algorithm-design">
+<h1>2.1 What is automated algorithm design?<a class="headerlink" href="#what-is-automated-algorithm-design" title="Link to this heading"></a></h1>
+<p>Given a target problem, through algorithm design, we would like to find an algorithm(s) with the best performance on the problem <a class="reference external" href="../References/ref.html#BK09">[BK09]</a>:</p>
+<p>[formulation 1]</p>
+<p>where A is the designed algorithm; S is the design space, from where A can be instantiated; i ∈ I is an instance of the target problem domain I; P : S × I → R is a performance metric that measures the performance of A in I. The design aims to find algorithm(s) with the maximum expected performance in I.</p>
+<p>In reality, the distribution of problem instances in I is often unknown, and one cannot exhaust all the instances during the design process. The common practice of settling for the reality is to consider a finite set of instances from I. Consequently, Eq. (1) can be reformulated as</p>
+<p>[formulation 2]</p>
+<p>where It is the finite set of instances that are target at time (i.e., iteration<sup><a class="reference external" href="#note1">1</a></sup>) t of the design process.
+The target problem instances can either be fixed (i.e., I1 = I2 = · · · = IT ) or dynamically changed during the design process.
+The output of solving Eq. (2) is algorithm(s) with the best performance on the considered instances.
+To avoid the designed algorithms overfitting, the design process can be followed by validation
+to investigate the generalization of the designed algorithms to instances from I{I1, I2, · · · , IT }.</p>
+<p>The general process of automated design of metaheuristic optimizers can be abstracted into four
+parts, as shown in <a class="reference external" href="#Fig1">Fig. 1</a>. first, the design space collects of candidate primitives or components
+for instantiating metaheuristic algorithms. It regulates what algorithms can be found in principle.
+Second, the design strategy provides a principle way to design algorithms by selecting and combining
+the primitives or components from the design space. Third, the performance evaluation strategy defines
+how to measure the performance of the designed algorithms. The measured performance guides the
+design strategy to find desired algorithms. Finally, because the design aims to find algorithms with
+promising performance on solving a target problem, the target problem acts as external data to support
+the performance evaluation. This survey is organized according to the above four parts of automated
+design.</p>
+<p><a name="Fig1"></a>
+<img alt="图片标题" src="../_images/Fig1.png" /></p>
+<div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div><p><strong>Note:</strong></p>
+<p><a id="note1"></a>1. Since Equation 2 is a black-box problem, it is often solved in an iterative manner.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../GettingStart/QuickStart.html" class="btn btn-neutral float-left" title="1.3 Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="AutoOptLib_Arch.html" class="btn btn-neutral float-right" title="2.2 AutoOptLib Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cxl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

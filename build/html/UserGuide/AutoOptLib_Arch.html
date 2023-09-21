@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.2 AutoOptLib Architecture &mdash; SphinxDemo v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e160b93e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3 Use AutoOptLib" href="Use_AutoOptLib.html" />
+    <link rel="prev" title="2.1 What is automated algorithm design?" href="auto_alg_design.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SphinxDemo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">1. Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/Introduction.html">1.1 Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/Installation.html">1.2 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/QuickStart.html">1.3 Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2. User Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="auto_alg_design.html">2.1 What is automated algorithm design?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2.2 AutoOptLib Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#file-structure">2.2.1 File Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classes">2.2.2  Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operating-sequence">2.2.3 Operating Sequence</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Use_AutoOptLib.html">2.3 Use AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">3. Developer Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../DeveloperGuide/Extend_AutoOptLib.html">3.1 Extend AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">4. References:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../References/ref.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SphinxDemo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">2.2 AutoOptLib Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/UserGuide/AutoOptLib_Arch.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="autooptlib-architecture">
+<h1>2.2 AutoOptLib Architecture<a class="headerlink" href="#autooptlib-architecture" title="Link to this heading"></a></h1>
+<section id="file-structure">
+<h2>2.2.1 File Structure<a class="headerlink" href="#file-structure" title="Link to this heading"></a></h2>
+<p>The file structure of AutoOptLib is given in <a class="reference external" href="#Figure2">Figure 2</a>. As shown in <a class="reference external" href="#Figure2">Figure 2</a>, source files of the library
+are organized in a clear and concise structure. One interface function AutoOpt.m and three folders
+are in the root directory. The folder /Utilities contains public classes and functions. Specifically, the
+subfolder /&#64;DESIGN stores the class and functions for designing algorithms for a target problem,
+including functions for initializing, searching, and evaluating algorithms. /&#64;SOLVE contains the
+class and functions for solving the target problem by the designed algorithms, e.g., functions for
+inputting algorithms, executing the algorithms, and repairing solutions. /Others involves miscellaneous
+functions, e.g., sources of the GUI, functions of experimental tools, etc. The Space.m function is for
+constructing the design space by algorithmic components.</p>
+<p>The /Components folder contains the algorithmic components for constructing the design space.
+We package each component with ranges of its endogenous parameter values in a single .m file. For
+example, in <a class="reference external" href="#Figure2">Figure 2</a>, choose tournament.m and search mu gaussian.m are the functions of the tournament selection <a class="reference external" href="../References/ref.html#ES+03">[ES+03]</a> and Gaussian mutation <a class="reference external" href="../References/ref.html#Fog98">[Fog98]</a>, respectively. All the component functions are
+written in the same structure, so users can easily implement and add new components to the library
+according to existing ones.</p>
+<p>Finally, the /Problems folder is for the target problems. A problem template, i.e., the prob template.m
+in <a class="reference external" href="#Figure2">Figure 2</a>, is given to guide users to easily implement and interface their problems with the library.
+Some widely-used numerical benchmark problems, e.g., the CEC2005 single-objective real-parameter
+optimization problems <a class="reference external" href="../References/ref.html#SHL+05">SHL+05</a> , are also provided for toy experimentation.</p>
+<p><a name="Figure2"></a></p>
+<p><img alt="图片标题" src="../_images/Figure2.png" /></p>
+<div style="text-align: center;">Figure 2: File structure of AutoOptLib.</div></section>
+<section id="classes">
+<h2>2.2.2  Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<p>We involve only two classes in AutoOptLib, namely DESIGN and SOLVE, which manage the process of
+designing algorithms for a target problem and solving the target problem by the designed algorithms,
+respectively. The class diagram is given in <a class="reference external" href="#Figure3">Figure 3</a>. An object of the DESIGN class is a designed algorithm with several properties, e.g., operator (components that constitute the algorithm), parameter
+(endogenous parameters of the algorithm), and performance (performance of the algorithm). The
+class have some methods to be invoked by the objects. For example, the method Initialize() works
+on initializing the designed algorithms; Evaluate() is for evaluating the algorithms’ performance
+according to a design objective.</p>
+<p>An object of the SOLVE class is a solution to the target problem. It has several properties, including
+dec (decision variables), obj (objective value), con (constraint violation), etc. The class has several
+methods for achieving the solutions, such as InputAlg() (preprocessing and inputting the designed
+algorithm) and RunAlg() (running the algorithm on the target problem).</p>
+<p><a name="Figure3"></a></p>
+<p><img alt="图片标题" src="../_images/Figure3.png" /></p>
+<div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div></section>
+<section id="operating-sequence">
+<h2>2.2.3 Operating Sequence<a class="headerlink" href="#operating-sequence" title="Link to this heading"></a></h2>
+<p>AutoOptLib’s sequence diagram is depicted in <a class="reference external" href="#Figure4">Figure 4</a>. To begin with, the interface function AutoOpt.m invokes DESIGN.m to instantiate objects (the designed algorithms) of the DESIGN class.
+In detail, firstly, DESIGN.m uses the Initialize() method to initialize algorithms over the design
+space. Then, the algorithms’ performance on solving the “training” instances <sup><a class="reference external" href="#note2">2</a></sup> of the target problem
+is evaluated by the Evaluate() method. To get the performance, the Evaluate() method invokes
+the SOLVE class, and SOLVE further calls functions of the algorithms’ components and function of the
+target problem. Finally, the initial algorithms are returned to AutoOpt.m.</p>
+<p><a name="Figure4"></a></p>
+<p><img alt="图片标题" src="../_images/Figure4.png" /></p>
+<div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div><p><strong>Note:</strong></p>
+<p><a id="note2"></a>2. Since the distribution of instances of a real problem is often unknown, one has to sample some of the problem
+instances and target these instances (training instances) during the algorithm design procedure. To avoid the designed
+algorithms overfit on the training instances, some other instances (test instances) of the target problem are then employed
+to test the final algorithms after the design procedure terminates.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="auto_alg_design.html" class="btn btn-neutral float-left" title="2.1 What is automated algorithm design?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Use_AutoOptLib.html" class="btn btn-neutral float-right" title="2.3 Use AutoOptLib" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cxl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

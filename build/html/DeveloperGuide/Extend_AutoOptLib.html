@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.1 Extend AutoOptLib &mdash; SphinxDemo v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e160b93e"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="References" href="../References/ref.html" />
+    <link rel="prev" title="2.3 Use AutoOptLib" href="../UserGuide/Use_AutoOptLib.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SphinxDemo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">1. Getting Started:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/Introduction.html">1.1 Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/Installation.html">1.2 Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GettingStart/QuickStart.html">1.3 Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">2. User Guide:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../UserGuide/auto_alg_design.html">2.1 What is automated algorithm design?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UserGuide/AutoOptLib_Arch.html">2.2 AutoOptLib Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UserGuide/Use_AutoOptLib.html">2.3 Use AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">3. Developer Guide:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3.1 Extend AutoOptLib</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">4. References:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../References/ref.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SphinxDemo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">3.1 Extend AutoOptLib</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/DeveloperGuide/Extend_AutoOptLib.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="extend-autooptlib">
+<h1>3.1 Extend AutoOptLib<a class="headerlink" href="#extend-autooptlib" title="Link to this heading"></a></h1>
+<p>AutoOptLib follows the open-closed principle [<a class="reference external" href="../References/ref.html#Mey97">Mey97</a>, <a class="reference external" href="../References/ref.html#Lar01">Lar01</a>]. Users can implement their
+algorithmic components, design objectives, and algorithm performance evaluation techniques based on the current
+sources, and add the implementations to the library by a uniform interface. Taking Listing 1 as an
+example, new algorithmic components can be added as follows.</p>
+<p><a name="listing1"></a></p>
+<div style="text-align: center;">Listing 1: Implementation of the uniform mutation operator.</div><div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span>[output1,output2]<span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nf">search_mu_uniform</span><span class="p">(</span>varargin<span class="p">)</span>
+<span class="nb">mode</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">varargin</span><span class="p">{</span><span class="k">end</span><span class="p">};</span>
+<span class="k">switch</span><span class="w"> </span><span class="nb">mode</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&#39;execute&#39;</span>
+<span class="w">        </span><span class="n">Parent</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="nb">varargin</span><span class="p">{</span><span class="mi">1</span><span class="p">};</span>
+<span class="w">        </span><span class="n">Problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">varargin</span><span class="p">{</span><span class="mi">2</span><span class="p">};</span>
+<span class="w">        </span><span class="n">Para</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="nb">varargin</span><span class="p">{</span><span class="mi">3</span><span class="p">};</span>
+<span class="w">        </span><span class="n">Aux</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="nb">varargin</span><span class="p">{</span><span class="mi">4</span><span class="p">};</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">~</span><span class="nb">isnumeric</span><span class="p">(</span><span class="n">Parent</span><span class="p">)</span>
+<span class="w">            </span><span class="n">Offspring</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Parent</span><span class="p">.</span><span class="n">decs</span><span class="p">;</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">            </span><span class="n">Offspring</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Parent</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">        </span><span class="n">Prob</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">Para</span><span class="p">;</span>
+<span class="w">        </span><span class="p">[</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">size</span><span class="p">(</span><span class="n">Offspring</span><span class="p">);</span><span class="w">      </span>
+<span class="w">        </span><span class="n">Lower</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">bound</span><span class="p">(</span><span class="mi">1</span><span class="p">,:);</span>
+<span class="w">        </span><span class="n">Upper</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Problem</span><span class="p">.</span><span class="n">bound</span><span class="p">(</span><span class="mi">2</span><span class="p">,:);</span>
+<span class="w">        </span><span class="n">ind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">rand</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">D</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">Prob</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Temp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">unifrnd</span><span class="p">(</span><span class="nb">repmat</span><span class="p">(</span><span class="n">Lower</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="nb">repmat</span><span class="p">(</span><span class="n">Upper</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
+<span class="w">        </span><span class="n">Offspring</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Temp</span><span class="p">(</span><span class="n">ind</span><span class="p">);</span>
+<span class="w">        </span><span class="n">output1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Offspring</span><span class="p">;</span>
+<span class="w">        </span><span class="n">output2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Aux</span><span class="p">;</span><span class="w">   </span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&#39;parameter&#39;</span>
+<span class="w">        </span><span class="n">output1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.3</span><span class="p">];</span><span class="w"> </span><span class="c">% mutation probability </span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&#39;behavior&#39;</span>
+<span class="w">        </span><span class="n">output1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;LS&#39;</span><span class="p">,</span><span class="s">&#39;small&#39;</span><span class="p">;</span><span class="s">&#39;GS&#39;</span><span class="p">,</span><span class="s">&#39;large&#39;</span><span class="p">};</span><span class="w"> </span><span class="c">% small probabilities perform local search</span>
+<span class="k">end</span>
+<span class="k">if</span><span class="w"> </span><span class="o">~</span><span class="nb">exist</span><span class="p">(</span><span class="s">&#39;output1&#39;</span><span class="p">,</span><span class="s">&#39;var&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">output1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="k">end</span>
+<span class="k">if</span><span class="w"> </span><span class="o">~</span><span class="nb">exist</span><span class="p">(</span><span class="s">&#39;output2&#39;</span><span class="p">,</span><span class="s">&#39;var&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">output2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="k">end</span>
+</pre></div>
+</div>
+<p>An algorithmic component is implemented in an independent function with three main cases.
+Case execute refers to executing the component. There are seven optional inputs:</p>
+<ol class="simple">
+<li><p>Current solutions, i.e., Parent in line 5.</p></li>
+<li><p>The problem proprieties, i.e., Problem in line 6.</p></li>
+<li><p>The component’s inner parameters, i.e., Para in line 7.</p></li>
+<li><p>An auxiliary structure array for saving the component’s inner parameters that are changed during
+iteration (e.g., the velocity in particle swarm optimization (PSO)), i.e., Aux in line 8.</p></li>
+<li><p>The algorithm’s generation counter G.</p></li>
+<li><p>The algorithm’s inner local search iteration counter innerG.</p></li>
+<li><p>The target problem’s input data Data.</p></li>
+</ol>
+<p>The component should be implemented from line 9. The outputs of lines 21 and 22 are mandatory, in
+which output1 returns solutions processed by the component, and output2 returns the Aux structure
+array. If the component has inner parameters that are changed during iteration, Aux is updated (e.g.,
+update PSO’s velocity and save it in Aux); otherwise, Aux will be the same as that in line 8.</p>
+<p>Case parameter defines the lower and upper bounds of the component’s inner parameter values. For
+example, the mutation probability is bounded within [0, 0.3] in line 24. For components with multiple
+inner parameters, each parameter’s lower and upper bounds should be saved in an independent row of
+the matrix output1.</p>
+<p>For search operators (components) with inner parameters controlling the search behavior, case
+behavior defines how the inner parameters control the search behavior. For example, line 26 indicates that the uniform mutation with smaller mutation probabilities performs local search and that with
+larger probabilities performs global search. For other operators, output1 in case behavior is left empty, i.e., output1={};.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../UserGuide/Use_AutoOptLib.html" class="btn btn-neutral float-left" title="2.3 Use AutoOptLib" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../References/ref.html" class="btn btn-neutral float-right" title="References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cxl.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
