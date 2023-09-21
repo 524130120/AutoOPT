@@ -1,7 +1,18 @@
 # 1.1 Introduction
 
 AutoOptLib is a Matlab library for automatically designing metaheuristic optimizers. It provides:
-+ Rich library of design choices - Over 40 representative metaheuristic components for designing algorithms for continuous, discrete, and permutation problems with/without constraints and uncertainties.
++ Rich library of design choices - Over 40 representative metaheuristic components for designing algorithms for continuous, discrete, and permutation problems with/without constraints and uncertainties [(Table 1)](#table1).
+
++ Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a single run, enables great possibility to find novel and efficient algorithms.
+ 
++ Fair benchmark of various design objectives and techniques - Various design objectives, e.g., solution quality, runtime, and anytime performance [(Table 2)](#table2). 
+Different design techniques, e.g., racing, intensification, and surrogate [(Table 3)](#table3).
+
++ Good accessibility - Graphical user interface (GUI) for users to input problems, manage the algorithm design process, make experimental comparisons, and visualize results with simple one-clicks.
++ Easy extensibility - Easily add new algorithmic components, objectives, and techniques by a uniform interface.
+
+
+
 
 <a name="table1"></a>
 <div style="text-align: center;">Table 1: Metaheuristic algorithm components in AutoOptLib.</div>
@@ -62,17 +73,25 @@ AutoOptLib is a Matlab library for automatically designing metaheuristic optimiz
 
 
 
-+ Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a single run, enables great possibility to find novel and efficient algorithms.
- Fair benchmark of various design objectives and techniques. 
-  + Various design objectives, e.g., solution quality, runtime, and anytime performance.
-    
-    <a name="table2"></a>
-    <div style="text-align: center;">Table 2: Design objectives involved in AutoOptLib.</div>
+<a name="table2"></a>
+<div style="text-align: center;">Table 2: Design objectives involved in AutoOptLib.</div>
 
-  + Different design techniques, e.g., racing, intensification, and surrogate.
-    
-    <a name="table3"></a>
-    <div style="text-align: center;">Table 3: Algorithm performance evaluation methods provided in AutoOptLib.</div>
+| Objective  | Description                                                                                                                                                                |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| quality    | The designed algorithm's solution quality on the target problem within a fixed computational budget.                                                                       |
+| runtimeFE  | The designed algorithm's running time (number of function evaluations) till reaching a performance threshold on solving the target problem.                                |
+| runtimeSec | The designed algorithm's running time (wall clock time, in second) till reaching a performance threshold on solving the target problem.                                    |
+| auc        | The area under the curve (AUC) of empirical cumulative distribution function of running time, measuring the anytime performance [[YDWB22]](../References/ref.html#YDWB22). |
 
-+ Good accessibility - Graphical user interface (GUI) for users to input problems, manage the algorithm design process, make experimental comparisons, and visualize results with simple one-clicks.
-+ Easy extensibility - Easily add new algorithmic components, objectives, and techniques by a uniform interface.
+
+<a name="table3"></a>
+<div style="text-align: center;">Table 3: Algorithm performance evaluation methods provided in AutoOptLib.</div>
+
+| Method                                                      | Description                                                                                                                                   |
+|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| exact                                                       | Exactly run all the designed algorithms on all test problem instances.                                                                        |
+| approximate                                                 | Use low complexity surrogate to approximate the designed algorithms' performance without full evaluation.                                     |
+| racing [[LIDLC+16]](../References/ref.html#LIDLC+16)        | Save algorithm evaluations by stopping evaluating on the next instance if performance is statistically worse than at least another algorithm. |
+| intensification [[HHLBS09]](../References/ref.html#HHLBS09) | Save algorithm evaluations by stopping evaluating on the next instance if performance is worse than the incumbent.                            |
+
+

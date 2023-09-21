@@ -2,19 +2,25 @@
 
 Given a target problem, through algorithm design, we would like to find an algorithm(s) with the best performance on the problem [[BK09]](../References/ref.html#BK09):
 
-[formulation 1]
+<a name="Equation1"></a>
+![Equation1](../_static/Equation1.png)
 
-where A is the designed algorithm; S is the design space, from where A can be instantiated; i ∈ I is an instance of the target problem domain I; P : S × I → R is a performance metric that measures the performance of A in I. The design aims to find algorithm(s) with the maximum expected performance in I.
+where _A_ is the designed algorithm; _S_ is the design space, from where _A_ can be instantiated; 
+_i_ ∈ _**I**_ is an instance of the target problem domain _**I**_; _P_ : _S_ × _**I**_ → _R_ is a performance metric that measures the performance of _A_ in _I_. 
+The design aims to find algorithm(s) with the maximum expected performance in _**I**_.
 
-In reality, the distribution of problem instances in I is often unknown, and one cannot exhaust all the instances during the design process. The common practice of settling for the reality is to consider a finite set of instances from I. Consequently, Eq. (1) can be reformulated as
+In reality, the distribution of problem instances in _**I**_ is often unknown, 
+and one cannot exhaust all the instances during the design process. The common practice of 
+settling for the reality is to consider a finite set of instances from _**I**_. Consequently, Eq. ([1](#Equation1)) can be reformulated as
 
-[formulation 2]
+<a name="Equation2"></a>
+![Equation2](../_static/Equation2.png)
 
-where It is the finite set of instances that are target at time (i.e., iteration<sup>[1](#note1)</sup>) t of the design process.
-The target problem instances can either be fixed (i.e., I1 = I2 = · · · = IT ) or dynamically changed during the design process.
-The output of solving Eq. (2) is algorithm(s) with the best performance on the considered instances.
+where _**I**<sub>t</sub>_ is the finite set of instances that are target at time (i.e., iteration<sup><a href="#footnote1">1</a></sup>) t of the design process.
+The target problem instances can either be fixed (i.e., _**I**<sub>1</sub>_ = _**I**<sub>2</sub>_ = · · · = _**I**<sub>T</sub>_ ) or dynamically changed during the design process.
+The output of solving Eq. ([2](#Equation2)) is algorithm(s) with the best performance on the considered instances.
 To avoid the designed algorithms overfitting, the design process can be followed by validation 
-to investigate the generalization of the designed algorithms to instances from I\{I1, I2, · · · , IT }.
+to investigate the generalization of the designed algorithms to instances from _**I**\{ **I**<sub>1</sub>_, _**I**<sub>2</sub>_, · · · , _**I**<sub>t</sub>_ }.
 
 The general process of automated design of metaheuristic optimizers can be abstracted into four
 parts, as shown in [Fig. 1](#Fig1). first, the design space collects of candidate primitives or components
@@ -32,6 +38,10 @@ design.
 <div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div>
 
 
-**Note:**
+<br>
+<br>
 
-<a id="note1"></a>1. Since Equation 2 is a black-box problem, it is often solved in an iterative manner.
+------
+<div id="footnote1">
+  <p>1. Since Equation 2 is a black-box problem, it is often solved in an iterative manner.</p>
+</div>

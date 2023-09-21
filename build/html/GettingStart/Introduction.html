@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1.1 Introduction &mdash; SphinxDemo v1.0 documentation</title>
+  <title>1.1 Introduction &mdash; AutoOPT Documentation v1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="1.2 Installation" href="Installation.html" />
-    <link rel="prev" title="Welcome to SphinxDemo’s documentation!" href="../index.html" /> 
+    <link rel="prev" title="Welcome to AutoOPT documentation!" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            SphinxDemo
+            AutoOPT Documentation
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -69,7 +69,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">SphinxDemo</a>
+          <a href="../index.html">AutoOPT Documentation</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -91,7 +91,12 @@
 <h1>1.1 Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
 <p>AutoOptLib is a Matlab library for automatically designing metaheuristic optimizers. It provides:</p>
 <ul class="simple">
-<li><p>Rich library of design choices - Over 40 representative metaheuristic components for designing algorithms for continuous, discrete, and permutation problems with/without constraints and uncertainties.</p></li>
+<li><p>Rich library of design choices - Over 40 representative metaheuristic components for designing algorithms for continuous, discrete, and permutation problems with/without constraints and uncertainties <a class="reference external" href="#table1">(Table 1)</a>.</p></li>
+<li><p>Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a single run, enables great possibility to find novel and efficient algorithms.</p></li>
+<li><p>Fair benchmark of various design objectives and techniques - Various design objectives, e.g., solution quality, runtime, and anytime performance <a class="reference external" href="#table2">(Table 2)</a>.
+Different design techniques, e.g., racing, intensification, and surrogate <a class="reference external" href="#table3">(Table 3)</a>.</p></li>
+<li><p>Good accessibility - Graphical user interface (GUI) for users to input problems, manage the algorithm design process, make experimental comparisons, and visualize results with simple one-clicks.</p></li>
+<li><p>Easy extensibility - Easily add new algorithmic components, objectives, and techniques by a uniform interface.</p></li>
 </ul>
 <p><a name="table1"></a></p>
 <div style="text-align: center;">Table 1: Metaheuristic algorithm components in AutoOptLib.</div><table border="1" class="docutils">
@@ -307,28 +312,65 @@
 <td>The tabu list <a href="../References/ref.html#Glo89">[Glo89]</a></td>
 </tr>
 </tbody>
-</table><ul>
-<li><p>Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a single run, enables great possibility to find novel and efficient algorithms.
-Fair benchmark of various design objectives and techniques.</p>
-<ul>
-<li><p>Various design objectives, e.g., solution quality, runtime, and anytime performance.</p>
-<p><a name="table2"></a></p>
-<div style="text-align: center;">Table 2: Design objectives involved in AutoOptLib.</div></li>
-<li><p>Different design techniques, e.g., racing, intensification, and surrogate.</p>
-<p><a name="table3"></a></p>
-<div style="text-align: center;">Table 3: Algorithm performance evaluation methods provided in AutoOptLib.</div></li>
-</ul>
-</li>
-<li><p>Good accessibility - Graphical user interface (GUI) for users to input problems, manage the algorithm design process, make experimental comparisons, and visualize results with simple one-clicks.</p></li>
-<li><p>Easy extensibility - Easily add new algorithmic components, objectives, and techniques by a uniform interface.</p></li>
-</ul>
-</section>
+</table><p><a name="table2"></a></p>
+<div style="text-align: center;">Table 2: Design objectives involved in AutoOptLib.</div><table border="1" class="docutils">
+<thead>
+<tr>
+<th>Objective</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>quality</td>
+<td>The designed algorithm's solution quality on the target problem within a fixed computational budget.</td>
+</tr>
+<tr>
+<td>runtimeFE</td>
+<td>The designed algorithm's running time (number of function evaluations) till reaching a performance threshold on solving the target problem.</td>
+</tr>
+<tr>
+<td>runtimeSec</td>
+<td>The designed algorithm's running time (wall clock time, in second) till reaching a performance threshold on solving the target problem.</td>
+</tr>
+<tr>
+<td>auc</td>
+<td>The area under the curve (AUC) of empirical cumulative distribution function of running time, measuring the anytime performance <a href="../References/ref.html#YDWB22">[YDWB22]</a>.</td>
+</tr>
+</tbody>
+</table><p><a name="table3"></a></p>
+<div style="text-align: center;">Table 3: Algorithm performance evaluation methods provided in AutoOptLib.</div><table border="1" class="docutils">
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exact</td>
+<td>Exactly run all the designed algorithms on all test problem instances.</td>
+</tr>
+<tr>
+<td>approximate</td>
+<td>Use low complexity surrogate to approximate the designed algorithms' performance without full evaluation.</td>
+</tr>
+<tr>
+<td>racing <a href="../References/ref.html#LIDLC+16">[LIDLC+16]</a></td>
+<td>Save algorithm evaluations by stopping evaluating on the next instance if performance is statistically worse than at least another algorithm.</td>
+</tr>
+<tr>
+<td>intensification <a href="../References/ref.html#HHLBS09">[HHLBS09]</a></td>
+<td>Save algorithm evaluations by stopping evaluating on the next instance if performance is worse than the incumbent.</td>
+</tr>
+</tbody>
+</table></section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to SphinxDemo’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to AutoOPT documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Installation.html" class="btn btn-neutral float-right" title="1.2 Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
