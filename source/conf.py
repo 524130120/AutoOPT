@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'SphinxDemo'
+project = 'AutoOPT Documentation'
 copyright = '2023, cxl'
 author = 'cxl'
 
