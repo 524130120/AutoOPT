@@ -11,6 +11,7 @@ Problem.type = {‘continuous’,‘static’,‘certain’} refers to a continu
 solution space. Lines 18 and 21 offer specific settings as indicated in the comments of lines 14-17 and
 20, respectively. Line 25 or 26 is for loading the input data. As a result, problem proprieties and data
 are saved in the Problem and Data structs, respectively.
+
 ```matlab
 case 'construct' % define problem properties
     Problem = varargin{1};
@@ -63,12 +64,17 @@ violation can be calculated in line 10 by [[JD13]](../References/ref.html#JD13):
 ![Equation3](../_static/Equation3.png)
 
 
-where **_CV_(x)** is the constraint violation of solution **x**; **_g<sup>---</sup><sub>j</sub>_(x)** and **_h<sup>---</sup><sub>k</sub>_(x)** are the _j_ th normalized inequality
+where **_CV_(x)** is the constraint violation of solution **x**;
+
+̄
+
+
+**_ḡ<sub>j</sub>_(x)** and **_h̄<sub>k</sub>_(x)** are the _j_ th normalized inequality
 constraint and _k_ th normalized equality constraint, respectively, in which the normalization can be done
 by dividing the constraint functions by the constant in this constraint present (i.e., for **_g<sub>j</sub>_(x)** ≥ **_b<sub>j</sub>_** , the
-normalized constraint function becomes **_g<sup>---</sup><sub>j</sub>_(x)** = **_g<sub>j</sub>_(x)** / **_b<sub>j</sub>_** ≥ 0,
-and similarly **_h<sup>---</sup><sub>k</sub>_(x)** can be normalized equality constraint); the bracket operator
-⟨**_g<sup>---</sup><sub>j</sub>_(x)**⟩ returns the negative of **_g<sup>---</sup><sub>j</sub>_(x)**, if **_g<sup>---</sup><sub>j</sub>_(x)** < 0 and returns zeros, otherwise. 
+normalized constraint function becomes **_ḡ<sub>j</sub>_(x)** = **_g<sub>j</sub>_(x)** / **_b<sub>j</sub>_** ≥ 0,
+and similarly **_h̄<sub>k</sub>_(x)** can be normalized equality constraint); the bracket operator
+⟨**_ḡ<sub>j</sub>_(x)**⟩ returns the negative of **_ḡ<sub>j</sub>_(x)**, if **_ḡ<sub>j</sub>_(x)** < 0 and returns zeros, otherwise. 
 During solution evaluation, accessory (intermediate) data for understanding
 the solutions may be produced. This can be written from line 12. Finally, the objective values,
 constraint violations, and accessory data will be returned by lines 13-15.

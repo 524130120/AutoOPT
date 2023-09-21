@@ -149,12 +149,14 @@ function should be written from line 6. Constraint functions should be written f
 violation can be calculated in line 10 by <a class="reference external" href="../References/ref.html#JD13">[JD13]</a>:</p>
 <p><a name="Equation3"></a>
 <img alt="Equation3" src="../_images/Equation3.png" /></p>
-<p>where <strong><em>CV</em>(x)</strong> is the constraint violation of solution <strong>x</strong>; <strong><em>g<sup>—</sup><sub>j</sub></em>(x)</strong> and <strong><em>h<sup>—</sup><sub>k</sub></em>(x)</strong> are the <em>j</em> th normalized inequality
+<p>where <strong><em>CV</em>(x)</strong> is the constraint violation of solution <strong>x</strong>;</p>
+<p>̄</p>
+<p><strong><em>ḡ<sub>j</sub></em>(x)</strong> and <strong><em>h̄<sub>k</sub></em>(x)</strong> are the <em>j</em> th normalized inequality
 constraint and <em>k</em> th normalized equality constraint, respectively, in which the normalization can be done
 by dividing the constraint functions by the constant in this constraint present (i.e., for <strong><em>g<sub>j</sub></em>(x)</strong> ≥ <strong><em>b<sub>j</sub></em></strong> , the
-normalized constraint function becomes <strong><em>g<sup>—</sup><sub>j</sub></em>(x)</strong> = <strong><em>g<sub>j</sub></em>(x)</strong> / <strong><em>b<sub>j</sub></em></strong> ≥ 0,
-and similarly <strong><em>h<sup>—</sup><sub>k</sub></em>(x)</strong> can be normalized equality constraint); the bracket operator
-⟨<strong><em>g<sup>—</sup><sub>j</sub></em>(x)</strong>⟩ returns the negative of <strong><em>g<sup>—</sup><sub>j</sub></em>(x)</strong>, if <strong><em>g<sup>—</sup><sub>j</sub></em>(x)</strong> &lt; 0 and returns zeros, otherwise.
+normalized constraint function becomes <strong><em>ḡ<sub>j</sub></em>(x)</strong> = <strong><em>g<sub>j</sub></em>(x)</strong> / <strong><em>b<sub>j</sub></em></strong> ≥ 0,
+and similarly <strong><em>h̄<sub>k</sub></em>(x)</strong> can be normalized equality constraint); the bracket operator
+⟨<strong><em>ḡ<sub>j</sub></em>(x)</strong>⟩ returns the negative of <strong><em>ḡ<sub>j</sub></em>(x)</strong>, if <strong><em>ḡ<sub>j</sub></em>(x)</strong> &lt; 0 and returns zeros, otherwise.
 During solution evaluation, accessory (intermediate) data for understanding
 the solutions may be produced. This can be written from line 12. Finally, the objective values,
 constraint violations, and accessory data will be returned by lines 13-15.</p>
