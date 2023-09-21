@@ -2,10 +2,6 @@
 
 Following the three steps below to use AutoOptLib:
 
-![图片标题](../_static/Figure4.png)
-<div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div>
-
-
 ## 2.3.1 Implement Problem
 
 Users can implement their target optimization problem according to the template prob_template.m
@@ -63,18 +59,17 @@ Case ‘evaluate’ is for evaluating solutions’ fitness (objective values pen
 function should be written from line 6. Constraint functions should be written from line 8. Constraint
 violation can be calculated in line 10 by [[JD13]](../References/ref.html#JD13):
 
-[formulation]
+<a name="Equation3"></a>
+![Equation3](../_static/Equation3.png)
 
-where CV (x) is the constraint violation of solution x; gj(x) and hk(x) are the jth normalized inequality
-constraint and kth normalized equality constraint, respectively, in which the normalization can be done
-by dividing the constraint functions by the constant in this constraint present (i.e., for gj (x) ≥ bj , the
-normalized constraint function becomes gj
-(x) = gj (x)/bj ≥ 0, and similarly hk(x) can be normalized
-equality constraint); the bracket operator ⟨gj
-(x)⟩ returns the negative of gj
-(x), if gj
-(x) < 0 and
-returns zeros, otherwise. During solution evaluation, accessory (intermediate) data for understanding
+
+where **_CV_(x)** is the constraint violation of solution **x**; **_g<sup>---</sup><sub>j</sub>_(x)** and **_h<sup>---</sup><sub>k</sub>_(x)** are the _j_ th normalized inequality
+constraint and _k_ th normalized equality constraint, respectively, in which the normalization can be done
+by dividing the constraint functions by the constant in this constraint present (i.e., for **_g<sub>j</sub>_(x)** ≥ **_b<sub>j</sub>_** , the
+normalized constraint function becomes **_g<sup>---</sup><sub>j</sub>_(x)** = **_g<sub>j</sub>_(x)** / **_b<sub>j</sub>_** ≥ 0,
+and similarly **_h<sup>---</sup><sub>k</sub>_(x)** can be normalized equality constraint); the bracket operator
+⟨**_g<sup>---</sup><sub>j</sub>_(x)**⟩ returns the negative of **_g<sup>---</sup><sub>j</sub>_(x)**, if **_g<sup>---</sup><sub>j</sub>_(x)** < 0 and returns zeros, otherwise. 
+During solution evaluation, accessory (intermediate) data for understanding
 the solutions may be produced. This can be written from line 12. Finally, the objective values,
 constraint violations, and accessory data will be returned by lines 13-15.
 
@@ -97,18 +92,18 @@ case 'evaluate' % evaluate solution's fitness
 
 ```
 
-Examples of problem implementation can be seen in the CEC 2005 benchmark problem files
-in the /Problems/CEC2005 Benchmarks folder. The implementation of a real constrained problem 
-beamforming.m is given in the /Problems/Real-World/Beanforming folder.
+Examples of problem implementation can be seen in the **CEC 2005** benchmark problem files
+in the **/Problems/CEC2005 Benchmarks** folder. The implementation of a real constrained problem 
+**beamforming.m** is given in the **/Problems/Real-World/Beanforming** folder.
 
 
 ## 2.3.2 Define Design Space
 AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in
-the /Components folder. The included components are listed in [Table 1](../GettingStart/Introduction.html#table1).
+the **/Components** folder. The included components are listed in [Table 1](../GettingStart/Introduction.html#table1).
 
 The default design space for each type of problems covers all the involved components for this type.
 Users can either employ the default space with the furthest potential to discover novelty or define a
-narrow space in Space.m in the /Utilities folder according to interest. For example, when designing
+narrow space in **Space.m** in the **/Utilities** folder according to interest. For example, when designing
 algorithms for continuous problems, the candidate Search components can be set by collecting the
 string of component file name in line 3. More components can be added, which will be detailed in
 Section 3.1.
@@ -139,12 +134,71 @@ Users can run AutoOptLib either by Matlab command or GUI.
 
 Users can run AutoOptLib by typing the following command in MATLAB command window:
 
-<div style="text-align: center;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
+<div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
 
 where name and value refer to the input parameter’s name and value, respectively. The parameters
-are introduced in [Table 4](#table4). In particular, parameters Metric and Evaluate define the design objective
+are introduced in [Table 4](#table4). In particular, parameters **Metric** and **Evaluate** define the design objective
 and algorithm performance evaluation method, respectively. They are summized in [Table 2](../GettingStart/Introduction.html#table2)
 and [Table 3](../GettingStart/Introduction.html#table3), respectively.
+
+
+Parameters **Problem**, **InstanceTrain**, **InstanceTest**, and **Mode** are mandatory to input into the 
+command. For other parameters, users can either use their default values without input to the
+command or input by themselves for sophisticated functionality. The default parameter values can
+be seen in **AutoOpt.m**. As an example, **AutoOpt(‘Mode’, ‘design’, ‘Problem’, ‘CEC2005 f1’,
+‘InstanceTrain’, [1,2], ‘InstanceTest’, 3, ‘Metric’, ‘quality’)** is for designing algorithms
+with the best solution quality on the **CEC2005 f1** problem.
+
+There are also conditional parameters when certain options of the main parameters are chosen.
+For example, setting **Metric** to **runtimeFE** incurs conditional parameter **Thres** to define the algorithm
+performance threshold for counting the runtime. All conditional parameters have default values and
+are unnecessary to set in the command.
+
+After AutoOptLib running terminates, results will be saved as follows:
+
++ If running the **design** mode,
+  1. The designed algorithms’ graph representations, phenotypes, parameter values, and performance will be saved as **.mat** table in the root dictionary.
+Algorithms in the **.mat** table can later be called by the **solve** mode to apply to solve the target problem or make experimental comparisons with other algorithms.
+  2. A report of the designed algorithms’ pseudocode and performance will be saved as **.xlsx** table. Users can read, analyze, and compare the algorithms through the report.
+  3. The convergence curve of the design process (algorithms’ performance versus the iteration of design) will be depicted and saved as **.fig** figure.
+Users can visually analyze the design process and compare different design techniques through the figure.
+
++ If running the **solve** mode,
+  1. Solutions to the target problem will be saved as **.mat** table and **.xlsx** table.
+  2. Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in **.fig** figure.
+
+<br>
+
+**Run by GUI:**
+
+The **GUI** can be invoked by the command **AutoOpt()** without inputting parameters. It is shown in [Figure 5](#Figure5). The **GUI** has three panels, i.e., **Design**, **Solve**, and **Results**:
+
++ The Design panel is for designing algorithms for a target problem. It has two subpanels, i.e., Input Problem and Set Parameters:
+  - Users should load the function of their target problem and set the indexes of training and test instances in the Input Problem subpanel.
+  - Users can set the main and conditional parameters related to the design in the Set Parameters subpanel. All parameters have default values for non-expert users’ convenience.
+The objective of design, the method for comparing the designed algorithms, and the method for evaluating the algorithms can be chosen by the pop-up menus of the Metric, Compare, and
+Evaluate fields, respectively.
+
+  After setting the problem and parameters, users can start the run by clicking the RUN bottom.
+
++ When the running starts, warnings and corresponding solutions to incorrect uses (if any) will be displayed in the text area at the top of the Results panel. The real-time stage and progress of
+the run will also be shown in the area. After the run terminates, results will be saved in the same format as done by running by commands. Results will also be displayed on the GUI as follows:
+  - The convergence curve of the design process will be plotted in the axes area of the Results panel.
+  - The pseudocode of the best algorithm found during the run will be written in the text area below the axes, as shown in Figure 5.
+  - Users can use the pop-up menu at the bottom of the Results panel to export more results, e.g., other algorithms found during the run, and detailed performance of the algorithms on different problem instances.
+ 
++ The Solve panel is for solving the target problem by an algorithm. It follows a similar scheme to the Design panel. In particular, users can load an algorithm designed by AutoOptLib in
+the Algorithm File field to solve the target problem. Alternatively, users can choose a classic algorithm as a comparison baseline through the pop-up menu of the Specify Algorithm field.
+AutoOptLib now provides 17 classic metaheuristic algorithms in the menu. After the problemsolving terminates, the convergence curve and best solutions will be displayed in the axes and
+table areas of the Results panel, respectively; detailed results can be exported by the pop-up menu at the bottom.
+
+
+![图片标题](../_static/Figure5.png)
+<div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div>
+
+<br>
+<br>
+
 
 <a name="table4"></a>
 <div style="text-align: center;">Table 4: Parameters in the commands for running AutoOptLib.</div>
@@ -181,55 +235,5 @@ and [Table 3](../GettingStart/Introduction.html#table3), respectively.
 
 [^*]: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a  local search over neighborhood region. As an example, in cases with LSRange= 0.2, the uniform mutation with probability lower than 0.2 is regarded as performing local search, and the probability equals or higher than 0.2 performs global search.
 
-Parameters Problem, InstanceTrain, InstanceTest, and Mode are mandatory to input into the 
-command. For other parameters, users can either use their default values without input to the
-command or input by themselves for sophisticated functionality. The default parameter values can
-be seen in AutoOpt.m. As an example, AutoOpt(‘Mode’, ‘design’, ‘Problem’, ‘CEC2005 f1’,
-‘InstanceTrain’, [1,2], ‘InstanceTest’, 3, ‘Metric’, ‘quality’ is for designing algorithms
-with the best solution quality on the CEC2005 f1 problem.
-
-There are also conditional parameters when certain options of the main parameters are chosen.
-For example, setting Metric to runtimeFE incurs conditional parameter Thres to define the algorithm
-performance threshold for counting the runtime. All conditional parameters have default values and
-are unnecessary to set in the command.
-
-After AutoOptLib running terminates, results will be saved as follows:
-
-+ If running the design mode,
-  1. The designed algorithms’ graph representations, phenotypes, parameter values, and performance will be saved as .mat table in the root dictionary.
-Algorithms in the .mat table can later be called by the solve mode to apply to solve the target problem or make experimental comparisons with other algorithms.
-  2. A report of the designed algorithms’ pseudocode and performance will be saved as .xlsx table. Users can read, analyze, and compare the algorithms through the report.
-  3. The convergence curve of the design process (algorithms’ performance versus the iteration of design) will be depicted and saved as .fig figure.
-Users can visually analyze the design process and compare different design techniques through the figure.
-
-+ If running the solve mode,
-  1. Solutions to the target problem will be saved as .mat table and .xlsx table.
-  2. Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in .fig figure.
-
-**Run by GUI:**
-
-The GUI can be invoked by the command AutoOpt() without inputting parameters. It is shown in [Figure 5](#Figure5). The GUI has three panels, i.e., Design, Solve, and Results:
-
-+ The Design panel is for designing algorithms for a target problem. It has two subpanels, i.e., Input Problem and Set Parameters:
-  - Users should load the function of their target problem and set the indexes of training and test instances in the Input Problem subpanel.
-  - Users can set the main and conditional parameters related to the design in the Set Parameters subpanel. All parameters have default values for non-expert users’ convenience.
-The objective of design, the method for comparing the designed algorithms, and the method for evaluating the algorithms can be chosen by the pop-up menus of the Metric, Compare, and
-Evaluate fields, respectively.
-
-  After setting the problem and parameters, users can start the run by clicking the RUN bottom.
-
-+ When the running starts, warnings and corresponding solutions to incorrect uses (if any) will be displayed in the text area at the top of the Results panel. The real-time stage and progress of
-the run will also be shown in the area. After the run terminates, results will be saved in the same format as done by running by commands. Results will also be displayed on the GUI as follows:
-  - The convergence curve of the design process will be plotted in the axes area of the Results panel.
-  - The pseudocode of the best algorithm found during the run will be written in the text area below the axes, as shown in Figure 5.
-  - Users can use the pop-up menu at the bottom of the Results panel to export more results, e.g., other algorithms found during the run, and detailed performance of the algorithms on different problem instances.
- 
-+ The Solve panel is for solving the target problem by an algorithm. It follows a similar scheme to the Design panel. In particular, users can load an algorithm designed by AutoOptLib in
-the Algorithm File field to solve the target problem. Alternatively, users can choose a classic algorithm as a comparison baseline through the pop-up menu of the Specify Algorithm field.
-AutoOptLib now provides 17 classic metaheuristic algorithms in the menu. After the problemsolving terminates, the convergence curve and best solutions will be displayed in the axes and
-table areas of the Results panel, respectively; detailed results can be exported by the pop-up menu at the bottom.
-
-![图片标题](../_static/Figure5.png)
-<div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div>
 
 

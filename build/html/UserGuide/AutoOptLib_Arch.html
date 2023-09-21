@@ -116,35 +116,37 @@ Some widely-used numerical benchmark problems, e.g., the CEC2005 single-objectiv
 optimization problems <a class="reference external" href="../References/ref.html#SHL+05">SHL+05</a> , are also provided for toy experimentation.</p>
 <p><a name="Figure2"></a></p>
 <p><img alt="图片标题" src="../_images/Figure2.png" /></p>
-<div style="text-align: center;">Figure 2: File structure of AutoOptLib.</div></section>
+<div style="text-align: center;">Figure 2: File structure of AutoOptLib.</div>
+<br></section>
 <section id="classes">
 <h2>2.2.2  Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
-<p>We involve only two classes in AutoOptLib, namely DESIGN and SOLVE, which manage the process of
+<p>We involve only two classes in AutoOptLib, namely <strong>DESIGN</strong> and <strong>SOLVE</strong>, which manage the process of
 designing algorithms for a target problem and solving the target problem by the designed algorithms,
-respectively. The class diagram is given in <a class="reference external" href="#Figure3">Figure 3</a>. An object of the DESIGN class is a designed algorithm with several properties, e.g., operator (components that constitute the algorithm), parameter
-(endogenous parameters of the algorithm), and performance (performance of the algorithm). The
-class have some methods to be invoked by the objects. For example, the method Initialize() works
-on initializing the designed algorithms; Evaluate() is for evaluating the algorithms’ performance
+respectively. The class diagram is given in <a class="reference external" href="#Figure3">Figure 3</a>. An object of the <strong>DESIGN</strong> class is a designed algorithm with several properties, e.g., <strong>operator</strong> (components that constitute the algorithm), <strong>parameter</strong>
+(endogenous parameters of the algorithm), and <strong>performance</strong> (performance of the algorithm). The
+class have some methods to be invoked by the objects. For example, the method <strong>Initialize()</strong> works
+on initializing the designed algorithms; <strong>Evaluate()</strong> is for evaluating the algorithms’ performance
 according to a design objective.</p>
-<p>An object of the SOLVE class is a solution to the target problem. It has several properties, including
-dec (decision variables), obj (objective value), con (constraint violation), etc. The class has several
-methods for achieving the solutions, such as InputAlg() (preprocessing and inputting the designed
-algorithm) and RunAlg() (running the algorithm on the target problem).</p>
+<p>An object of the <strong>SOLVE</strong> class is a solution to the target problem. It has several properties, including
+<strong>dec</strong> (decision variables), <strong>obj</strong> (objective value), <strong>con</strong> (constraint violation), etc. The class has several
+methods for achieving the solutions, such as <strong>InputAlg()</strong> (preprocessing and inputting the designed
+algorithm) and <strong>RunAlg()</strong> (running the algorithm on the target problem).</p>
 <p><a name="Figure3"></a></p>
-<p><img alt="图片标题" src="../_images/Figure3.png" /></p>
-<div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div></section>
+<div style="text-align:center">  <img src="../_static/Figure3.png" alt="图片标题"></div><br><div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div><br></section>
 <section id="operating-sequence">
 <h2>2.2.3 Operating Sequence<a class="headerlink" href="#operating-sequence" title="Link to this heading"></a></h2>
 <p>AutoOptLib’s sequence diagram is depicted in <a class="reference external" href="#Figure4">Figure 4</a>. To begin with, the interface function AutoOpt.m invokes DESIGN.m to instantiate objects (the designed algorithms) of the DESIGN class.
 In detail, firstly, DESIGN.m uses the Initialize() method to initialize algorithms over the design
-space. Then, the algorithms’ performance on solving the “training” instances <sup><a class="reference external" href="#note2">2</a></sup> of the target problem
+space. Then, the algorithms’ performance on solving the “training” instances <sup><a class="reference external" href="#note1">1</a></sup> of the target problem
 is evaluated by the Evaluate() method. To get the performance, the Evaluate() method invokes
 the SOLVE class, and SOLVE further calls functions of the algorithms’ components and function of the
 target problem. Finally, the initial algorithms are returned to AutoOpt.m.</p>
 <p><a name="Figure4"></a></p>
 <p><img alt="图片标题" src="../_images/Figure4.png" /></p>
-<div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div><p><strong>Note:</strong></p>
-<p><a id="note2"></a>2. Since the distribution of instances of a real problem is often unknown, one has to sample some of the problem
+<div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div>
+<br>
+<br><hr class="docutils" />
+<p><a id="note1"></a>1. Since the distribution of instances of a real problem is often unknown, one has to sample some of the problem
 instances and target these instances (training instances) during the algorithm design procedure. To avoid the designed
 algorithms overfit on the training instances, some other instances (test instances) of the target problem are then employed
 to test the final algorithms after the design procedure terminates.</p>

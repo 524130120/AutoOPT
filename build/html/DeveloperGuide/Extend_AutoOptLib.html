@@ -130,28 +130,28 @@ example, new algorithmic components can be added as follows.</p>
 </pre></div>
 </div>
 <p>An algorithmic component is implemented in an independent function with three main cases.
-Case execute refers to executing the component. There are seven optional inputs:</p>
+Case <strong>execute</strong> refers to executing the component. There are seven optional inputs:</p>
 <ol class="simple">
-<li><p>Current solutions, i.e., Parent in line 5.</p></li>
-<li><p>The problem proprieties, i.e., Problem in line 6.</p></li>
-<li><p>The component’s inner parameters, i.e., Para in line 7.</p></li>
+<li><p>Current solutions, i.e., <strong>Parent</strong> in line 5.</p></li>
+<li><p>The problem proprieties, i.e., <strong>Problem</strong> in line 6.</p></li>
+<li><p>The component’s inner parameters, i.e., <strong>Para</strong> in line 7.</p></li>
 <li><p>An auxiliary structure array for saving the component’s inner parameters that are changed during
-iteration (e.g., the velocity in particle swarm optimization (PSO)), i.e., Aux in line 8.</p></li>
-<li><p>The algorithm’s generation counter G.</p></li>
-<li><p>The algorithm’s inner local search iteration counter innerG.</p></li>
-<li><p>The target problem’s input data Data.</p></li>
+iteration (e.g., the velocity in particle swarm optimization (<strong>PSO</strong>)), i.e., <strong>Aux</strong> in line 8.</p></li>
+<li><p>The algorithm’s generation counter <strong>G</strong>.</p></li>
+<li><p>The algorithm’s inner local search iteration counter <strong>innerG</strong>.</p></li>
+<li><p>The target problem’s input data <strong>Data</strong>.</p></li>
 </ol>
 <p>The component should be implemented from line 9. The outputs of lines 21 and 22 are mandatory, in
-which output1 returns solutions processed by the component, and output2 returns the Aux structure
-array. If the component has inner parameters that are changed during iteration, Aux is updated (e.g.,
-update PSO’s velocity and save it in Aux); otherwise, Aux will be the same as that in line 8.</p>
-<p>Case parameter defines the lower and upper bounds of the component’s inner parameter values. For
+which output1 returns solutions processed by the component, and <strong>output2</strong> returns the <strong>Aux</strong> structure
+array. If the component has inner parameters that are changed during iteration, <strong>Aux</strong> is updated (e.g.,
+update <strong>PSO’s</strong> velocity and save it in Aux); otherwise, <strong>Aux</strong> will be the same as that in line 8.</p>
+<p>Case <strong>parameter</strong> defines the lower and upper bounds of the component’s inner parameter values. For
 example, the mutation probability is bounded within [0, 0.3] in line 24. For components with multiple
 inner parameters, each parameter’s lower and upper bounds should be saved in an independent row of
-the matrix output1.</p>
+the matrix <strong>output1</strong>.</p>
 <p>For search operators (components) with inner parameters controlling the search behavior, case
 behavior defines how the inner parameters control the search behavior. For example, line 26 indicates that the uniform mutation with smaller mutation probabilities performs local search and that with
-larger probabilities performs global search. For other operators, output1 in case behavior is left empty, i.e., output1={};.</p>
+larger probabilities performs global search. For other operators, <strong>output1</strong> in case <strong>behavior</strong> is left empty, i.e., <strong>output1={}</strong>;.</p>
 </section>
 
 
