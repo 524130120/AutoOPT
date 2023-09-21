@@ -32,7 +32,7 @@ release = 'v1.0'
 # ones.
 # extensions = [
 # ]
-extensions = ['recommonmark','sphinx_markdown_tables','sphinx.ext.mathjax','sphinx-mathjax-offline']
+extensions = ['recommonmark','sphinx_markdown_tables']
 mathjax_path = 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
