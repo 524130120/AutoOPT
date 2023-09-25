@@ -25,9 +25,10 @@ to investigate the generalization of the designed algorithms to instances from _
 <a name="Fig1"></a>
 ![图片标题](../_static/Fig1.png)
 <div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div>
+<br>
 
 The general process of automated design of metaheuristic optimizers can be abstracted into four
-parts, as shown in [Fig. 1](#Fig1). first, the design space collects of candidate primitives or components
+parts, as shown in [Figure. 1](#Fig1). first, the design space collects of candidate primitives or components
 for instantiating metaheuristic algorithms. It regulates what algorithms can be found in principle.
 Second, the design strategy provides a principle way to design algorithms by selecting and combining
 the primitives or components from the design space. Third, the performance evaluation strategy defines

@@ -10,7 +10,7 @@ problem properties and loading the input data. In particular, line 7 defines the
 `Problem.type = {‘continuous’,‘static’,‘certain’}` refers to a continuous static problem without uncertainty in the objective function. Lines 10 and 11 define the lower and upper bounds of the
 solution space. Lines 18 and 21 offer specific settings as indicated in the comments of lines 14-17 and
 20, respectively. Line 25 or 26 is for loading the input data. As a result, problem proprieties and data
-are saved in the Problem and Data structs, respectively.
+are saved in the `Problem` and `Data` structs, respectively.
 
 ```matlab
 case 'construct' % define problem properties
@@ -131,9 +131,9 @@ Users can run AutoOptLib either by Matlab command or GUI.
 Users can run AutoOptLib by typing the following command in MATLAB command window:
 
 <div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
-
+<br>
 where `name` and `value` refer to the input parameter’s name and value, respectively. The parameters
-are introduced in [Table 4](#table4). In particular, parameters `*Metric` and `Evaluate` define the design objective
+are introduced in [Table 4](#table4). In particular, parameters `Metric` and `Evaluate` define the design objective
 and algorithm performance evaluation method, respectively. They are summarized in [Table 2](../GettingStart/Introduction.html#table2)
 and [Table 3](../GettingStart/Introduction.html#table3), respectively.
 
@@ -169,6 +169,7 @@ Users can visually analyze the design process and compare different design techn
 
 ![图片标题](../_static/Figure5.png)
 <div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div>
+<br>
 
 The GUI can be invoked by the command `AutoOpt()` without inputting parameters. It is shown in [Figure 5](#Figure5). The GUI has three panels, i.e., Design, Solve, and Results:
 
@@ -208,7 +209,7 @@ table areas of the Results panel, respectively; detailed results can be exported
 | AlgP                                             | positive integer  | Number of search pathways in a designed algorithm                                                                                                        |
 | AlgQ                                             | positive integer  | Maximum number of search operators in a search pathway                                                                                                   |
 | Archive                                          | character string  | Name of the archive(s) that will be used in the designed algorithms                                                                                      |
-| LSRange                                          | $[0,1]$ real number | Range of inner parameter values that make the component perform local search[^*].                                                                        |
+| LSRange                                          | $[0,1]$ real number | Range of inner parameter values that make the component perform local search <sup>[1](#note1)</sup>.                                                                        |
 | IncRate                                          | $[0,1]$ real number | Minimum rate of solutions' fitness improvement during 3 consecutive iterations                                                                           |
 | InnerFE                                          | positive integer  | Maximum number of function evaluations for each call of local search                                                                                     |
 | **Parameters controlling the design process**        |  -  | -                                                                                                                                                        |
@@ -227,7 +228,7 @@ table areas of the Results panel, respectively; detailed results can be exported
 | **Parameters related to solving the target problem** |  -  | -                                                                                                                                                        |
 | Alg                                              | character string  | Algorithm file name, e.g., Algs                                                                                                                          |
 
-[^*]: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a local search over neighborhood region. As an example, in cases with `LSRange=0.2`, the uniform mutation with probability lower than `0.2` is regarded as performing local search, and the probability equals or higher than `0.2` performs global search.
+<a id="note1"></a>1. Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a local search over neighborhood region. As an example, in cases with `LSRange=0.2`, the uniform mutation with probability lower than `0.2` is regarded as performing local search, and the probability equals or higher than `0.2` performs global search.
 
 
 

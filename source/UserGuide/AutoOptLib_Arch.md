@@ -6,6 +6,7 @@
 
 ![图片标题](../_static/Figure2.png)
 <div style="text-align: center;">Figure 2: File structure of AutoOptLib.</div>
+<br>
 
 The file structure of AutoOptLib is given in [Figure 2](#Figure2). As shown in [Figure 2](#Figure2), source files of the library
 are organized in a clear and concise structure. One interface function `AutoOpt.m` and three folders
@@ -33,11 +34,9 @@ in [Figure 2](#Figure2), is given to guide users to easily implement and interfa
 
 <a name="Figure3"></a>
 
-<div style="text-align:center">
-
-  <img src="../_static/Figure3.png" alt="图片标题">
-
-</div>
+![图片标题](../_static/Figure3.png)
+<div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div>
+<br>
 
 We involve only two classes in AutoOptLib, namely `DESIGN` and `SOLVE`, which manage the process of
 designing algorithms for a target problem and solving the target problem by the designed algorithms,
@@ -54,9 +53,6 @@ algorithm) and `RunAlg()` (running the algorithm on the target problem).
 
 
 <br>
-
-<div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div>
-
 <br>
 
 ## 2.2.3 Operating Sequence
@@ -65,6 +61,7 @@ algorithm) and `RunAlg()` (running the algorithm on the target problem).
 
 ![图片标题](../_static/Figure4.png)
 <div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div>
+<br>
 
 AutoOptLib’s sequence diagram is depicted in [Figure 4](#Figure4). To begin with, the interface function `AutoOpt.m` invokes `DESIGN.m` to instantiate objects (the designed algorithms) of the `DESIGN` class.
 In detail, firstly, `DESIGN.m` uses the `Initialize()` method to initialize algorithms over the design
@@ -73,7 +70,7 @@ is evaluated by the `Evaluate()` method. To get the performance, the `Evaluate()
 the `SOLVE` class, and `SOLVE` further calls functions of the algorithms’ components and function of the
 target problem. Finally, the initial algorithms are returned to AutoOpt.m.
 
-After initialization, AutoOptLib goes into iterative design. In each iteration, firstly, `AutoOpt.m` invokes `DESIGN.m`. Then, `DESIGN.m` instantiate new objects (new algorithms) of the `DESIGN` class based on the current ones by the `Disturb()` method. Next, the new algorithms' performance is evaluated in the same scheme as in the initialization. After that, the new algorithms are returned to `AutoOpt.m`. Finally, the `Select()` method of the `DESIGN` class is invoked to select promising algorithms from the current and new ones.
+After initialization, AutoOptLib goes into iterative design. In each iteration, firstly, `AutoOpt.m` invokes `DESIGN.m`. Then, `DESIGN.m` instantiates new objects (new algorithms) of the `DESIGN` class based on the current ones by the `Disturb()` method. Next, the new algorithms' performance is evaluated in the same scheme as in the initialization. After that, the new algorithms are returned to `AutoOpt.m`. Finally, the `Select()` method of the `DESIGN` class is invoked to select promising algorithms from the current and new ones.
 
 After the iteration terminates, `AutoOpt.m` invokes the `Evaluate()` method of the `DESIGN` class to test the final algorithms' performance on the test instances of the targeted problem. Then, the final algorithms are returned in `AutoOpt.m`.
 
