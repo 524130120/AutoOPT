@@ -134,8 +134,7 @@ Users can run AutoOptLib by typing the following command in MATLAB command windo
 <br>
 where `name` and `value` refer to the input parameter’s name and value, respectively. The parameters
 are introduced in [Table 4](#table4). In particular, parameters `Metric` and `Evaluate` define the design objective
-and algorithm performance evaluation method, respectively. They are summarized in [Table 2](../GettingStart/Introduction.html#table2)
-and [Table 3](../GettingStart/Introduction.html#table3), respectively.
+and algorithm performance evaluation method, respectively. They are summarized in [Table 2](../GettingStart/Introduction.html#table2) and [Table 3](../GettingStart/Introduction.html#table3), respectively.
 
 Parameters `Problem`, `InstanceTrain`, `InstanceTest`, and `Mode` are mandatory to input into the 
 command. For other parameters, users can either use their default values without input to the
