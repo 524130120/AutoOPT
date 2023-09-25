@@ -47,17 +47,17 @@ end
 
 An algorithmic component is implemented in an independent function with three main cases.
 `Case 'execute'` refers to executing the component. There are seven optional inputs:
-1. Current solutions, i.e., `Parent` in line 5.
-2. The problem proprieties, i.e., `Problem` in line 6.
-3. The component’s inner parameters, i.e., `Para` in line 7.
-4. An auxiliary structure array for saving the component’s inner parameters that are changed during
-iteration (e.g., the velocity in particle swarm optimization (PSO)), i.e., `Aux` in line 8.
-5. The algorithm’s generation counter `G`.
-6. The algorithm’s inner local search iteration counter `innerG`.
-7. The target problem’s input data `Data`.
+
++ Current solutions, i.e., `Parent` in line 5.
++ The problem proprieties, i.e., `Problem` in line 6.
++ The component’s inner parameters, i.e., `Para` in line 7.
++ An auxiliary structure array for saving the component’s inner parameters that are changed during iteration (e.g., the velocity in particle swarm optimization (PSO)), i.e., `Aux` in line 8.
++ The algorithm’s generation counter `G`.
++ The algorithm’s inner local search iteration counter `innerG`.
++ The target problem’s input data `Data`.
 
 The component should be implemented from line 9. The outputs of lines 21 and 22 are mandatory, in
-which output1 returns solutions processed by the component, and `output2` returns the **Aux** structure
+which output1 returns solutions processed by the component, and `output2` returns the `Aux` structure
 array. If the component has inner parameters that are changed during iteration, `Aux` is updated (e.g.,
 update PSO’s velocity and save it in `Aux`); otherwise, `Aux` will be the same as that in line 8.
 
@@ -68,7 +68,7 @@ the matrix `output1`.
 
 For search operators (components) with inner parameters controlling the search behavior, case
 behavior defines how the inner parameters control the search behavior. For example, line 26 indicates that the uniform mutation with smaller mutation probabilities performs local search and that with
-larger probabilities performs global search. For other operators, `output1` in `case 'behavior'` is left empty, i.e., `output1={}'.
+larger probabilities performs global search. For other operators, `output1` in `case 'behavior'` is left empty, i.e., `output1={}`.
 
 
 
