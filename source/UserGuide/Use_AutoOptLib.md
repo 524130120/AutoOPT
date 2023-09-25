@@ -65,7 +65,7 @@ violation can be calculated in line 10 by [[JD13]](../References/ref.html#JD13):
 
 
 where **_CV_(x)** is the constraint violation of solution **x**; **_ḡ<sub>j</sub>_(x)** and **_h̄<sub>k</sub>_(x)** are the _j_ th normalized inequality constraint and _k_ th normalized equality constraint, respectively, in which the normalization can be done
-by dividing the constraint functions by the constant in this constraint present (i.e., for **_g<sub>j</sub>_(x)** ≥ **_b<sub>j</sub>_** , the
+by dividing the constraint functions by the constant in this constraint present (i.e., for **_g<sub>j</sub>_(x)** ≥ **_b<sub>j</sub>_**, the
 normalized constraint function becomes **_ḡ<sub>j</sub>_(x)** = **_g<sub>j</sub>_(x)** / **_b<sub>j</sub>_** ≥ 0,
 and similarly **_h̄<sub>k</sub>_(x)** can be normalized equality constraint); the bracket operator
 ⟨**_ḡ<sub>j</sub>_(x)**⟩ returns the negative of **_ḡ<sub>j</sub>_(x)**, if **_ḡ<sub>j</sub>_(x)** < 0 and returns zeros, otherwise. 
@@ -137,7 +137,6 @@ are introduced in [Table 4](#table4). In particular, parameters `Metric` and `Ev
 and algorithm performance evaluation method, respectively. They are summarized in [Table 2](../GettingStart/Introduction.html#table2)
 and [Table 3](../GettingStart/Introduction.html#table3), respectively.
 
-
 Parameters `Problem`, `InstanceTrain`, `InstanceTest`, and `Mode` are mandatory to input into the 
 command. For other parameters, users can either use their default values without input to the
 command or input by themselves for sophisticated functionality. The default parameter values can
@@ -190,10 +189,7 @@ the Algorithm File field to solve the target problem. Alternatively, users can c
 AutoOptLib now provides 17 classic metaheuristic algorithms in the menu. After the problemsolving terminates, the convergence curve and best solutions will be displayed in the axes and
 table areas of the Results panel, respectively; detailed results can be exported by the pop-up menu at the bottom.
 
-
 <br>
-<br>
-
 
 <a name="table4"></a>
 <div style="text-align: center;">Table 4: Parameters in the commands for running AutoOptLib.</div>
