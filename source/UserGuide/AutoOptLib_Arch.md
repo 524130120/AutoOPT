@@ -34,7 +34,10 @@ in [Figure 2](#Figure2), is given to guide users to easily implement and interfa
 
 <a name="Figure3"></a>
 
-![图片标题](../_static/Figure3.png)
+<div style="text-align:center">
+  <img src="../_static/Figure3.png" alt="图片标题">
+</div>
+<br>
 <div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div>
 <br>
 
