@@ -17,9 +17,9 @@ solution space. Lines 18 and 21 offer specific settings as indicated in the comm
 are saved in the `Problem` and `Data` structs, respectively.
 
 ```matlab
-1 case 'construct' % define problem properties
-2     Problem = varargin{1};
-3     % define problem type in the following three cells.
+ case 'construct' % define problem properties
+     Problem = varargin{1};
+     % define problem type in the following three cells.
     % first cell : 'continuous'\'discrete'\'permutation'
     % second cell: 'static'\'sequential'
     % third cell : 'certain'\'uncertain'
