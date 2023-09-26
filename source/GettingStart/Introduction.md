@@ -19,7 +19,7 @@ AutoOptLib's benefit includes:
 
 + **Democratize metaheuristic optimizers** - Through automated algorithm design techniques, AutoOptLib would democratize the efficient and effective use of metaheuristic optimizers. This is significant for researchers and practitioners with complicated optimization problem-solving demands but without the expertise to distinguish and manage suitable optimizers among various choices. 
 
-+ **Surpass human algorithm design** By fully exploring potential design choices and discovering novelties with computing power, AutoOptLib would go beyond human experience and gain enhanced performance regarding human problem-solving.
++ **Surpass human algorithm design** - By fully exploring potential design choices and discovering novelties with computing power, AutoOptLib would go beyond human experience and gain enhanced performance regarding human problem-solving.
 
 + **Promote metaheuristic research** - With a uniform collection of related techniques, AutoOptLib would promote research of the automated algorithm design and metaheuristic fields and be a tool in the pursuit of autonomous and general artificial intelligence systems.
 
