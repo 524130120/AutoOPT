@@ -18,8 +18,8 @@ are saved in the `Problem` and `Data` structs, respectively.
 
 ```matlab
  case 'construct' % define problem properties
-     Problem = varargin{1};
-     % define problem type in the following three cells.
+    Problem = varargin{1};
+    % define problem type in the following three cells.
     % first cell : 'continuous'\'discrete'\'permutation'
     % second cell: 'static'\'sequential'
     % third cell : 'certain'\'uncertain'
