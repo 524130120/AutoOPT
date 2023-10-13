@@ -32,7 +32,13 @@ Welcome to AutoOptLib documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: 4. References:
+   :caption: 4. Use Case:
+
+   References/ref
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 5. References:
 
    References/ref
 
