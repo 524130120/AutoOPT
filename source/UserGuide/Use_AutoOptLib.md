@@ -2,7 +2,7 @@
 
 Following the three steps below to use AutoOptLib:
 
-## 2.3.1 Implement Problem
+## 2.3.1 Step 1: Implement Problem
 
 AutoOptLib supports implementing the target problem in Matlab or Python. More formats will be supported in future versions.
 
@@ -132,7 +132,7 @@ def evaluate(Decs, instanceInd):
     return obj, con, acc
 ```
 
-## 2.3.2 Define Design Space
+## 2.3.2 Step 2: Define Design Space
 AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in the `/Components` folder. The included components are listed in [Table 1](../GettingStart/Introduction.html#table1).
 
 The default design space for each type of problems covers all the involved components for this type.
@@ -159,7 +159,7 @@ case 'permutation'
 ```
 
 
-## 2.3.3 Run AutoOptLib
+## 2.3.3 Step 3: Run AutoOptLib
 Users can run AutoOptLib either by Matlab command or GUI.
 
 **Run by Command:**
