@@ -13,6 +13,7 @@ Welcome to AutoOptLib documentation!
    GettingStart/Introduction
    GettingStart/Installation
    GettingStart/QuickStart
+   GettingStart/Contact
 
 .. toctree::
    :maxdepth: 1
