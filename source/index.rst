@@ -22,6 +22,7 @@ Welcome to AutoOptLib documentation!
    UserGuide/auto_alg_design
    UserGuide/AutoOptLib_Arch
    UserGuide/Use_AutoOptLib
+   UserGuide/Other_Use
 
 .. toctree::
    :maxdepth: 1
