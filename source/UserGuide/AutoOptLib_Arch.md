@@ -78,9 +78,9 @@ After initialization, AutoOptLib goes into iterative design. In each iteration, 
 After the iteration terminates, `AutoOpt.m` invokes the `Evaluate()` method of the `DESIGN` class to test the final algorithms' performance on the test instances of the targeted problem. Then, the final algorithms are returned in `AutoOpt.m`.
 
 The above operating sequence has some significant advantages: 
-+ ** Metaheuristic component independence ** - Functions of algorithm components do not interact with each other but invoke independently by the \texttt{SOLVE} class. This independence provides great flexibility in designing various algorithms and extensibility to new components.
-+ ** Design technique packaging ** - The design techniques are packaged in different methods (e.g., \texttt{Disturb()}, \texttt{Evaluate()}) of the \texttt{DESIGN} class. Such packaging brings good understandability and openness to new techniques without modifying the library's architecture.
-+ ** Target problem separation ** - The targeted problem is enclosed separately and do not directly interact with algorithm components and design techniques. This separation allows users to easily interface their problems with the library and use the library without much knowledge of metaheuristics and design techniques, thereby ensuring the accessibility of the library to researchers and practitioners from different communities.
++ **Metaheuristic component independence** - Functions of algorithm components do not interact with each other but invoke independently by the \texttt{SOLVE} class. This independence provides great flexibility in designing various algorithms and extensibility to new components.
++ **Design technique packaging** - The design techniques are packaged in different methods (e.g., \texttt{Disturb()}, \texttt{Evaluate()}) of the \texttt{DESIGN} class. Such packaging brings good understandability and openness to new techniques without modifying the library's architecture.
++ **Target problem separation** - The targeted problem is enclosed separately and do not directly interact with algorithm components and design techniques. This separation allows users to easily interface their problems with the library and use the library without much knowledge of metaheuristics and design techniques, thereby ensuring the accessibility of the library to researchers and practitioners from different communities.
 
 <br>
 <br>
