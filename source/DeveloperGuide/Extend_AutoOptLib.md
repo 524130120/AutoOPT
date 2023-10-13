@@ -1,7 +1,6 @@
 # 3.1 Extend AutoOptLib
 
-AutoOptLib follows the open-closed principle [[Mey97](../References/ref.html#Mey97), [Lar01](../References/ref.html#Lar01)]. Users can implement their algorithmic components, design objectives, and algorithm performance evaluation techniques based on the current
-sources, and add the implementations to the library by a uniform interface. Taking Listing 1 as an
+AutoOptLib follows the open-closed principle [[Mey97](../References/ref.html#Mey97), [Lar01](../References/ref.html#Lar01)]. As illustrated in [Figure 2](../GettingStart/Introduction.html#table2) and Section [2.2.3](../UserGuide/Use_AutoOptLib.html#implement-problem), metaheuristic algorithm components and design techniques are packaged and invoked independently. This allows users easily implement their algorithm components, design objectives, and algorithm performance evaluation techniques based on the current sources, and add the implementations to the library by a uniform interface. Taking Listing 1 as an
 example, new algorithmic components can be added as follows.
 
 <a name="listing1"></a>
