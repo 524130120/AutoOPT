@@ -8,7 +8,7 @@ In many scenarios, users may have a preferred algorithm and only need to configu
 
  + Implement the target problem as illustrated in Section [2.3.1](../UserGuide/Use_AutoOptLib.html#implement-problem).
 
- + Define the design space as illustrated in Section [2.3.2](../UserGuide/Use_AutoOptLib.html#define-design-space). In particular, the design space should only involve the components of the preferred algorithm. The components can be existing ones in the library or user implemented with the same interface as existing ones. Turn `Setting.TunePara` to `true in `space.m.
+ + Define the design space as illustrated in Section [2.3.2](../UserGuide/Use_AutoOptLib.html#define-design-space). In particular, the design space should only involve the components of the preferred algorithm. The components can be existing ones in the library or user implemented with the same interface as existing ones. Turn `Setting.TunePara` to `true` in `space.m`.
 
 ```matlab
  Setting.TunePara = true; % true/false, true for hyperparameter configuration
