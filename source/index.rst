@@ -34,7 +34,10 @@ Welcome to AutoOptLib documentation!
    :maxdepth: 1
    :caption: 4. Use Case:
 
-   References/ref
+   UseCase/usecase
+   UseCase/Problem_Description
+   UseCase/Use_AutoOptLib_to_the_Problem
+   UseCase/Results_and_Analysis
 
 .. toctree::
    :maxdepth: 1
