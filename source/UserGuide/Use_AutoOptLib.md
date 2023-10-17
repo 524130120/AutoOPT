@@ -140,6 +140,9 @@ Users can either employ the default space or define a narrow space in `Space.m` 
 string of component file name in line 3. More components can be added, which will be detailed in
 Section [3.1](../DeveloperGuide/Extend_AutoOptLib.html#extend-autooptlib).
 
+<a name="listing1"></a>
+<div style="text-align: center;">Code Listing 1: Design space</div>
+
 ```matlab
 case 'continuous'
     Choose = {'choose_traverse';'choose_tournament';'choose_roulette_wheel';'choose_brainstorm';'choose_nich'}; 
@@ -155,7 +158,6 @@ case 'permutation'
     Choose = {'choose_traverse';'choose_tournament';'choose_roulette_wheel';'choose_nich'};
     Search = {'cross_order_two';'cross_order_n';'search_swap';'search_swap_multi';'search_scramble';'search_insert';'reinit_permutation'};
     Update = {'update_greedy';'update_round_robin';'update_pairwise';'update_always';'update_simulated_annealing'};
-
 ```
 
 
@@ -168,6 +170,7 @@ Users can run AutoOptLib by typing the following command in MATLAB command windo
 
 <div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
 <br>
+
 where `name` and `value` refer to the input parameter’s name and value, respectively. The parameters
 are introduced in [Table 4](#table4). In particular, parameters `Metric` and `Evaluate` define the design objective
 and algorithm performance evaluation method, respectively. They are summarized in [Table 2](../GettingStart/Introduction.html#table2) and [Table 3](../GettingStart/Introduction.html#table3), respectively.
