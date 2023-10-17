@@ -15,6 +15,12 @@
 + [DG+96] Kalyanmoy Deb, Mayank Goyal, et al. A combined genetic adaptive search (GeneAS) for engineering design. Computer Science and Informatics, 26:30–45, Jan. 1996.
 
 
+<div id="DZS+20"></div>
+
++ [DZS+20] oya Di, Hongliang Zhang, Lingyang Song, Yonghui Li, Zhu Han, and H Vincent Poor.
+Hybrid beamforming for reconfigurable intelligent surface based multi-user communications: Achievable rates with limited discrete phase shifts. IEEE Journal on Selected Areas
+in Communications, 38(8):1809–1822, Aug. 2020.
+
 <div id="ES+03"></div>
 
 + [ES+03] Agoston E Eiben, James E Smith, et al. Introduction to evolutionary computing, volume 53. Springer, New York, NY, USA, 2003.
@@ -74,16 +80,16 @@ and Thomas St¨utzle. The irace package: Iterated racing for automatic algorithm
 Research on Swarm Intelligence and Algorithm Optimization, pages 1–35. IGI Global, 2015.
 
 
-<div id="SHL+05"></div>
-
-+ [SHL+05]  Ponnuthurai N Suganthan, Nikolaus Hansen, Jing J Liang, Kalyanmoy Deb, Ying-Ping
-Chen, Anne Auger, and Santosh Tiwari. Problem definitions and evaluation criteria for the cec 2005 special session on real-parameter optimization. KanGAL Report, 2005.
-
-
 <div id="SP97"></div>
 
 + [SP97]  Rainer Storn and Kenneth Price. Differential evolution-a simple and efficient heuristic for
 global optimization over continuous spaces. Journal of Global Optimization, 11(4):341–359, Dec. 1997.
+
+
+<div id="SHL+05"></div>
+
++ [SHL+05]  Ponnuthurai N Suganthan, Nikolaus Hansen, Jing J Liang, Kalyanmoy Deb, Ying-Ping
+Chen, Anne Auger, and Santosh Tiwari. Problem definitions and evaluation criteria for the cec 2005 special session on real-parameter optimization. KanGAL Report, 2005.
 
 
 <div id="YDWB22"></div>
@@ -97,3 +103,25 @@ Computation, 26(6):1526–1538, Dec. 2022.
 + [YLL99]  Xin Yao, Yong Liu, and Guangming Lin. Evolutionary programming made faster. IEEE Transactions on Evolutionary Computation, 3(2):82–102, July 1999.
 
 
+<div id="YLJ+21"></div>
+
++ [YLJ+21] Jie Yuan, Ying-Chang Liang, Jingon Joung, Gang Feng, and Erik G Larsson. Intelligent
+reflecting surface-assisted cognitive radio system. IEEE Transactions on Communications, 69(1):675–687, Jan. 2021.
+
+
+<div id="YRBC04"></div>
+
++ [YRBC04] Wei Yu, Wonjong Rhee, Stephen Boyd, and John M Cioffi. Iterative water-filling for
+gaussian vector multiple-access channels. IEEE Transactions on Information Theory, 50(1):145–152, Jan. 2004.
+
+
+<div id="YZL+22"></div>
+
++ [YZL+22] Bai Yan, Qi Zhao, Mengke Li, Jin Zhang, J Andrew Zhang, and Xin Yao. Fitness
+landscape analysis and niching genetic approach for hybrid beamforming in ris-aided communications. Applied Soft Computing, 131:109725, Dec. 2022.
+
+
+<div id="MJ19"></div>
+
++ [MJ19] Deepak Mishra and H ̊akan Johansson. Channel estimation and low-complexity beamforming design for passive intelligent surface assisted miso wireless energy transfer. In
+IEEE International Conference on Acoustics, Speech and Signal Processing, pages 4659–4663, Brighton, UK, 2019. IEEE.
