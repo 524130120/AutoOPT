@@ -9,6 +9,18 @@ the round-robin selection (update_round_robin) maintains diversity by probably s
 solutions. All these designs indicate that maintaining solution diversity may be necessary for escaping
 local optima and exploring the unstructured and rugged landscape.
 
+<a name="algorithm1"></a>
+```matlab
+Algorithm 1 Pseudocode of Alg*
+1: S = initialize() // initialize solution set S
+2: while stopping criterion not met do
+3: S = choose_nich(S)
+4: Snew = cross_point_uniform(0.1229, S)
+5: Snew = search_reset_one(Snew)
+6: S = update_round_robin(S, Snew)
+7: end while    
+```
+
 To investigate the designed algorithm’s efficiency, the algorithm is compared with baselines, i.e.,
 random beamforming, sequential beamforming [[DZS+20]](../References/ref.html#DZS+20)<sup>[3](#3)</sup>, and three classic metaheuristic solvers, i.e., discrete
 genetic algorithm (GA), iterative local search (ILS), and simulated annealing (SA)<sup>[4](#4)</sup>. The algorithms
@@ -21,6 +33,75 @@ is inferior to most of the metaheuristic solvers. This result confirms the ineli
 elements and the need for global metaheuristic search. Among the metaheuristic solvers, Alg* outperforms others, especially in instances with large numbers of RIS elements (induce high-dimensional
 rugged landscape). This performance can be attributed to its diversity maintenance ability. All the
 above demonstrates the efficiency of AutoOptLib’s automated design techniques on the problem.
+
+<br>
+<a name="table5"></a>
+<div style="text-align: center;">Table 5: Average and standard deviation of performance on the beamforming problem. Best results are in bold.</div>
+<br>
+
+<table>
+   <tr>
+        <td rowspan="2" style="font-weight: bold">Algorithm</td> 
+        <td colspan="5" style="font-weight: bold">Number of RIS elements in the problem instances</td>    
+   </tr>
+   <tr>
+        <td style="font-weight: bold">120</td> 
+        <td style="font-weight: bold">160</td>
+        <td style="font-weight: bold">280</td> 
+        <td style="font-weight: bold">320</td> 
+        <td style="font-weight: bold">400</td>     
+   </tr>
+    <tr>
+        <td style="font-weight: bold">Alg*</td>  
+        <td >0.0332±5.05E-04</td>  
+        <td >0.0312±4.84E-04</td>  
+        <td >0.0281±1.57E-04</td>  
+        <td >0.0272±6.76E-04</td>
+        <td >0.0260±1.11E-04</td>  
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Random</td> 
+        <td >0.0442±7.94E-04</td>  
+        <td >0.0425±6.56E-04</td>   
+        <td >0.0402±8.30E-04 </td>  
+        <td >0.0390±6.67E-04</td>
+        <td >0.0390±6.67E-04</td>  
+    </tr>
+    <tr>
+        <td style="font-weight: bold">Sequential</td>  
+        <td >0.0382±6.19E-04</td>  
+        <td >0.0387±6.75E-04</td>  
+        <td >0.0374±4.17E-04</td>  
+        <td >0.0369±4.38E-04</td>
+        <td >0.0369±4.38E-04</td>  
+    </tr>
+    <tr>
+        <td style="font-weight: bold">GA</td>  
+        <td >0.0369±3.30E-04</td>  
+        <td >0.0356±1.00E-04</td>  
+        <td >0.0337±4.26E-04</td>  
+        <td >0.0333±1.04E-04</td>
+        <td >0.0322±6.96E-04</td>  
+    </tr>
+    <tr>
+        <td style="font-weight: bold">ILS</td>  
+        <td >0.0333±3.74E-04</td>  
+        <td >0.0314±2.49E-04</td>  
+        <td >0.0314±2.49E-04</td>  
+        <td >0.0279±1.82E-04</td>
+        <td >0.0278±1.15E-04</td>  
+    </tr>
+    <tr>
+        <td style="font-weight: bold">SA</td>  
+        <td >0.0398±5.59E-04</td>  
+        <td >0.0388±7.75E-04</td>
+        <td >0.0369±3.27E-04</td>  
+        <td >0.0360±4.18E-04</td>
+        <td >0.0355±9.50E-04</td>  
+    </tr>
+</table>
+
+<br>
 
 <br>
 
