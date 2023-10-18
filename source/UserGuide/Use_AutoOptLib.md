@@ -1,4 +1,4 @@
-# 2.3 Use AutoOptLib
+<img width="170" alt="image" src="https://github.com/524130120/AutoOPT/assets/70895429/2fa06c7f-3c9f-4e33-acaf-4fd64a82fa99"># 2.3 Use AutoOptLib
 
 Following the three steps below to use AutoOptLib:
 
@@ -166,7 +166,7 @@ Users can run AutoOptLib either by Matlab command or GUI.
 
 **Run by Command:**
 
-Users can run AutoOptLib by typing the following command in MATLAB command window:
+Users can run AutoOptLib by typing the following command in MATLAB command window (For Octave, three packages should be loaded via `pkg load communications`, `pkg load statistics`, and `pkg load io` before executing the command):
 
 <div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
 <br>
