@@ -166,7 +166,7 @@ Users can run AutoOptLib either by Matlab command or GUI.
 
 **Run by Command:**
 
-Users can run AutoOptLib by typing the following command in MATLAB command window (For Octave, three packages should be loaded via `pkg load communications`, `pkg load statistics`, and `pkg load io` before executing the command):
+Users can run AutoOptLib by typing the following command in MATLAB/Octave command window (For Octave, three packages should be loaded via `pkg load communications`, `pkg load statistics`, and `pkg load io` before executing the command):
 
 <div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
 <br>
