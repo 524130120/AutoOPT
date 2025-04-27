@@ -1,4 +1,4 @@
-<img width="170" alt="image" src="https://github.com/524130120/AutoOPT/assets/70895429/2fa06c7f-3c9f-4e33-acaf-4fd64a82fa99"># 2.3 Use AutoOptLib
+# 2.3 Use AutoOptLib
 
 Following the three steps below to use AutoOptLib:
 
