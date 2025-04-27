@@ -25,7 +25,7 @@ random beamforming, sequential beamforming [[DZS+20]](../References/ref.html#DZS
 genetic algorithm (GA), iterative local search (ILS), and simulated annealing (SA)<sup>[4](#4)</sup>. The algorithms
 were executed through the Solve mode of AutoOptLib on the five test instances for experimental
 comparison. All the metaheuristic algorithms conducted population-based search with a population
-size of 50 for a fair comparison. All algorithms terminated after 500000 function evaluations.
+size of 50 for a fair comparison. All algorithms terminated after 50000 function evaluations.
 
 The algorithms’ performance is summarized in [Table 5](#table5). The performance is measured by final solutions’ fitness (reciprocal of the quality of service of all users). From [Table 5](#table5), sequential beamforming
 is inferior to most of the metaheuristic solvers. This result confirms the ineligibility of decoupling RIS
