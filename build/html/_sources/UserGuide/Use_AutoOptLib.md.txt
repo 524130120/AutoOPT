@@ -4,10 +4,14 @@ Following the three steps below to use AutoOptLib:
 
 ## 2.3.1 Implement Problem
 
-Users can implement their target optimization problem according to the template prob_template.m
-in the /Problems folder. prob_template.m has three main cases. Case ‘construct’ is for setting
+AutoOptLib supports implementing the target problem in Matlab and Python. More formats will be supported in future versions.
+
+### Implement in Matlab
+
+Users can implement their target optimization problem according to the template `prob_template.m`
+in the `/Problems` folder. `prob_template.m` has three main cases. `Case ‘construct’` is for setting
 problem properties and loading the input data. In particular, line 7 defines the problem type, e.g.,
-Problem.type = {‘continuous’,‘static’,‘certain’} refers to a continuous static problem without uncertainty in the objective function. Lines 10 and 11 define the lower and upper bounds of the
+`Problem.type = {‘continuous’,‘static’,‘certain’}` refers to a continuous static problem without uncertainty in the objective function. Lines 10 and 11 define the lower and upper bounds of the
 solution space. Lines 18 and 21 offer specific settings as indicated in the comments of lines 14-17 and
 20, respectively. Line 25 or 26 is for loading the input data. As a result, problem proprieties and data
 are saved in the Problem and Data structs, respectively.
@@ -43,7 +47,7 @@ case 'construct' % define problem properties
 ```
 
 
-Case ‘repair’ is for repairing solutions to keep them feasible, e.g., keeping the solutions within
+`Case ‘repair’` is for repairing solutions to keep them feasible, e.g., keeping the solutions within
 the box constraint. Lines 2 and 3 input the problem data and solutions (decision variables). Programs
 for repairing solutions should be written from line 5. Finally, the repaired solutions will be returned.
 ```matlab
@@ -56,7 +60,7 @@ case 'repair' % repair solutions
 ```
 
 
-Case ‘evaluate’ is for evaluating solutions’ fitness (objective values penalized by constraint violations). In detail, lines 2 and 3 input the problem data and solutions. The target problem’s objective
+`Case ‘evaluate’` is for evaluating solutions’ fitness (objective values penalized by constraint violations). In detail, lines 2 and 3 input the problem data and solutions. The target problem’s objective
 function should be written from line 6. Constraint functions should be written from line 8. Constraint
 violation can be calculated in line 10 by [[JD13]](../References/ref.html#JD13):
 
@@ -64,13 +68,7 @@ violation can be calculated in line 10 by [[JD13]](../References/ref.html#JD13):
 ![Equation3](../_static/Equation3.png)
 
 
-where **_CV_(x)** is the constraint violation of solution **x**;
-
-̄
-
-
-**_ḡ<sub>j</sub>_(x)** and **_h̄<sub>k</sub>_(x)** are the _j_ th normalized inequality
-constraint and _k_ th normalized equality constraint, respectively, in which the normalization can be done
+where **_CV_(x)** is the constraint violation of solution **x**; **_ḡ<sub>j</sub>_(x)** and **_h̄<sub>k</sub>_(x)** are the _j_ th normalized inequality constraint and _k_ th normalized equality constraint, respectively, in which the normalization can be done
 by dividing the constraint functions by the constant in this constraint present (i.e., for **_g<sub>j</sub>_(x)** ≥ **_b<sub>j</sub>_** , the
 normalized constraint function becomes **_ḡ<sub>j</sub>_(x)** = **_g<sub>j</sub>_(x)** / **_b<sub>j</sub>_** ≥ 0,
 and similarly **_h̄<sub>k</sub>_(x)** can be normalized equality constraint); the bracket operator
@@ -98,21 +96,62 @@ case 'evaluate' % evaluate solution's fitness
 
 ```
 
-Examples of problem implementation can be seen in the **CEC 2005** benchmark problem files
-in the **/Problems/CEC2005 Benchmarks** folder. The implementation of a real constrained problem 
-**beamforming.m** is given in the **/Problems/Real-World/Beanforming** folder.
+Examples of problem implementation can be seen in the `/Problems/CEC2005 Benchmarks` folder. The implementation of a real constrained problem 
+`beamforming.m` is given in the `/Problems/Real-World/Beanforming` folder.
+
+### Implement in Python
+
+The Python port expects a callable with the same three-mode interface used by Matlab problems. The callable receives a list of problem descriptors, a list of instance indices (or decision vectors when evaluating), and a mode string. A minimal example is shown below; save it as `myproblem.py` and import the callable when running AutoOptLib from Python.
+
+```python
+import numpy as np
+
+
+def sphere_problem(problems, instances, mode):
+    mode = str(mode).lower()
+
+    if mode == "construct":
+        # instances store the dimensionality here
+        for prob, dim in zip(problems, instances):
+            d = int(dim)
+            prob.type = ["continuous", "static", "certain"]
+            prob.bound = np.array([[-5.0] * d, [5.0] * d], dtype=float)
+
+            def _evaluate(_data, dec):
+                decs = np.asarray(dec, dtype=float)
+                obj = np.sum(decs ** 2, axis=1, keepdims=True)
+                con = np.zeros_like(obj)
+                return obj, con, None
+
+            prob.evaluate = _evaluate
+
+        data = [None for _ in instances]
+        return problems, data, None
+
+    if mode == "repair":
+        # no repair needed for this unconstrained sphere example
+        return instances, None, None
+
+    if mode == "evaluate":
+        # instances now carry decision vectors
+        decs = np.asarray(instances, dtype=float)
+        obj = np.sum(decs ** 2, axis=1, keepdims=True)
+        con = np.zeros_like(obj)
+        return obj, con, None
+
+    raise ValueError(f"Unsupported mode: {mode}")
+```
+
+This callable can be passed directly as `Problem=sphere_problem` when using the Python API.
 
 
 ## 2.3.2 Define Design Space
-AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in
-the **/Components** folder. The included components are listed in [Table 1](../GettingStart/Introduction.html#table1).
+AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in the `/Components` folder. The included components are listed in [Table 1](../GettingStart/Introduction.html#table1).
 
 The default design space for each type of problems covers all the involved components for this type.
-Users can either employ the default space with the furthest potential to discover novelty or define a
-narrow space in **Space.m** in the **/Utilities** folder according to interest. For example, when designing
-algorithms for continuous problems, the candidate Search components can be set by collecting the
+Users can either employ the default space or define a narrow space in `Space.m` in the `/Utilities` folder according to interest. For example, when designing algorithms for continuous problems, the candidate Search components can be set by collecting the
 string of component file name in line 3. More components can be added, which will be detailed in
-Section 3.1.
+Section [3.1](../DeveloperGuide/Extend_AutoOptLib.html#extend-autooptlib).
 
 ```matlab
 case 'continuous'
@@ -142,48 +181,71 @@ Users can run AutoOptLib by typing the following command in MATLAB command windo
 
 <div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div>
 
-where name and value refer to the input parameter’s name and value, respectively. The parameters
-are introduced in [Table 4](#table4). In particular, parameters **Metric** and **Evaluate** define the design objective
-and algorithm performance evaluation method, respectively. They are summized in [Table 2](../GettingStart/Introduction.html#table2)
+where `name` and `value` refer to the input parameter’s name and value, respectively. The parameters
+are introduced in [Table 4](#table4). In particular, parameters `*Metric` and `Evaluate` define the design objective
+and algorithm performance evaluation method, respectively. They are summarized in [Table 2](../GettingStart/Introduction.html#table2)
 and [Table 3](../GettingStart/Introduction.html#table3), respectively.
 
 
-Parameters **Problem**, **InstanceTrain**, **InstanceTest**, and **Mode** are mandatory to input into the 
+Parameters `Problem`, `InstanceTrain`, `InstanceTest`, and `Mode` are mandatory to input into the 
 command. For other parameters, users can either use their default values without input to the
 command or input by themselves for sophisticated functionality. The default parameter values can
-be seen in **AutoOpt.m**. As an example, **AutoOpt(‘Mode’, ‘design’, ‘Problem’, ‘CEC2005 f1’,
-‘InstanceTrain’, [1,2], ‘InstanceTest’, 3, ‘Metric’, ‘quality’)** is for designing algorithms
-with the best solution quality on the **CEC2005 f1** problem.
+be seen in `AutoOpt.m`. As an example, `AutoOpt(‘Mode’, ‘design’, ‘Problem’, ‘CEC2005 f1’,
+‘InstanceTrain’, [1,2], ‘InstanceTest’, 3, ‘Metric’, ‘quality’)` is for designing algorithms
+with the best solution quality on the CEC2005 f1 problem.
 
 There are also conditional parameters when certain options of the main parameters are chosen.
-For example, setting **Metric** to **runtimeFE** incurs conditional parameter **Thres** to define the algorithm
+For example, setting `Metric` to `runtimeFE` incurs conditional parameter `Thres` to define the algorithm
 performance threshold for counting the runtime. All conditional parameters have default values and
 are unnecessary to set in the command.
 
 After AutoOptLib running terminates, results will be saved as follows:
 
-+ If running the **design** mode,
-  1. The designed algorithms’ graph representations, phenotypes, parameter values, and performance will be saved as **.mat** table in the root dictionary.
-Algorithms in the **.mat** table can later be called by the **solve** mode to apply to solve the target problem or make experimental comparisons with other algorithms.
-  2. A report of the designed algorithms’ pseudocode and performance will be saved as **.xlsx** table. Users can read, analyze, and compare the algorithms through the report.
-  3. The convergence curve of the design process (algorithms’ performance versus the iteration of design) will be depicted and saved as **.fig** figure.
++ If running the `design` mode,
+  1. The designed algorithms’ graph representations, phenotypes, parameter values, and performance will be saved as `.mat` table in the root dictionary.
+Algorithms in the `.mat` table can later be called by the `solve` mode to apply to solve the target problem or make experimental comparisons with other algorithms.
+  2. A report of the designed algorithms’ pseudocode and performance will be saved as `.csv` table. Users can read, analyze, and compare the algorithms through the report.
+  3. The convergence curve of the design process (algorithms’ performance versus the iteration of design) will be depicted and saved as `.fig` figure.
 Users can visually analyze the design process and compare different design techniques through the figure.
 
-+ If running the **solve** mode,
-  1. Solutions to the target problem will be saved as **.mat** table and **.xlsx** table.
-  2. Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in **.fig** figure.
++ If running the `solve` mode,
+  1. Solutions to the target problem will be saved as `.mat` table and `.csv` table.
+  2. Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in `.fig` figure.
 
 <br>
 
+**Python: solving with a built-in algorithm**
+
+Below is a minimal Python example for solving a problem with a built-in algorithm; save it as `examples/solve_demo.py` and run `python examples/solve_demo.py`:
+
+```python
+from autooptlib import autoopt
+
+
+best_runs, all_runs = autoopt(
+    Mode="solve",
+    Problem="cec2013_f1",
+    InstanceSolve=[10],
+    AlgName="Continuous Random Search",
+    AlgRuns=1,
+    ProbN=30,
+    ProbFE=2000,
+    Metric="quality",
+)
+
+print("Best fitness:", best_runs[0][0].fit)
+```
+
 **Run by GUI:**
 
-The **GUI** can be invoked by the command **AutoOpt()** without inputting parameters. It is shown in [Figure 5](#Figure5). The **GUI** has three panels, i.e., **Design**, **Solve**, and **Results**:
+![图片标题](../_static/Figure5.png)
+<div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div>
+
+The GUI can be invoked by the command `AutoOpt()` without inputting parameters. It is shown in [Figure 5](#Figure5). The GUI has three panels, i.e., Design, Solve, and Results:
 
 + The Design panel is for designing algorithms for a target problem. It has two subpanels, i.e., Input Problem and Set Parameters:
   - Users should load the function of their target problem and set the indexes of training and test instances in the Input Problem subpanel.
-  - Users can set the main and conditional parameters related to the design in the Set Parameters subpanel. All parameters have default values for non-expert users’ convenience.
-The objective of design, the method for comparing the designed algorithms, and the method for evaluating the algorithms can be chosen by the pop-up menus of the Metric, Compare, and
-Evaluate fields, respectively.
+  - Users can set the main and conditional parameters related to the design in the Set Parameters subpanel. All parameters have default values for non-expert users’ convenience. The objective of design, the method for comparing the designed algorithms, and the method for evaluating the algorithms can be chosen by the pop-up menus of the Metric, Compare, and Evaluate fields, respectively.
 
   After setting the problem and parameters, users can start the run by clicking the RUN bottom.
 
@@ -198,9 +260,6 @@ the Algorithm File field to solve the target problem. Alternatively, users can c
 AutoOptLib now provides 17 classic metaheuristic algorithms in the menu. After the problemsolving terminates, the convergence curve and best solutions will be displayed in the axes and
 table areas of the Results panel, respectively; detailed results can be exported by the pop-up menu at the bottom.
 
-
-![图片标题](../_static/Figure5.png)
-<div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div>
 
 <br>
 <br>
@@ -239,7 +298,7 @@ table areas of the Results panel, respectively; detailed results can be exported
 | **Parameters related to solving the target problem** |  -  | -                                                                                                                                                        |
 | Alg                                              | character string  | Algorithm file name, e.g., Algs                                                                                                                          |
 
-[^*]: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a  local search over neighborhood region. As an example, in cases with LSRange= 0.2, the uniform mutation with probability lower than 0.2 is regarded as performing local search, and the probability equals or higher than 0.2 performs global search.
+[^*]: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a local search over neighborhood region. As an example, in cases with `LSRange=0.2`, the uniform mutation with probability lower than `0.2` is regarded as performing local search, and the probability equals or higher than `0.2` performs global search.
 
 
 

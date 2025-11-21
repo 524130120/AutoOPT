@@ -4,6 +4,10 @@ Following the three steps below to use AutoOptLib:
 
 ## 2.3.1 Implement Problem
 
+AutoOptLib supports implementing the target problem in Matlab and Python. More formats will be supported in future versions.
+
+### Implement in Matlab
+
 Users can implement their target optimization problem according to the template `prob_template.m`
 in the `/Problems` folder. `prob_template.m` has three main cases. `Case ‘construct’` is for setting
 problem properties and loading the input data. In particular, line 7 defines the problem type, e.g.,
@@ -95,6 +99,51 @@ case 'evaluate' % evaluate solution's fitness
 Examples of problem implementation can be seen in the `/Problems/CEC2005 Benchmarks` folder. The implementation of a real constrained problem 
 `beamforming.m` is given in the `/Problems/Real-World/Beanforming` folder.
 
+### Implement in Python
+
+The Python port expects a callable with the same three-mode interface used by Matlab problems. The callable receives a list of problem descriptors, a list of instance indices (or decision vectors when evaluating), and a mode string. A minimal example is shown below; save it as `myproblem.py` and import the callable when running AutoOptLib from Python.
+
+```python
+import numpy as np
+
+
+def sphere_problem(problems, instances, mode):
+    mode = str(mode).lower()
+
+    if mode == "construct":
+        # instances store the dimensionality here
+        for prob, dim in zip(problems, instances):
+            d = int(dim)
+            prob.type = ["continuous", "static", "certain"]
+            prob.bound = np.array([[-5.0] * d, [5.0] * d], dtype=float)
+
+            def _evaluate(_data, dec):
+                decs = np.asarray(dec, dtype=float)
+                obj = np.sum(decs ** 2, axis=1, keepdims=True)
+                con = np.zeros_like(obj)
+                return obj, con, None
+
+            prob.evaluate = _evaluate
+
+        data = [None for _ in instances]
+        return problems, data, None
+
+    if mode == "repair":
+        # no repair needed for this unconstrained sphere example
+        return instances, None, None
+
+    if mode == "evaluate":
+        # instances now carry decision vectors
+        decs = np.asarray(instances, dtype=float)
+        obj = np.sum(decs ** 2, axis=1, keepdims=True)
+        con = np.zeros_like(obj)
+        return obj, con, None
+
+    raise ValueError(f"Unsupported mode: {mode}")
+```
+
+This callable can be passed directly as `Problem=sphere_problem` when using the Python API.
+
 
 ## 2.3.2 Define Design Space
 AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in the `/Components` folder. The included components are listed in [Table 1](../GettingStart/Introduction.html#table1).
@@ -164,6 +213,28 @@ Users can visually analyze the design process and compare different design techn
   2. Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in `.fig` figure.
 
 <br>
+
+**Python: solving with a built-in algorithm**
+
+Below is a minimal Python example for solving a problem with a built-in algorithm; save it as `examples/solve_demo.py` and run `python examples/solve_demo.py`:
+
+```python
+from autooptlib import autoopt
+
+
+best_runs, all_runs = autoopt(
+    Mode="solve",
+    Problem="cec2013_f1",
+    InstanceSolve=[10],
+    AlgName="Continuous Random Search",
+    AlgRuns=1,
+    ProbN=30,
+    ProbFE=2000,
+    Metric="quality",
+)
+
+print("Best fitness:", best_runs[0][0].fit)
+```
 
 **Run by GUI:**
 

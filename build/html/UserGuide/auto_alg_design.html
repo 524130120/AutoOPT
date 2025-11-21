@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2.1 What is automated algorithm design? &mdash; AutoOPT Documentation v1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e160b93e"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e160b93e"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -105,7 +105,9 @@ The target problem instances can either be fixed (i.e., <em><strong>I</strong><s
 The output of solving Eq. (<a class="reference external" href="#Equation2">2</a>) is algorithm(s) with the best performance on the considered instances.
 To avoid the designed algorithms overfitting, the design process can be followed by validation
 to investigate the generalization of the designed algorithms to instances from <em><strong>I</strong>{ <strong>I</strong><sub>1</sub></em>, <em><strong>I</strong><sub>2</sub></em>, · · · , <em><strong>I</strong><sub>t</sub></em> }.</p>
-<p>The general process of automated design of metaheuristic optimizers can be abstracted into four
+<p><a name="Fig1"></a>
+<img alt="图片标题" src="../_images/Fig1.png" /></p>
+<div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div><p>The general process of automated design of metaheuristic optimizers can be abstracted into four
 parts, as shown in <a class="reference external" href="#Fig1">Fig. 1</a>. first, the design space collects of candidate primitives or components
 for instantiating metaheuristic algorithms. It regulates what algorithms can be found in principle.
 Second, the design strategy provides a principle way to design algorithms by selecting and combining
@@ -113,11 +115,8 @@ the primitives or components from the design space. Third, the performance evalu
 how to measure the performance of the designed algorithms. The measured performance guides the
 design strategy to find desired algorithms. Finally, because the design aims to find algorithms with
 promising performance on solving a target problem, the target problem acts as external data to support
-the performance evaluation. This survey is organized according to the above four parts of automated
-design.</p>
-<p><a name="Fig1"></a>
-<img alt="图片标题" src="../_images/Fig1.png" /></p>
-<div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div><br>
+the performance evaluation.</p>
+<br>
 <br><hr class="docutils" />
 <div id="footnote1">
   <p>1. Since Equation 2 is a black-box problem, it is often solved in an iterative manner.</p>

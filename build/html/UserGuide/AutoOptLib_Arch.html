@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2.2 AutoOptLib Architecture &mdash; AutoOPT Documentation v1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e160b93e"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e160b93e"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -96,54 +96,53 @@
 <h1>2.2 AutoOptLib Architecture<a class="headerlink" href="#autooptlib-architecture" title="Link to this heading"></a></h1>
 <section id="file-structure">
 <h2>2.2.1 File Structure<a class="headerlink" href="#file-structure" title="Link to this heading"></a></h2>
-<p>The file structure of AutoOptLib is given in <a class="reference external" href="#Figure2">Figure 2</a>. As shown in <a class="reference external" href="#Figure2">Figure 2</a>, source files of the library
-are organized in a clear and concise structure. One interface function AutoOpt.m and three folders
-are in the root directory. The folder /Utilities contains public classes and functions. Specifically, the
-subfolder /&#64;DESIGN stores the class and functions for designing algorithms for a target problem,
-including functions for initializing, searching, and evaluating algorithms. /&#64;SOLVE contains the
-class and functions for solving the target problem by the designed algorithms, e.g., functions for
-inputting algorithms, executing the algorithms, and repairing solutions. /Others involves miscellaneous
-functions, e.g., sources of the GUI, functions of experimental tools, etc. The Space.m function is for
-constructing the design space by algorithmic components.</p>
-<p>The /Components folder contains the algorithmic components for constructing the design space.
-We package each component with ranges of its endogenous parameter values in a single .m file. For
-example, in <a class="reference external" href="#Figure2">Figure 2</a>, choose tournament.m and search mu gaussian.m are the functions of the tournament selection <a class="reference external" href="../References/ref.html#ES+03">[ES+03]</a> and Gaussian mutation <a class="reference external" href="../References/ref.html#Fog98">[Fog98]</a>, respectively. All the component functions are
-written in the same structure, so users can easily implement and add new components to the library
-according to existing ones.</p>
-<p>Finally, the /Problems folder is for the target problems. A problem template, i.e., the prob template.m
-in <a class="reference external" href="#Figure2">Figure 2</a>, is given to guide users to easily implement and interface their problems with the library.
-Some widely-used numerical benchmark problems, e.g., the CEC2005 single-objective real-parameter
-optimization problems <a class="reference external" href="../References/ref.html#SHL+05">SHL+05</a> , are also provided for toy experimentation.</p>
 <p><a name="Figure2"></a></p>
 <p><img alt="图片标题" src="../_images/Figure2.png" /></p>
-<div style="text-align: center;">Figure 2: File structure of AutoOptLib.</div>
+<div style="text-align: center;">Figure 2: File structure of AutoOptLib.</div><p>The file structure of AutoOptLib is given in <a class="reference external" href="#Figure2">Figure 2</a>. As shown in <a class="reference external" href="#Figure2">Figure 2</a>, source files of the library
+are organized in a clear and concise structure. One interface function <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code> and three folders
+are in the root directory. The folder <code class="docutils literal notranslate"><span class="pre">/Utilities</span></code> contains public classes and functions. Specifically, the
+subfolder <code class="docutils literal notranslate"><span class="pre">/&#64;DESIGN</span></code> stores the class and functions for designing algorithms for a target problem,
+including functions for initializing, searching, and evaluating algorithms. <code class="docutils literal notranslate"><span class="pre">/&#64;SOLVE</span></code> contains the
+class and functions for solving the target problem by the designed algorithms, e.g., functions for
+inputting algorithms, executing the algorithms, and repairing solutions. <code class="docutils literal notranslate"><span class="pre">/Others</span></code> involves miscellaneous
+functions, e.g., sources of the GUI, functions of experimental tools, etc. The <code class="docutils literal notranslate"><span class="pre">Space.m</span></code> function is for
+constructing the design space by algorithmic components.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">/Components</span></code> folder contains the algorithmic components for constructing the design space.
+We package each component with ranges of its endogenous parameter values in a single <code class="docutils literal notranslate"><span class="pre">.m</span></code> file. For
+example, in <a class="reference external" href="#Figure2">Figure 2</a>, <code class="docutils literal notranslate"><span class="pre">choose_tournament.m</span></code> and <code class="docutils literal notranslate"><span class="pre">search_mu_gaussian.m</span></code> are the functions of the tournament selection <a class="reference external" href="../References/ref.html#ES+03">[ES+03]</a> and Gaussian mutation <a class="reference external" href="../References/ref.html#Fog98">[Fog98]</a>, respectively. All the component functions are
+written in the same structure, so users can easily implement and add new components to the library
+according to existing ones.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">/Problems</span></code> folder is for the target problems. A problem template, i.e., the <code class="docutils literal notranslate"><span class="pre">prob_template.m</span></code>
+in <a class="reference external" href="#Figure2">Figure 2</a>, is given to guide users to easily implement and interface their problems with the library.</p>
 <br></section>
 <section id="classes">
 <h2>2.2.2  Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
-<p>We involve only two classes in AutoOptLib, namely <strong>DESIGN</strong> and <strong>SOLVE</strong>, which manage the process of
-designing algorithms for a target problem and solving the target problem by the designed algorithms,
-respectively. The class diagram is given in <a class="reference external" href="#Figure3">Figure 3</a>. An object of the <strong>DESIGN</strong> class is a designed algorithm with several properties, e.g., <strong>operator</strong> (components that constitute the algorithm), <strong>parameter</strong>
-(endogenous parameters of the algorithm), and <strong>performance</strong> (performance of the algorithm). The
-class have some methods to be invoked by the objects. For example, the method <strong>Initialize()</strong> works
-on initializing the designed algorithms; <strong>Evaluate()</strong> is for evaluating the algorithms’ performance
-according to a design objective.</p>
-<p>An object of the <strong>SOLVE</strong> class is a solution to the target problem. It has several properties, including
-<strong>dec</strong> (decision variables), <strong>obj</strong> (objective value), <strong>con</strong> (constraint violation), etc. The class has several
-methods for achieving the solutions, such as <strong>InputAlg()</strong> (preprocessing and inputting the designed
-algorithm) and <strong>RunAlg()</strong> (running the algorithm on the target problem).</p>
 <p><a name="Figure3"></a></p>
-<div style="text-align:center">  <img src="../_static/Figure3.png" alt="图片标题"></div><br><div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div><br></section>
+<div style="text-align:center">  <img src="../_static/Figure3.png" alt="图片标题"></div><p>We involve only two classes in AutoOptLib, namely <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> and <code class="docutils literal notranslate"><span class="pre">SOLVE</span></code>, which manage the process of
+designing algorithms for a target problem and solving the target problem by the designed algorithms,
+respectively. The class diagram is given in <a class="reference external" href="#Figure3">Figure 3</a>. An object of the <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> class is a designed algorithm with several properties, e.g., <code class="docutils literal notranslate"><span class="pre">operator</span></code> (components that constitute the algorithm), <code class="docutils literal notranslate"><span class="pre">parameter</span></code>
+(endogenous parameters of the algorithm), and <code class="docutils literal notranslate"><span class="pre">performance</span></code> (performance of the algorithm). The
+class have some methods to be invoked by the objects. For example, the method <code class="docutils literal notranslate"><span class="pre">Initialize()</span></code> works
+on initializing the designed algorithms; <code class="docutils literal notranslate"><span class="pre">Evaluate()</span></code> is for evaluating the algorithms’ performance
+according to a design objective.</p>
+<p>An object of the <code class="docutils literal notranslate"><span class="pre">SOLVE</span></code> class is a solution to the target problem. It has several properties, including
+<code class="docutils literal notranslate"><span class="pre">dec</span></code> (decision variables), <code class="docutils literal notranslate"><span class="pre">obj</span></code> (objective value), <code class="docutils literal notranslate"><span class="pre">con</span></code> (constraint violation), etc. The class has several
+methods for achieving the solutions, such as <code class="docutils literal notranslate"><span class="pre">InputAlg()</span></code> (preprocessing and inputting the designed
+algorithm) and <code class="docutils literal notranslate"><span class="pre">RunAlg()</span></code> (running the algorithm on the target problem).</p>
+<br><div style="text-align: center;">Figure 3: Class diagram of AutoOptLib.</div><br></section>
 <section id="operating-sequence">
 <h2>2.2.3 Operating Sequence<a class="headerlink" href="#operating-sequence" title="Link to this heading"></a></h2>
-<p>AutoOptLib’s sequence diagram is depicted in <a class="reference external" href="#Figure4">Figure 4</a>. To begin with, the interface function AutoOpt.m invokes DESIGN.m to instantiate objects (the designed algorithms) of the DESIGN class.
-In detail, firstly, DESIGN.m uses the Initialize() method to initialize algorithms over the design
-space. Then, the algorithms’ performance on solving the “training” instances <sup><a class="reference external" href="#note1">1</a></sup> of the target problem
-is evaluated by the Evaluate() method. To get the performance, the Evaluate() method invokes
-the SOLVE class, and SOLVE further calls functions of the algorithms’ components and function of the
-target problem. Finally, the initial algorithms are returned to AutoOpt.m.</p>
 <p><a name="Figure4"></a></p>
 <p><img alt="图片标题" src="../_images/Figure4.png" /></p>
-<div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div>
+<div style="text-align: center;">Figure 4: Sequence diagram of AutoOptLib.</div><p>AutoOptLib’s sequence diagram is depicted in <a class="reference external" href="#Figure4">Figure 4</a>. To begin with, the interface function <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code> invokes <code class="docutils literal notranslate"><span class="pre">DESIGN.m</span></code> to instantiate objects (the designed algorithms) of the <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> class.
+In detail, firstly, <code class="docutils literal notranslate"><span class="pre">DESIGN.m</span></code> uses the <code class="docutils literal notranslate"><span class="pre">Initialize()</span></code> method to initialize algorithms over the design
+space. Then, the algorithms’ performance on solving the “training” instances <sup><a class="reference external" href="#note1">1</a></sup> of the target problem
+is evaluated by the <code class="docutils literal notranslate"><span class="pre">Evaluate()</span></code> method. To get the performance, the <code class="docutils literal notranslate"><span class="pre">Evaluate()</span></code> method invokes
+the <code class="docutils literal notranslate"><span class="pre">SOLVE</span></code> class, and <code class="docutils literal notranslate"><span class="pre">SOLVE</span></code> further calls functions of the algorithms’ components and function of the
+target problem. Finally, the initial algorithms are returned to AutoOpt.m.</p>
+<p>After initialization, AutoOptLib goes into iterative design. In each iteration, firstly, <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code> invokes <code class="docutils literal notranslate"><span class="pre">DESIGN.m</span></code>. Then, <code class="docutils literal notranslate"><span class="pre">DESIGN.m</span></code> instantiate new objects (new algorithms) of the <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> class based on the current ones by the <code class="docutils literal notranslate"><span class="pre">Disturb()</span></code> method. Next, the new algorithms’ performance is evaluated in the same scheme as in the initialization. After that, the new algorithms are returned to <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code>. Finally, the <code class="docutils literal notranslate"><span class="pre">Select()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> class is invoked to select promising algorithms from the current and new ones.</p>
+<p>After the iteration terminates, <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code> invokes the <code class="docutils literal notranslate"><span class="pre">Evaluate()</span></code> method of the <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> class to test the final algorithms’ performance on the test instances of the targeted problem. Then, the final algorithms are returned in <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code>.</p>
+<p>The above operating sequence has some significant advantages. Firstly, we keep functions of algorithmic components not interactive with each other but invoked independently by the <code class="docutils literal notranslate"><span class="pre">SOLVE</span></code> class. This independence provides great flexibility in designing various algorithms and extensibility to new components. Furthermore, we package design techniques in different methods (e.g., <code class="docutils literal notranslate"><span class="pre">Evaluate()</span></code>, <code class="docutils literal notranslate"><span class="pre">Select()</span></code>) of the <code class="docutils literal notranslate"><span class="pre">DESIGN</span></code> class. Such packaging brings good understandability and openness to new techniques without modifying the library’s architecture. In addition, we enclose the targeted problem separately and do not directly interact it with algorithmic components and design techniques. This separation allows users to easily interface their problems with the library and use the library without much knowledge of metaheuristics and design techniques, thereby ensuring the accessibility of the library to researchers and practitioners from different communities and domains.</p>
 <br>
 <br><hr class="docutils" />
 <p><a id="note1"></a>1. Since the distribution of instances of a real problem is often unknown, one has to sample some of the problem

@@ -22,6 +22,10 @@ The output of solving Eq. ([2](#Equation2)) is algorithm(s) with the best perfor
 To avoid the designed algorithms overfitting, the design process can be followed by validation 
 to investigate the generalization of the designed algorithms to instances from _**I**\{ **I**<sub>1</sub>_, _**I**<sub>2</sub>_, · · · , _**I**<sub>t</sub>_ }.
 
+<a name="Fig1"></a>
+![图片标题](../_static/Fig1.png)
+<div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div>
+
 The general process of automated design of metaheuristic optimizers can be abstracted into four
 parts, as shown in [Fig. 1](#Fig1). first, the design space collects of candidate primitives or components
 for instantiating metaheuristic algorithms. It regulates what algorithms can be found in principle.
@@ -30,13 +34,7 @@ the primitives or components from the design space. Third, the performance evalu
 how to measure the performance of the designed algorithms. The measured performance guides the
 design strategy to find desired algorithms. Finally, because the design aims to find algorithms with
 promising performance on solving a target problem, the target problem acts as external data to support
-the performance evaluation. This survey is organized according to the above four parts of automated
-design.
-
-<a name="Fig1"></a>
-![图片标题](../_static/Fig1.png)
-<div style="text-align: center;">Figure 1: Process of automated design of metaheuristic optimizers.</div>
-
+the performance evaluation. 
 
 <br>
 <br>
