@@ -1,9 +1,9 @@
-.. AutoOPT documentation master file, created by
+.. AutoOptLib documentation master file, created by
    sphinx-quickstart on Tue Sep 19 17:43:11 2023.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to AutoOPT documentation!
+Welcome to AutoOptLib documentation!
 ======================================
 
 .. toctree::
@@ -13,6 +13,7 @@ Welcome to AutoOPT documentation!
    GettingStart/Introduction
    GettingStart/Installation
    GettingStart/QuickStart
+   GettingStart/Contact
 
 .. toctree::
    :maxdepth: 1
@@ -21,6 +22,7 @@ Welcome to AutoOPT documentation!
    UserGuide/auto_alg_design
    UserGuide/AutoOptLib_Arch
    UserGuide/Use_AutoOptLib
+   UserGuide/Other_Use
 
 .. toctree::
    :maxdepth: 1
@@ -30,7 +32,16 @@ Welcome to AutoOPT documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: 4. References:
+   :caption: 4. Use Case:
+
+   UseCase/usecase
+   UseCase/Problem_Description
+   UseCase/Use_AutoOptLib_to_the_Problem
+   UseCase/Results_and_Analysis
+
+.. toctree::
+   :maxdepth: 1
+   :caption: 5. References:
 
    References/ref
 
