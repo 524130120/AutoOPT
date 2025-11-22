@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>1.2 Installation &mdash; AutoOPT Documentation v1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e160b93e"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e160b93e"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -89,7 +89,15 @@
              
   <section id="installation">
 <h1>1.2 Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
-<p>AutoOptLib is downloadable at <a class="reference external" href="https://github.com/qz89/AutoOpt">https://github.com/qz89/AutoOpt</a>. MATLAB R2018 or higher versions are recommended for using AutoOptLib. MATLAB R2020a or higher versions are required for invoking AutoOptLib’s GUI. Users can use, redistribute, and modify it under the terms of the GNU General Public License v3.0.</p>
+<p>AutoOptLib is downloadable at <a class="reference external" href="https://github.com/auto4opt/AutoOpt">https://github.com/auto4opt/AutoOpt</a>. The project ships both Matlab and Python implementations; choose the workflow that matches your environment. Users can use, redistribute, and modify it under the terms of the GNU General Public License v3.0.</p>
+<p><strong>Matlab.</strong> Use Matlab R2018 or newer (R2020a or higher is recommended for invoking AutoOptLib’s GUI). Required toolboxes include Statistics and Machine Learning, Communications, DSP System, Parallel Computing, and Signal Processing. After cloning the repository, add the root directory to the Matlab path.</p>
+<p><strong>Python.</strong> The Python port lives under <code class="docutils literal notranslate"><span class="pre">src/autooptlib</span></code> and targets Python 3.9 or newer. A typical installation from the project root is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>pytest<span class="w">  </span><span class="c1"># key runtime/test dependencies</span>
+</pre></div>
+</div>
+<p>You can then run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> at the project root to verify the Python installation.</p>
 </section>
 
 

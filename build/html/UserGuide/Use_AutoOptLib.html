@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2.3 Use AutoOptLib &mdash; AutoOPT Documentation v1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e160b93e"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e160b93e"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -53,7 +53,11 @@
 <li class="toctree-l1"><a class="reference internal" href="auto_alg_design.html">2.1 What is automated algorithm design?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AutoOptLib_Arch.html">2.2 AutoOptLib Architecture</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2.3 Use AutoOptLib</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#implement-problem">2.3.1 Implement Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implement-problem">2.3.1 Implement Problem</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implement-in-matlab">Implement in Matlab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implement-in-python">Implement in Python</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#define-design-space">2.3.2 Define Design Space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-autooptlib">2.3.3 Run AutoOptLib</a></li>
 </ul>
@@ -97,10 +101,13 @@
 <p>Following the three steps below to use AutoOptLib:</p>
 <section id="implement-problem">
 <h2>2.3.1 Implement Problem<a class="headerlink" href="#implement-problem" title="Link to this heading"></a></h2>
-<p>Users can implement their target optimization problem according to the template prob_template.m
-in the /Problems folder. prob_template.m has three main cases. Case ‘construct’ is for setting
+<p>AutoOptLib supports implementing the target problem in Matlab and Python. More formats will be supported in future versions.</p>
+<section id="implement-in-matlab">
+<h3>Implement in Matlab<a class="headerlink" href="#implement-in-matlab" title="Link to this heading"></a></h3>
+<p>Users can implement their target optimization problem according to the template <code class="docutils literal notranslate"><span class="pre">prob_template.m</span></code>
+in the <code class="docutils literal notranslate"><span class="pre">/Problems</span></code> folder. <code class="docutils literal notranslate"><span class="pre">prob_template.m</span></code> has three main cases. <code class="docutils literal notranslate"><span class="pre">Case</span> <span class="pre">‘construct’</span></code> is for setting
 problem properties and loading the input data. In particular, line 7 defines the problem type, e.g.,
-Problem.type = {‘continuous’,‘static’,‘certain’} refers to a continuous static problem without uncertainty in the objective function. Lines 10 and 11 define the lower and upper bounds of the
+<code class="docutils literal notranslate"><span class="pre">Problem.type</span> <span class="pre">=</span> <span class="pre">{‘continuous’,‘static’,‘certain’}</span></code> refers to a continuous static problem without uncertainty in the objective function. Lines 10 and 11 define the lower and upper bounds of the
 solution space. Lines 18 and 21 offer specific settings as indicated in the comments of lines 14-17 and
 20, respectively. Line 25 or 26 is for loading the input data. As a result, problem proprieties and data
 are saved in the Problem and Data structs, respectively.</p>
@@ -133,7 +140,7 @@ are saved in the Problem and Data structs, respectively.</p>
 <span class="w">    </span><span class="n">output2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Data</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Case ‘repair’ is for repairing solutions to keep them feasible, e.g., keeping the solutions within
+<p><code class="docutils literal notranslate"><span class="pre">Case</span> <span class="pre">‘repair’</span></code> is for repairing solutions to keep them feasible, e.g., keeping the solutions within
 the box constraint. Lines 2 and 3 input the problem data and solutions (decision variables). Programs
 for repairing solutions should be written from line 5. Finally, the repaired solutions will be returned.</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="s">&#39;repair&#39;</span><span class="w"> </span><span class="c">% repair solutions</span>
@@ -144,15 +151,12 @@ for repairing solutions should be written from line 5. Finally, the repaired sol
 <span class="w">    </span><span class="n">output1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Decs</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Case ‘evaluate’ is for evaluating solutions’ fitness (objective values penalized by constraint violations). In detail, lines 2 and 3 input the problem data and solutions. The target problem’s objective
+<p><code class="docutils literal notranslate"><span class="pre">Case</span> <span class="pre">‘evaluate’</span></code> is for evaluating solutions’ fitness (objective values penalized by constraint violations). In detail, lines 2 and 3 input the problem data and solutions. The target problem’s objective
 function should be written from line 6. Constraint functions should be written from line 8. Constraint
 violation can be calculated in line 10 by <a class="reference external" href="../References/ref.html#JD13">[JD13]</a>:</p>
 <p><a name="Equation3"></a>
 <img alt="Equation3" src="../_images/Equation3.png" /></p>
-<p>where <strong><em>CV</em>(x)</strong> is the constraint violation of solution <strong>x</strong>;</p>
-<p>̄</p>
-<p><strong><em>ḡ<sub>j</sub></em>(x)</strong> and <strong><em>h̄<sub>k</sub></em>(x)</strong> are the <em>j</em> th normalized inequality
-constraint and <em>k</em> th normalized equality constraint, respectively, in which the normalization can be done
+<p>where <strong><em>CV</em>(x)</strong> is the constraint violation of solution <strong>x</strong>; <strong><em>ḡ<sub>j</sub></em>(x)</strong> and <strong><em>h̄<sub>k</sub></em>(x)</strong> are the <em>j</em> th normalized inequality constraint and <em>k</em> th normalized equality constraint, respectively, in which the normalization can be done
 by dividing the constraint functions by the constant in this constraint present (i.e., for <strong><em>g<sub>j</sub></em>(x)</strong> ≥ <strong><em>b<sub>j</sub></em></strong> , the
 normalized constraint function becomes <strong><em>ḡ<sub>j</sub></em>(x)</strong> = <strong><em>g<sub>j</sub></em>(x)</strong> / <strong><em>b<sub>j</sub></em></strong> ≥ 0,
 and similarly <strong><em>h̄<sub>k</sub></em>(x)</strong> can be normalized equality constraint); the bracket operator
@@ -177,20 +181,60 @@ constraint violations, and accessory data will be returned by lines 13-15.</p>
 <span class="w">    </span><span class="n">output3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="c">% matrix or cells for saving accessory data (optional), a solution&#39;s accessory data should be saved in a row</span>
 </pre></div>
 </div>
-<p>Examples of problem implementation can be seen in the <strong>CEC 2005</strong> benchmark problem files
-in the <strong>/Problems/CEC2005 Benchmarks</strong> folder. The implementation of a real constrained problem
-<strong>beamforming.m</strong> is given in the <strong>/Problems/Real-World/Beanforming</strong> folder.</p>
+<p>Examples of problem implementation can be seen in the <code class="docutils literal notranslate"><span class="pre">/Problems/CEC2005</span> <span class="pre">Benchmarks</span></code> folder. The implementation of a real constrained problem
+<code class="docutils literal notranslate"><span class="pre">beamforming.m</span></code> is given in the <code class="docutils literal notranslate"><span class="pre">/Problems/Real-World/Beanforming</span></code> folder.</p>
+</section>
+<section id="implement-in-python">
+<h3>Implement in Python<a class="headerlink" href="#implement-in-python" title="Link to this heading"></a></h3>
+<p>The Python port expects a callable with the same three-mode interface used by Matlab problems. The callable receives a list of problem descriptors, a list of instance indices (or decision vectors when evaluating), and a mode string. A minimal example is shown below; save it as <code class="docutils literal notranslate"><span class="pre">myproblem.py</span></code> and import the callable when running AutoOptLib from Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sphere_problem</span><span class="p">(</span><span class="n">problems</span><span class="p">,</span> <span class="n">instances</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;construct&quot;</span><span class="p">:</span>
+        <span class="c1"># instances store the dimensionality here</span>
+        <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">problems</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+            <span class="n">prob</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;continuous&quot;</span><span class="p">,</span> <span class="s2">&quot;static&quot;</span><span class="p">,</span> <span class="s2">&quot;certain&quot;</span><span class="p">]</span>
+            <span class="n">prob</span><span class="o">.</span><span class="n">bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">5.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">d</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">_evaluate</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">dec</span><span class="p">):</span>
+                <span class="n">decs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">decs</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">con</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="kc">None</span>
+
+            <span class="n">prob</span><span class="o">.</span><span class="n">evaluate</span> <span class="o">=</span> <span class="n">_evaluate</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">instances</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">problems</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;repair&quot;</span><span class="p">:</span>
+        <span class="c1"># no repair needed for this unconstrained sphere example</span>
+        <span class="k">return</span> <span class="n">instances</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;evaluate&quot;</span><span class="p">:</span>
+        <span class="c1"># instances now carry decision vectors</span>
+        <span class="n">decs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">decs</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">con</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">con</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported mode: </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This callable can be passed directly as <code class="docutils literal notranslate"><span class="pre">Problem=sphere_problem</span></code> when using the Python API.</p>
+</section>
 </section>
 <section id="define-design-space">
 <h2>2.3.2 Define Design Space<a class="headerlink" href="#define-design-space" title="Link to this heading"></a></h2>
-<p>AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in
-the <strong>/Components</strong> folder. The included components are listed in <a class="reference external" href="../GettingStart/Introduction.html#table1">Table 1</a>.</p>
+<p>AutoOptLib provides over 40 widely-used algorithmic components for designing algorithms for continuous, discrete, and permutation problems. Each component is packaged in an independent .m file in the <code class="docutils literal notranslate"><span class="pre">/Components</span></code> folder. The included components are listed in <a class="reference external" href="../GettingStart/Introduction.html#table1">Table 1</a>.</p>
 <p>The default design space for each type of problems covers all the involved components for this type.
-Users can either employ the default space with the furthest potential to discover novelty or define a
-narrow space in <strong>Space.m</strong> in the <strong>/Utilities</strong> folder according to interest. For example, when designing
-algorithms for continuous problems, the candidate Search components can be set by collecting the
+Users can either employ the default space or define a narrow space in <code class="docutils literal notranslate"><span class="pre">Space.m</span></code> in the <code class="docutils literal notranslate"><span class="pre">/Utilities</span></code> folder according to interest. For example, when designing algorithms for continuous problems, the candidate Search components can be set by collecting the
 string of component file name in line 3. More components can be added, which will be detailed in
-Section 3.1.</p>
+Section <a class="reference external" href="../DeveloperGuide/Extend_AutoOptLib.html#extend-autooptlib">3.1</a>.</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="k">case</span><span class="w"> </span><span class="s">&#39;continuous&#39;</span>
 <span class="w">    </span><span class="n">Choose</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;choose_traverse&#39;</span><span class="p">;</span><span class="s">&#39;choose_tournament&#39;</span><span class="p">;</span><span class="s">&#39;choose_roulette_wheel&#39;</span><span class="p">;</span><span class="s">&#39;choose_brainstorm&#39;</span><span class="p">;</span><span class="s">&#39;choose_nich&#39;</span><span class="p">};</span><span class="w"> </span>
 <span class="w">    </span><span class="n">Search</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;search_pso&#39;</span><span class="p">;</span><span class="s">&#39;search_de_current&#39;</span><span class="p">;</span><span class="s">&#39;search_de_current_best&#39;</span><span class="p">;</span><span class="s">&#39;search_de_random&#39;</span><span class="p">;</span><span class="s">&#39;cross_arithmetic&#39;</span><span class="p">;</span><span class="s">&#39;cross_sim_binary&#39;</span><span class="p">;</span><span class="s">&#39;cross_point_one&#39;</span><span class="p">;</span><span class="s">&#39;cross_point_two&#39;</span><span class="p">;</span><span class="s">&#39;cross_point_uniform&#39;</span><span class="p">;</span><span class="s">&#39;search_mu_gaussian&#39;</span><span class="p">;</span><span class="s">&#39;search_mu_cauchy&#39;</span><span class="p">;</span><span class="s">&#39;search_mu_polynomial&#39;</span><span class="p">;</span><span class="s">&#39;search_mu_uniform&#39;</span><span class="p">;</span><span class="s">&#39;search_eda&#39;</span><span class="p">;</span><span class="s">&#39;search_cma&#39;</span><span class="p">;</span><span class="s">&#39;reinit_continuous&#39;</span><span class="p">};</span>
@@ -213,47 +257,64 @@ Section 3.1.</p>
 <p>Users can run AutoOptLib either by Matlab command or GUI.</p>
 <p><strong>Run by Command:</strong></p>
 <p>Users can run AutoOptLib by typing the following command in MATLAB command window:</p>
-<div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div><p>where name and value refer to the input parameter’s name and value, respectively. The parameters
-are introduced in <a class="reference external" href="#table4">Table 4</a>. In particular, parameters <strong>Metric</strong> and <strong>Evaluate</strong> define the design objective
-and algorithm performance evaluation method, respectively. They are summized in <a class="reference external" href="../GettingStart/Introduction.html#table2">Table 2</a>
+<div style="text-align: center; font-weight: bold;">AutoOpt(‘name1’,value1,‘name2’,value2,...),</div><p>where <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> refer to the input parameter’s name and value, respectively. The parameters
+are introduced in <a class="reference external" href="#table4">Table 4</a>. In particular, parameters <code class="docutils literal notranslate"><span class="pre">*Metric</span></code> and <code class="docutils literal notranslate"><span class="pre">Evaluate</span></code> define the design objective
+and algorithm performance evaluation method, respectively. They are summarized in <a class="reference external" href="../GettingStart/Introduction.html#table2">Table 2</a>
 and <a class="reference external" href="../GettingStart/Introduction.html#table3">Table 3</a>, respectively.</p>
-<p>Parameters <strong>Problem</strong>, <strong>InstanceTrain</strong>, <strong>InstanceTest</strong>, and <strong>Mode</strong> are mandatory to input into the
+<p>Parameters <code class="docutils literal notranslate"><span class="pre">Problem</span></code>, <code class="docutils literal notranslate"><span class="pre">InstanceTrain</span></code>, <code class="docutils literal notranslate"><span class="pre">InstanceTest</span></code>, and <code class="docutils literal notranslate"><span class="pre">Mode</span></code> are mandatory to input into the
 command. For other parameters, users can either use their default values without input to the
 command or input by themselves for sophisticated functionality. The default parameter values can
-be seen in <strong>AutoOpt.m</strong>. As an example, <strong>AutoOpt(‘Mode’, ‘design’, ‘Problem’, ‘CEC2005 f1’,
-‘InstanceTrain’, [1,2], ‘InstanceTest’, 3, ‘Metric’, ‘quality’)</strong> is for designing algorithms
-with the best solution quality on the <strong>CEC2005 f1</strong> problem.</p>
+be seen in <code class="docutils literal notranslate"><span class="pre">AutoOpt.m</span></code>. As an example, <code class="docutils literal notranslate"><span class="pre">AutoOpt(‘Mode’,</span> <span class="pre">‘design’,</span> <span class="pre">‘Problem’,</span> <span class="pre">‘CEC2005</span> <span class="pre">f1’,</span> <span class="pre">‘InstanceTrain’,</span> <span class="pre">[1,2],</span> <span class="pre">‘InstanceTest’,</span> <span class="pre">3,</span> <span class="pre">‘Metric’,</span> <span class="pre">‘quality’)</span></code> is for designing algorithms
+with the best solution quality on the CEC2005 f1 problem.</p>
 <p>There are also conditional parameters when certain options of the main parameters are chosen.
-For example, setting <strong>Metric</strong> to <strong>runtimeFE</strong> incurs conditional parameter <strong>Thres</strong> to define the algorithm
+For example, setting <code class="docutils literal notranslate"><span class="pre">Metric</span></code> to <code class="docutils literal notranslate"><span class="pre">runtimeFE</span></code> incurs conditional parameter <code class="docutils literal notranslate"><span class="pre">Thres</span></code> to define the algorithm
 performance threshold for counting the runtime. All conditional parameters have default values and
 are unnecessary to set in the command.</p>
 <p>After AutoOptLib running terminates, results will be saved as follows:</p>
 <ul class="simple">
-<li><p>If running the <strong>design</strong> mode,</p>
+<li><p>If running the <code class="docutils literal notranslate"><span class="pre">design</span></code> mode,</p>
 <ol class="simple">
-<li><p>The designed algorithms’ graph representations, phenotypes, parameter values, and performance will be saved as <strong>.mat</strong> table in the root dictionary.
-Algorithms in the <strong>.mat</strong> table can later be called by the <strong>solve</strong> mode to apply to solve the target problem or make experimental comparisons with other algorithms.</p></li>
-<li><p>A report of the designed algorithms’ pseudocode and performance will be saved as <strong>.xlsx</strong> table. Users can read, analyze, and compare the algorithms through the report.</p></li>
-<li><p>The convergence curve of the design process (algorithms’ performance versus the iteration of design) will be depicted and saved as <strong>.fig</strong> figure.
+<li><p>The designed algorithms’ graph representations, phenotypes, parameter values, and performance will be saved as <code class="docutils literal notranslate"><span class="pre">.mat</span></code> table in the root dictionary.
+Algorithms in the <code class="docutils literal notranslate"><span class="pre">.mat</span></code> table can later be called by the <code class="docutils literal notranslate"><span class="pre">solve</span></code> mode to apply to solve the target problem or make experimental comparisons with other algorithms.</p></li>
+<li><p>A report of the designed algorithms’ pseudocode and performance will be saved as <code class="docutils literal notranslate"><span class="pre">.csv</span></code> table. Users can read, analyze, and compare the algorithms through the report.</p></li>
+<li><p>The convergence curve of the design process (algorithms’ performance versus the iteration of design) will be depicted and saved as <code class="docutils literal notranslate"><span class="pre">.fig</span></code> figure.
 Users can visually analyze the design process and compare different design techniques through the figure.</p></li>
 </ol>
 </li>
-<li><p>If running the <strong>solve</strong> mode,</p>
+<li><p>If running the <code class="docutils literal notranslate"><span class="pre">solve</span></code> mode,</p>
 <ol class="simple">
-<li><p>Solutions to the target problem will be saved as <strong>.mat</strong> table and <strong>.xlsx</strong> table.</p></li>
-<li><p>Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in <strong>.fig</strong> figure.</p></li>
+<li><p>Solutions to the target problem will be saved as <code class="docutils literal notranslate"><span class="pre">.mat</span></code> table and <code class="docutils literal notranslate"><span class="pre">.csv</span></code> table.</p></li>
+<li><p>Convergence curves of the problem-solving process (solution quality versus algorithm execution) will be plotted in <code class="docutils literal notranslate"><span class="pre">.fig</span></code> figure.</p></li>
 </ol>
 </li>
 </ul>
-<br><p><strong>Run by GUI:</strong></p>
-<p>The <strong>GUI</strong> can be invoked by the command <strong>AutoOpt()</strong> without inputting parameters. It is shown in <a class="reference external" href="#Figure5">Figure 5</a>. The <strong>GUI</strong> has three panels, i.e., <strong>Design</strong>, <strong>Solve</strong>, and <strong>Results</strong>:</p>
+<br><p><strong>Python: solving with a built-in algorithm</strong></p>
+<p>Below is a minimal Python example for solving a problem with a built-in algorithm; save it as <code class="docutils literal notranslate"><span class="pre">examples/solve_demo.py</span></code> and run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">examples/solve_demo.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">autooptlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">autoopt</span>
+
+
+<span class="n">best_runs</span><span class="p">,</span> <span class="n">all_runs</span> <span class="o">=</span> <span class="n">autoopt</span><span class="p">(</span>
+    <span class="n">Mode</span><span class="o">=</span><span class="s2">&quot;solve&quot;</span><span class="p">,</span>
+    <span class="n">Problem</span><span class="o">=</span><span class="s2">&quot;cec2013_f1&quot;</span><span class="p">,</span>
+    <span class="n">InstanceSolve</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+    <span class="n">AlgName</span><span class="o">=</span><span class="s2">&quot;Continuous Random Search&quot;</span><span class="p">,</span>
+    <span class="n">AlgRuns</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">ProbN</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">ProbFE</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+    <span class="n">Metric</span><span class="o">=</span><span class="s2">&quot;quality&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best fitness:&quot;</span><span class="p">,</span> <span class="n">best_runs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Run by GUI:</strong></p>
+<p><img alt="图片标题" src="../_images/Figure5.png" /></p>
+<div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div><p>The GUI can be invoked by the command <code class="docutils literal notranslate"><span class="pre">AutoOpt()</span></code> without inputting parameters. It is shown in <a class="reference external" href="#Figure5">Figure 5</a>. The GUI has three panels, i.e., Design, Solve, and Results:</p>
 <ul>
 <li><p>The Design panel is for designing algorithms for a target problem. It has two subpanels, i.e., Input Problem and Set Parameters:</p>
 <ul class="simple">
 <li><p>Users should load the function of their target problem and set the indexes of training and test instances in the Input Problem subpanel.</p></li>
-<li><p>Users can set the main and conditional parameters related to the design in the Set Parameters subpanel. All parameters have default values for non-expert users’ convenience.
-The objective of design, the method for comparing the designed algorithms, and the method for evaluating the algorithms can be chosen by the pop-up menus of the Metric, Compare, and
-Evaluate fields, respectively.</p></li>
+<li><p>Users can set the main and conditional parameters related to the design in the Set Parameters subpanel. All parameters have default values for non-expert users’ convenience. The objective of design, the method for comparing the designed algorithms, and the method for evaluating the algorithms can be chosen by the pop-up menus of the Metric, Compare, and Evaluate fields, respectively.</p></li>
 </ul>
 <p>After setting the problem and parameters, users can start the run by clicking the RUN bottom.</p>
 </li>
@@ -270,8 +331,7 @@ the Algorithm File field to solve the target problem. Alternatively, users can c
 AutoOptLib now provides 17 classic metaheuristic algorithms in the menu. After the problemsolving terminates, the convergence curve and best solutions will be displayed in the axes and
 table areas of the Results panel, respectively; detailed results can be exported by the pop-up menu at the bottom.</p></li>
 </ul>
-<p><img alt="图片标题" src="../_images/Figure5.png" /></p>
-<div style="text-align: center;">Figure 5: GUI of AutoOptLib.</div><br>
+<br>
 <br><p><a name="table4"></a></p>
 <div style="text-align: center;">Table 4: Parameters in the commands for running AutoOptLib.</div><table border="1" class="docutils">
 <thead>
@@ -418,7 +478,7 @@ table areas of the Results panel, respectively; detailed results can be exported
 <td>Algorithm file name, e.g., Algs</td>
 </tr>
 </tbody>
-</table><p>[^*]: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a  local search over neighborhood region. As an example, in cases with LSRange= 0.2, the uniform mutation with probability lower than 0.2 is regarded as performing local search, and the probability equals or higher than 0.2 performs global search.</p>
+</table><p>[^*]: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of the uniform mutation operator indicates a global search, while a small probability indicates a local search over neighborhood region. As an example, in cases with <code class="docutils literal notranslate"><span class="pre">LSRange=0.2</span></code>, the uniform mutation with probability lower than <code class="docutils literal notranslate"><span class="pre">0.2</span></code> is regarded as performing local search, and the probability equals or higher than <code class="docutils literal notranslate"><span class="pre">0.2</span></code> performs global search.</p>
 </section>
 </section>
 

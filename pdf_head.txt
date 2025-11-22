@@ -1,0 +1,252 @@
+
+
+===== PAGE 1 =====
+AUTOOPTLIBDOCUMENTATION
+November 2025
+1 G ETTING STARTED
+1.1 I NTRODUCTION
+AutoOptLib is a Matlab/Python library for automatically designing metaheuristic optimizers. It
+provides:
+1. Rich library of design choices - Over 40 representative metaheuristic components for de-
+signing algorithms for continuous, discrete, and permutation problems with/without con-
+straints and uncertainties (Table 1).
+2. Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a
+single run, enables great possibility to find novel and efficient algorithms.
+3. Fair benchmark of various design objectives and techniques - Various design objectives,
+e.g., solution quality, runtime, and anytime performance (Table 2). Different design tech-
+niques, e.g., racing, intensification, and surrogate (Table 3).
+4. Good accessibility - Graphical user interface (GUI) for users to input problems, manage
+the algorithm design process, make experimental comparisons, and visualize results with
+simple one-clicks.
+5. Easy extensibility - Easily add new algorithm components, objectives, and techniques by a
+uniform interface.
+AutoOptLib’s benefits include:
+1. Save labor resources and time - Human experts may cost days or weeks to conceive, build
+up, and verify the optimizers; AutoOptLib would saves such labor resources and time costs
+with today’s increasing computational power.
+2. Democratize metaheuristic optimizers - Through automated algorithm design techniques,
+AutoOptLib would democratize the efficient and effective use of metaheuristic optimizers.
+This is significant for researchers and practitioners with complicated optimization problem-
+solving demands but without the expertise to distinguish and manage suitable optimizers
+among various choices.
+3. Surpass human algorithm design - By fully exploring potential design choices and discov-
+ering novelties with computing power, AutoOptLib would go beyond human experience
+and gain enhanced performance regarding human problem-solving.
+4. Promote metaheuristic research - With a uniform collection of related techniques, Au-
+toOptLib would promote research of the automated algorithm design and metaheuristic
+fields and be a tool in the pursuit of autonomous and general artificial intelligence systems.
+1
+
+===== PAGE 2 =====
+AutoOptLib Documentation November 2025
+Table 1: Metaheuristic algorithm components provided in AutoOptLib.
+Component Description
+Choose where to search from:
+choose roulette wheel Roulette wheel selection
+choose tournament K-tournament selection
+choose traverse Choose each of the current solutions to search from
+choose brainstorm Brain storm optimization’s idea picking up for choosing solutions to search from
+choose nich Adaptive niching based on the nearest-better clustering
+Discrete search:
+search reset one Reset a randomly selected entity to a random value
+search reset rand Reset each entity to a random value with a probability
+search reset creep Add a small positive or negative value to each entity with a probability, for ordinal problems
+search cross point one One-point crossover
+search cross point two Two-point crossover
+search cross point n n-point crossover
+search cross uniform Uniform crossover
+reinit discrete Random reinitialization for discrete problems
+Permutation search:
+search swap Swap two randomly selected entities
+search swap multi Swap each pair of entities between two randomly selected indices
+search scramble Scramble all the entities between two randomly selected indices
+search insert Randomly select two entities, insert the second entity to the position following the first one
+search cross order two Two-order crossover
+search cross order n n-order crossover
+reinit permutation Random reinitialization for permutation problems
+Continuous search:
+search cross arithmetic Whole arithmetic crossover
+search cross simbinary Simulated binary crossover
+search cross point one One-point crossover
+search cross point two Two-point crossover
+search cross point n n-point crossover
+search cross uniform Uniform crossover
+search cma The evolution strategy with covariance matrix adaption
+search eda The estimation of distribution
+search mucauchy Cauchy mutation
+search mugaussian Gaussian mutation
+search mupolynomial Polynomial mutation
+search muuniform Uniform mutation
+search pso Particle swarm optimization’s particle fly and update
+search derandom The ”random/1” differential mutation
+search decurrent The ”current/1” differential mutation
+search decurrent best The ”current-to-best/1” differential mutation
+reinit continuous Random reinitialization for continuous problems
+Select promising solutions:
+update always Always select new solutions
+update greedy Select the best solutions
+update pairwise Select the better solution from each pair of old and new solutions
+update round robin Select solutions by round-robin tournament
+update simulated annealing Simulated annealing’s update mechanism, i.e., accept worse solution with a probability
+Archive:
+archive best Collect the best solutions found so far
+archive diversity Collect most diversified solutions found so far
+archive tabu The tabu list
+Table 2: Design objectives involved in AutoOptLib.
+Objective Description
+quality The designed algorithm’s solution quality on the target problem within a fixed
+computational budget.
+runtimeFE The designed algorithm’s running time (number of function evaluations) till
+reaching a performance threshold on solving the target problem.
+runtimeSec The designed algorithm’s running time (wall clock time, in second) till reaching
+a performance threshold on solving the target problem.
+auc The area under the curve (AUC) of empirical cumulative distribution function of
+running time, measuring the anytime performance Ye et al. (2022).
+2
+
+===== PAGE 3 =====
+AutoOptLib Documentation November 2025
+Table 3: Algorithm performance evaluation methods provided in AutoOptLib.
+Method Description
+exact Exactly run all the designed algorithms on all test problem instances.
+approximate Use low complexity surrogate to approximate the designed algorithms’ perfor-
+mance without full evaluation.
+racing L´opez-Ib ´a˜nez
+et al. (2016)Save algorithm evaluations by stopping evaluating on the next instance if perfor-
+mance is statistically worse than at least another algorithm.
+intensification
+Hutter et al. (2009)Save algorithm evaluations by stopping evaluating on the next instance if perfor-
+mance is worse than the incumbent.
+1.2 I NSTALLATION
+AutoOptLib is downloadable at https://github.com/auto4opt/AutoOpt . The project
+ships both Matlab and Python implementations; choose the workflow that matches your environ-
+ment. Users can use, redistribute, and modify under the terms of GNU General Public License
+v3.0.
+Matlab. Use Matlab R2018 or newer (R2020a+ recommended for GUI support). Required tool-
+boxes are Statistics and Machine Learning, Communications, DSP System, Parallel Computing, and
+Signal Processing. After cloning the repository, add the root directory to the Matlab path.
+Python. The Python port lives under src/autooptlib and targets Python 3.9+. Install with
+1 python −m p i p i n s t a l l −− upgrade p i p
+2 python −m p i p i n s t a l l −e .
+3 python −m p i p i n s t a l l numpy p y t e s t # key r u n t i m e / t e s t d e p e n d e n c i e s
+Verify the setup with pytest .
+1.3 Q UICK START
+Following the steps to use AutoOptLib:
+1. Install AutoOptLib (add the repository to the Matlab path, or follow the Python installation
+steps in Section 1.2).
+2. Implement the target optimization problem.
+3. Define the space for designing algorithms.
+4. Run AutoOptLib by command or GUI.
+Steps 2, 3, and 4 will be detailed in Sections 2.3.1, 2.3.2, and 2.3.3, respectively. Concrete, runnable
+examples for both Matlab and Python are collected in Section 3.
+1.4 C ONTACT
+AutoOptLib is developed and maintained by the Swarm Intelligence laboratory, Department of Com-
+puter Science and Engineering, Southern University of Science and Technology.
+Users may ask question in the Issues block and upload contributions by Pulling request in Au-
+toOptLib’s Github repository ( https://github.com/auto4opt/AutoOpt ).
+For any question, comment, or suggestion, please feel free to get in touch with Dr. Qi Zhao, Depart-
+ment of Computer Science and Engineering, Southern University of Science and Technology, email:
+zhaoq@sustech.edu.cn .
+3
+
+===== PAGE 4 =====
+AutoOptLib Documentation November 2025
+2 U SERGUIDE
+2.1 W HAT IS AUTOMATED ALGORITHM DESIGN ?
+Without loss of generality, the automated design of metaheuristic algorithms aims to handle the
+following task (Zhao et al., 2023):
+arg max
+A∈AEi∼Ih
+Eϵ∼P
+g(A|i, ϵ)i
+, (1)
+where Adenotes a candidate algorithm from the design space A, which consists of modular compo-
+nents and their hyperparameters. The function g(A|i, ϵ)evaluates the performance of algorithm A
+on instance idrawn from the target problem distribution I, under stochastic randomness ϵ(e.g., ini-
+tialization, sampling, or random seed). To account for this stochasticity, the expected performance
+is computed by averaging over multiple draws of ϵ∼ P. In practice, the unknown distribution Iis
+approximated using a finite training set Itrain⊂ I. A separate set Itest⊂ I \Itrainis used to evaluate
+the generalization performance of the designed algorithm.
+The general process of automated design of metaheuristic optimizers can be abstracted into four
+parts, as shown in Fig. 1. First, the design space collects of candidate primitives or components
+for instantiating metaheuristic algorithms. It regulates what algorithms can be found in principle.
+Second, the design strategy provides a principle way to design algorithms by selecting and combin-
+ing the primitives or components from the design space. Third, the performance evaluation strategy
+defines how to measure the performance of the designed algorithms. The measured performance
+guides the design strategy to find desired algorithms. Finally, because the design aims to find algo-
+rithms with promising performance on solving a target problem, the target problem acts as external
+data to support the performance evaluation.
+Produce 
+Algorithms  Evaluate
+Performance Target
+Problem  Construct
+Design Space
+Figure 1: Process of automated design of metaheuristic optimizers.
+2.2 A UTOOPTLIBARCHITECTURE
+2.2.1 F ILESTRUCTURE
+The file structure of AutoOptLib is given in Figure 2. As shown in Figure 2, source files of the library
+are organized in a clear and concise structure. One interface function AutoOpt.m and three folders
+are in the root directory. The folder /Utilities contains public classes and functions. Specifically, the
+subfolder /@DESIGN stores the class and functions for designing algorithms for a target problem,
+including functions for initializing, searching, and evaluating algorithms. /@SOLVE contains the
+class and functions for solving the target problem by the designed algorithms, e.g., functions for
+inputting algorithms, executing the algorithms, and repairing solutions. /Others involves miscella-
+neous functions, e.g., sources of the GUI, functions of experimental tools, etc. The Space.m function
+is for constructing the design space by algorithm components.
+The/Components folder contains the algorithm components for constructing the design space. We
+package each component with ranges of its endogenous parameter values in a single .mfile. For
+example, in Figure 2, choose tournament.m andsearch mugaussian.m are the functions of the
+tournament selection Eiben et al. (2003) and Gaussian mutation Fogel (1998), respectively. All
+the component functions are written in the same structure, so users can easily implement and add
+new components to the library according to existing ones.
+Finally, the /Problems folder is for the target problems. A problem template prob template.m in
+Figure 2, is given to guide users to easily implement and interface their problems with the library. A
+python interface prob interface.py is also provided.
+4
+
+===== PAGE 5 =====
+AutoOptLib Documentation November 2025
+/Uti l i ties
+DESIGN.m/A utoOptLib
+/@DESIGN
+......I ni tial iz e.m
+SOL VE.m/@SOL VE
+......I nputAlg.m
+/Others
+/APPA utoOpt.m /Components /Pr oblems
+choose_tournament.m
+sear ch_mu_gaussian.m
+sear ch_sw ap .m
+update_r ound_r obin.m
+............pr ob_template.m
+......
+Space.mpr ob_interf ace.p y
+Figure 2: File structure of AutoOptLib.
+2.2.2 C LASSES
+We involve two main classes in AutoOptLib, namely DESIGN andSOLVE , which manage the pro-
+cess of designing algorithms for a target problem and solving the target problem by the designed
+algorithms, respectively. The class diagram is given in Figure 3. An object of the DESIGN class
+is a designed algorithm with several properties, e.g., operator (components that constitute the
+algorithm), parameter (endogenous parameters of the algorithm), and performance (perfor-
+mance of the algorithm). The class have some methods to be invoked by the objects. For example,
+the method Initialize() works on initializing the designed algorithms; Evaluate() is for
+evaluating the algorithms’ performance according to a design objective.
+DESIGN
+oper ator
+par ameter
+perf ormance
+......
+I ni tial iz e()
+Ev aluate()
+......SOL VE
+dec
+obj
+con
+......
+I nputAlg()
+R unAlg()
+......
+Figure 3: Class diagram of AutoOptLib.
+An object of the SOLVE class is a solution to the target problem. It has several properties, including
+dec (decision variables), obj (objective value), con (constraint violation), etc. The class has
+5

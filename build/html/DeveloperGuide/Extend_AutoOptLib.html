@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>3.1 Extend AutoOptLib &mdash; AutoOPT Documentation v1.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=e160b93e"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e160b93e"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -89,8 +89,7 @@
              
   <section id="extend-autooptlib">
 <h1>3.1 Extend AutoOptLib<a class="headerlink" href="#extend-autooptlib" title="Link to this heading"></a></h1>
-<p>AutoOptLib follows the open-closed principle [<a class="reference external" href="../References/ref.html#Mey97">Mey97</a>, <a class="reference external" href="../References/ref.html#Lar01">Lar01</a>]. Users can implement their
-algorithmic components, design objectives, and algorithm performance evaluation techniques based on the current
+<p>AutoOptLib follows the open-closed principle [<a class="reference external" href="../References/ref.html#Mey97">Mey97</a>, <a class="reference external" href="../References/ref.html#Lar01">Lar01</a>]. Users can implement their algorithmic components, design objectives, and algorithm performance evaluation techniques based on the current
 sources, and add the implementations to the library by a uniform interface. Taking Listing 1 as an
 example, new algorithmic components can be added as follows.</p>
 <p><a name="listing1"></a></p>
@@ -130,28 +129,28 @@ example, new algorithmic components can be added as follows.</p>
 </pre></div>
 </div>
 <p>An algorithmic component is implemented in an independent function with three main cases.
-Case <strong>execute</strong> refers to executing the component. There are seven optional inputs:</p>
+<code class="docutils literal notranslate"><span class="pre">Case</span> <span class="pre">'execute'</span></code> refers to executing the component. There are seven optional inputs:</p>
 <ol class="simple">
-<li><p>Current solutions, i.e., <strong>Parent</strong> in line 5.</p></li>
-<li><p>The problem proprieties, i.e., <strong>Problem</strong> in line 6.</p></li>
-<li><p>The component’s inner parameters, i.e., <strong>Para</strong> in line 7.</p></li>
+<li><p>Current solutions, i.e., <code class="docutils literal notranslate"><span class="pre">Parent</span></code> in line 5.</p></li>
+<li><p>The problem proprieties, i.e., <code class="docutils literal notranslate"><span class="pre">Problem</span></code> in line 6.</p></li>
+<li><p>The component’s inner parameters, i.e., <code class="docutils literal notranslate"><span class="pre">Para</span></code> in line 7.</p></li>
 <li><p>An auxiliary structure array for saving the component’s inner parameters that are changed during
-iteration (e.g., the velocity in particle swarm optimization (<strong>PSO</strong>)), i.e., <strong>Aux</strong> in line 8.</p></li>
-<li><p>The algorithm’s generation counter <strong>G</strong>.</p></li>
-<li><p>The algorithm’s inner local search iteration counter <strong>innerG</strong>.</p></li>
-<li><p>The target problem’s input data <strong>Data</strong>.</p></li>
+iteration (e.g., the velocity in particle swarm optimization (PSO)), i.e., <code class="docutils literal notranslate"><span class="pre">Aux</span></code> in line 8.</p></li>
+<li><p>The algorithm’s generation counter <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>
+<li><p>The algorithm’s inner local search iteration counter <code class="docutils literal notranslate"><span class="pre">innerG</span></code>.</p></li>
+<li><p>The target problem’s input data <code class="docutils literal notranslate"><span class="pre">Data</span></code>.</p></li>
 </ol>
 <p>The component should be implemented from line 9. The outputs of lines 21 and 22 are mandatory, in
-which output1 returns solutions processed by the component, and <strong>output2</strong> returns the <strong>Aux</strong> structure
-array. If the component has inner parameters that are changed during iteration, <strong>Aux</strong> is updated (e.g.,
-update <strong>PSO’s</strong> velocity and save it in Aux); otherwise, <strong>Aux</strong> will be the same as that in line 8.</p>
-<p>Case <strong>parameter</strong> defines the lower and upper bounds of the component’s inner parameter values. For
-example, the mutation probability is bounded within [0, 0.3] in line 24. For components with multiple
+which output1 returns solutions processed by the component, and <code class="docutils literal notranslate"><span class="pre">output2</span></code> returns the <strong>Aux</strong> structure
+array. If the component has inner parameters that are changed during iteration, <code class="docutils literal notranslate"><span class="pre">Aux</span></code> is updated (e.g.,
+update PSO’s velocity and save it in <code class="docutils literal notranslate"><span class="pre">Aux</span></code>); otherwise, <code class="docutils literal notranslate"><span class="pre">Aux</span></code> will be the same as that in line 8.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Case</span> <span class="pre">'parameter'</span></code> defines the lower and upper bounds of the component’s inner parameter values. For
+example, the mutation probability is bounded within <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">0.3]</span></code> in line 24. For components with multiple
 inner parameters, each parameter’s lower and upper bounds should be saved in an independent row of
-the matrix <strong>output1</strong>.</p>
+the matrix <code class="docutils literal notranslate"><span class="pre">output1</span></code>.</p>
 <p>For search operators (components) with inner parameters controlling the search behavior, case
 behavior defines how the inner parameters control the search behavior. For example, line 26 indicates that the uniform mutation with smaller mutation probabilities performs local search and that with
-larger probabilities performs global search. For other operators, <strong>output1</strong> in case <strong>behavior</strong> is left empty, i.e., <strong>output1={}</strong>;.</p>
+larger probabilities performs global search. For other operators, <code class="docutils literal notranslate"><span class="pre">output1</span></code> in <code class="docutils literal notranslate"><span class="pre">case</span> <span class="pre">'behavior'</span></code> is left empty, i.e., `output1={}’.</p>
 </section>
 
 
