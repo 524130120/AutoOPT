@@ -1,0 +1,1067 @@
+AUTO OPTLIB DOCUMENTATION
+November 2025
+1 G ETTING STARTED
+1.1 I NTRODUCTION
+AutoOptLib is a Matlab/Python library for automatically designing metaheuristic optimizers. It
+provides:
+1. Rich library of design choices - Over 40 representative metaheuristic components for de-
+signing algorithms for continuous, discrete, and permutation problems with/without con-
+straints and uncertainties (Table 1).
+2. Flexibility to designing diverse algorithms - Design algorithms with diverse structures in a
+single run, enables great possibility to find novel and efficient algorithms.
+3. Fair benchmark of various design objectives and techniques - Various design objectives,
+e.g., solution quality, runtime, and anytime performance (Table 2). Different design tech-
+niques, e.g., racing, intensification, and surrogate (Table 3).
+4. Good accessibility - Graphical user interface (GUI) for users to input problems, manage
+the algorithm design process, make experimental comparisons, and visualize results with
+simple one-clicks.
+5. Easy extensibility - Easily add new algorithm components, objectives, and techniques by a
+uniform interface.
+AutoOptLib’s benefits include:
+1. Save labor resources and time - Human experts may cost days or weeks to conceive, build
+up, and verify the optimizers; AutoOptLib would saves such labor resources and time costs
+with today’s increasing computational power.
+2. Democratize metaheuristic optimizers - Through automated algorithm design techniques,
+AutoOptLib would democratize the efficient and effective use of metaheuristic optimizers.
+This is significant for researchers and practitioners with complicated optimization problem-
+solving demands but without the expertise to distinguish and manage suitable optimizers
+among various choices.
+3. Surpass human algorithm design - By fully exploring potential design choices and discov-
+ering novelties with computing power, AutoOptLib would go beyond human experience
+and gain enhanced performance regarding human problem-solving.
+4. Promote metaheuristic research - With a uniform collection of related techniques, Au-
+toOptLib would promote research of the automated algorithm design and metaheuristic
+fields and be a tool in the pursuit of autonomous and general artificial intelligence systems.
+1
+
+AutoOptLib Documentation November 2025
+Table 1: Metaheuristic algorithm components provided in AutoOptLib.
+Component Description
+Choose where to search from:
+choose roulette wheel Roulette wheel selection
+choose tournament K-tournament selection
+choose traverse Choose each of the current solutions to search from
+choose brainstorm Brain storm optimization’s idea picking up for choosing solutions to search from
+choose nich Adaptive niching based on the nearest-better clustering
+Discrete search:
+search reset one Reset a randomly selected entity to a random value
+search reset rand Reset each entity to a random value with a probability
+search reset creep Add a small positive or negative value to each entity with a probability, for ordinal problems
+search cross point one One-point crossover
+search cross point two Two-point crossover
+search cross point n n-point crossover
+search cross uniform Uniform crossover
+reinit discrete Random reinitialization for discrete problems
+Permutation search:
+search swap Swap two randomly selected entities
+search swap multi Swap each pair of entities between two randomly selected indices
+search scramble Scramble all the entities between two randomly selected indices
+search insert Randomly select two entities, insert the second entity to the position following the first one
+search cross order two Two-order crossover
+search cross order n n-order crossover
+reinit permutation Random reinitialization for permutation problems
+Continuous search:
+search cross arithmetic Whole arithmetic crossover
+search cross sim binary Simulated binary crossover
+search cross point one One-point crossover
+search cross point two Two-point crossover
+search cross point n n-point crossover
+search cross uniform Uniform crossover
+search cma The evolution strategy with covariance matrix adaption
+search eda The estimation of distribution
+search mu cauchy Cauchy mutation
+search mu gaussian Gaussian mutation
+search mu polynomial Polynomial mutation
+search mu uniform Uniform mutation
+search pso Particle swarm optimization’s particle fly and update
+search de random The ”random/1” differential mutation
+search de current The ”current/1” differential mutation
+search de current best The ”current-to-best/1” differential mutation
+reinit continuous Random reinitialization for continuous problems
+Select promising solutions:
+update always Always select new solutions
+update greedy Select the best solutions
+update pairwise Select the better solution from each pair of old and new solutions
+update round robin Select solutions by round-robin tournament
+update simulated annealing Simulated annealing’s update mechanism, i.e., accept worse solution with a probability
+Archive:
+archive best Collect the best solutions found so far
+archive diversity Collect most diversified solutions found so far
+archive tabu The tabu list
+Table 2: Design objectives involved in AutoOptLib.
+Objective Description
+quality The designed algorithm’s solution quality on the target problem within a fixed
+computational budget.
+runtimeFE The designed algorithm’s running time (number of function evaluations) till
+reaching a performance threshold on solving the target problem.
+runtimeSec The designed algorithm’s running time (wall clock time, in second) till reaching
+a performance threshold on solving the target problem.
+auc The area under the curve (AUC) of empirical cumulative distribution function of
+running time, measuring the anytime performance Ye et al. (2022).
+2
+
+AutoOptLib Documentation November 2025
+Table 3: Algorithm performance evaluation methods provided in AutoOptLib.
+Method Description
+exact Exactly run all the designed algorithms on all test problem instances.
+approximate Use low complexity surrogate to approximate the designed algorithms’ perfor-
+mance without full evaluation.
+racing L´opez-Ib´a˜nez
+et al. (2016)
+Save algorithm evaluations by stopping evaluating on the next instance if perfor-
+mance is statistically worse than at least another algorithm.
+intensification
+Hutter et al. (2009)
+Save algorithm evaluations by stopping evaluating on the next instance if perfor-
+mance is worse than the incumbent.
+1.2 I NSTALLATION
+AutoOptLib is downloadable at https://github.com/auto4opt/AutoOpt. The project
+ships both Matlab and Python implementations; choose the workflow that matches your environ-
+ment. Users can use, redistribute, and modify under the terms of GNU General Public License
+v3.0.
+Matlab. Use Matlab R2018 or newer (R2020a+ recommended for GUI support). Required tool-
+boxes are Statistics and Machine Learning, Communications, DSP System, Parallel Computing, and
+Signal Processing. After cloning the repository, add the root directory to the Matlab path.
+Python. The Python port lives under src/autooptlib and targets Python 3.9+. Install with
+1 python −m p i p i n s t a l l −− u p g r a d e p i p
+2 python −m p i p i n s t a l l −e .
+3 python −m p i p i n s t a l l numpy p y t e s t # key r u n t i m e / t e s t d e p e n d e n c i e s
+Verify the setup with pytest.
+1.3 Q UICK START
+Following the steps to use AutoOptLib:
+1. Install AutoOptLib (add the repository to the Matlab path, or follow the Python installation
+steps in Section 1.2).
+2. Implement the target optimization problem.
+3. Define the space for designing algorithms.
+4. Run AutoOptLib by command or GUI.
+Steps 2, 3, and 4 will be detailed in Sections 2.3.1, 2.3.2, and 2.3.3, respectively. Concrete, runnable
+examples for both Matlab and Python are collected in Section 3.
+1.4 C ONTACT
+AutoOptLib is developed and maintained by the Swarm Intelligence laboratory, Department of Com-
+puter Science and Engineering, Southern University of Science and Technology.
+Users may ask question in the Issues block and upload contributions by Pulling request in Au-
+toOptLib’s Github repository (https://github.com/auto4opt/AutoOpt).
+For any question, comment, or suggestion, please feel free to get in touch with Dr. Qi Zhao, Depart-
+ment of Computer Science and Engineering, Southern University of Science and Technology, email:
+zhaoq@sustech.edu.cn.
+3
+
+AutoOptLib Documentation November 2025
+2 U SER GUIDE
+2.1 W HAT IS AUTOMATED ALGORITHM DESIGN ?
+Without loss of generality, the automated design of metaheuristic algorithms aims to handle the
+following task (Zhao et al., 2023):
+arg max
+A∈A
+Ei∼I
+h
+Eϵ∼P
+
+g(A | i, ϵ)
+i
+, (1)
+where A denotes a candidate algorithm from the design spaceA, which consists of modular compo-
+nents and their hyperparameters. The function g(A | i, ϵ) evaluates the performance of algorithm A
+on instance i drawn from the target problem distribution I, under stochastic randomness ϵ (e.g., ini-
+tialization, sampling, or random seed). To account for this stochasticity, the expected performance
+is computed by averaging over multiple draws of ϵ ∼ P. In practice, the unknown distribution I is
+approximated using a finite training setItrain ⊂ I. A separate set Itest ⊂ I \Itrain is used to evaluate
+the generalization performance of the designed algorithm.
+The general process of automated design of metaheuristic optimizers can be abstracted into four
+parts, as shown in Fig. 1. First, the design space collects of candidate primitives or components
+for instantiating metaheuristic algorithms. It regulates what algorithms can be found in principle.
+Second, the design strategy provides a principle way to design algorithms by selecting and combin-
+ing the primitives or components from the design space. Third, the performance evaluation strategy
+defines how to measure the performance of the designed algorithms. The measured performance
+guides the design strategy to find desired algorithms. Finally, because the design aims to find algo-
+rithms with promising performance on solving a target problem, the target problem acts as external
+data to support the performance evaluation.
+Produce 
+Algorithms 
+Evaluate
+Performance 
+Target
+Problem 
+Construct
+Design Space
+Figure 1: Process of automated design of metaheuristic optimizers.
+2.2 A UTO OPTLIB ARCHITECTURE
+2.2.1 F ILE STRUCTURE
+The file structure of AutoOptLib is given in Figure 2. As shown in Figure 2, source files of the library
+are organized in a clear and concise structure. One interface function AutoOpt.m and three folders
+are in the root directory. The folder /Utilities contains public classes and functions. Specifically, the
+subfolder /@DESIGN stores the class and functions for designing algorithms for a target problem,
+including functions for initializing, searching, and evaluating algorithms. /@SOLVE contains the
+class and functions for solving the target problem by the designed algorithms, e.g., functions for
+inputting algorithms, executing the algorithms, and repairing solutions. /Others involves miscella-
+neous functions, e.g., sources of the GUI, functions of experimental tools, etc. TheSpace.m function
+is for constructing the design space by algorithm components.
+The /Components folder contains the algorithm components for constructing the design space. We
+package each component with ranges of its endogenous parameter values in a single .m file. For
+example, in Figure 2, choose tournament.m and search mu gaussian.m are the functions of the
+tournament selection Eiben et al. (2003) and Gaussian mutation Fogel (1998), respectively. All
+the component functions are written in the same structure, so users can easily implement and add
+new components to the library according to existing ones.
+Finally, the /Problems folder is for the target problems. A problem template prob template.m in
+Figure 2, is given to guide users to easily implement and interface their problems with the library. A
+python interface prob interface.py is also provided.
+4
+
+AutoOptLib Documentation November 2025
+/Uti l i ties 
+DESIGN.m 
+/A utoOptLib 
+/@DESIGN 
+...... 
+I ni tial iz e.m 
+SOL VE.m 
+/@SOL VE 
+...... 
+I nputAlg.m 
+/Others 
+/APP 
+A utoOpt.m /Components /Pr oblems 
+choose_tournament.m 
+sear ch_mu_gaussian.m 
+sear ch_sw ap .m 
+update_r ound_r obin.m 
+...... 
+...... 
+pr ob_template.m 
+...... 
+Space.m 
+pr ob_interf ace.p y 
+Figure 2: File structure of AutoOptLib.
+2.2.2 C LASSES
+We involve two main classes in AutoOptLib, namely DESIGN and SOLVE, which manage the pro-
+cess of designing algorithms for a target problem and solving the target problem by the designed
+algorithms, respectively. The class diagram is given in Figure 3. An object of the DESIGN class
+is a designed algorithm with several properties, e.g., operator (components that constitute the
+algorithm), parameter (endogenous parameters of the algorithm), and performance (perfor-
+mance of the algorithm). The class have some methods to be invoked by the objects. For example,
+the method Initialize() works on initializing the designed algorithms; Evaluate() is for
+evaluating the algorithms’ performance according to a design objective.
+DESIGN 
+oper ator 
+par ameter 
+perf ormance 
+...... 
+I ni tial iz e() 
+Ev aluate() 
+...... 
+SOL VE 
+dec 
+obj 
+con 
+...... 
+I nputAlg() 
+R unAlg() 
+...... 
+Figure 3: Class diagram of AutoOptLib.
+An object of the SOLVE class is a solution to the target problem. It has several properties, including
+dec (decision variables), obj (objective value), con (constraint violation), etc. The class has
+5
+
+AutoOptLib Documentation November 2025
+several methods for achieving the solutions, such as InputAlg() (preprocessing and inputting
+the designed algorithm) and RunAlg() (running the algorithm on the target problem).
+2.2.3 O PERATING SEQUENCE
+AutoOptLib’s sequence diagram is depicted in Figure 4. To begin with, the interface function Au-
+toOpt.m invokes DESIGN.m to instantiate objects (the designed algorithms) of the DESIGN class.
+In detail, firstly, DESIGN.m uses the Initialize() method to initialize algorithms over the de-
+sign space. Then, the algorithms’ performance on solving the “training” instances 1 of the target
+problem is evaluated by the Evaluate() method. To get the performance, the Evaluate()
+method invokes the SOLVE class, and SOLVE further calls functions of the algorithms’ components
+and function of the target problem. Finally, the initial algorithms are returned to AutoOpt.m.
+AutoOpt.m
+Iterate untill termination
+DESIGN.m
+Return initial algorithms
+Initialization
+SOLVE.m Components
+Call components
+Initialize
+algorithms
+Evaluate initial algorithms'
+performance
+Return Initial algorithms'
+ performance
+Select algorithms from
+the current and new ones
+Return selected algorithms
+Produce new
+algorithms based on
+the current ones
+Problem
+  Call training problem instances
+Return new algorithms
+Produce new algorithms
+Call components
+Evaluate new algorithms'
+performance
+Return new algorithms'
+ performance
+  Call training problem instances
+Return final algorithms
+Test final algorithms
+Call components
+Evaluate final algorithms'
+performance
+Return final algorithms'
+ performance
+     Call test problem instances
+Figure 4: Sequence diagram of AutoOptLib.
+After initialization, AutoOptLib goes into iterative design. In each iteration, firstly, AutoOpt.m
+invokes DESIGN.m. Then, DESIGN.m instantiate new objects (new algorithms) of the DESIGN
+class based on the current ones by theDisturb() method. Next, the new algorithms’ performance
+1Since the distribution of instances of a real problem is often unknown, one has to sample some of the
+problem instances and target these instances (training instances) during the algorithm design procedure. To
+avoid the designed algorithms overfit on the training instances, some other instances (test instances) of the
+target problem are then employed to test the final algorithms after the design procedure terminates.
+6
+
+AutoOptLib Documentation November 2025
+is evaluated in the same scheme as in the initialization. After that, the new algorithms are returned
+to AutoOpt.m. Finally, the Select() method of the DESIGN class is invoked to select promising
+algorithms from the current and new ones.
+After the iteration terminates, AutoOpt.m invokes the Evaluate() method of the DESIGN class
+to test the final algorithms’ performance on the test instances of the target problem. Then, the final
+algorithms are returned in AutoOpt.m.
+The above operating sequence has some significant advantages:
+1. Metaheuristic component independence - Functions of algorithm components do not in-
+teract with each other but invoke independently by the SOLVE class. This independence
+provides great flexibility in designing various algorithms and extensibility to new compo-
+nents.
+2. Design technique packaging - The design techniques are packaged in different methods
+(e.g., Disturb(), Evaluate()) of the DESIGN class. Such packaging brings good
+understandability and openness to new techniques without modifying the library’s archi-
+tecture.
+3. Target problem separation - The targeted problem is enclosed separately and do not directly
+interact with algorithm components and design techniques. This separation allows users to
+easily interface their problems with the library and use the library without much knowledge
+of metaheuristics and design techniques, thereby ensuring the accessibility of the library to
+researchers and practitioners from different communities.
+2.3 U SE AUTO OPTLIB
+Following the three steps below to use AutoOptLib:
+2.3.1 S TEP 1: I MPLEMENT PROBLEM
+AutoOptLib supports implementing the target problem in Matlab and Python. More formats will be
+supported in future versions.
+Implement in Matlab:
+Users can implement their target optimization problem according to the template prob template.m
+in the /Problems folder. prob template.m has three cases. Case "construct" is for setting
+problem properties and loading the input data. In particular, line 7 defines the problem type, e.g.,
+Problem.type = {"continuous","static","certain"} refers to a continuous static
+problem without uncertainty in the objective function. Lines 10 and 11 define the lower and upper
+bounds of the solution space. Lines 18 and 21 offer specific settings as indicated in the comments
+of lines 14-17 and 20, respectively. Line 25 or 26 is for loading the input data. As a result, problem
+proprieties and data are saved in the Problem and Data structs, respectively.
+1 c a s e ' c o n s t r u c t ' % d e f i n e problem p r o p e r t i e s
+2 Problem = v a r a r g i n {1};
+3 % d e f i n e problem t y p e i n t h e f o l l o w i n g t h r e e c e l l s .
+4 % f i r s t c e l l : ' c o n t i n u o u s ' \ ' d i s c r e t e '\ ' p e r m u t a t i o n '
+5 % second c e l l : ' s t a t i c ' \ ' s e q u e n t i a l '
+6 % t h i r d c e l l : ' c e r t a i n ' \ ' u n c e r t a i n '
+7 Problem . t y p e = { ' ' , ' ' , ' ' } ;
+8
+9 % d e f i n e t h e bound o f s o l u t i o n s p a c e
+10 l o w e r = [ ] ; % 1 *D, l o w e r bound o f t h e D− d i m e n s i o n d e c i s i o n s p a c e
+11 u p p e r = [ ] ; % 1 *D, u p p e r bound o f t h e D− d i m e n s i o n d e c i s i o n s p a c e
+12 Problem . bound = [ l o w e r ; u p p e r ] ;
+13
+14 % d e f i n e s p e c i f i c s e t t i n g s ( o p t i o n a l ) , o p t i o n s :
+15 % ' d e c d i f f ' : e l e m e n t s o f t h e s o l u t i o n s h o u l d be d i f f e r e n t w
+. r . t each o t h e r f o r d i s c r e t e p r o b l e m s
+16 % ' u n c e r t a i n a v e r a g e ' : a v e r a g i n g t h e f i t n e s s o v e r m u l t i p l e f i t n e s s
+e v a l u a t i o n s f o r u n c e r t a i n p r o b l e m s
+7
+
+AutoOptLib Documentation November 2025
+17 % ' u n c e r t a i n w o r s t ' : use t h e worse f i t n e s s among m u l t i p l e f i t n e s s
+e v a l u a t i o n s a s t h e f i t n e s s f o r u n c e r t a i n p r o b l e m s
+18 Problem . s e t t i n g = { ' ' } ; % p u t c h o i c e ( s ) i n t o t h e c e l l
+19
+20 % s e t t h e number o f s a m p l e s f o r u n c e r t a i n p r o b l e m s ( o p t i o n a l )
+21 Problem . sampleN = [ ] ;
+22 o u t p u t 1 = Problem ;
+23
+24 % l o a d / c o n s t r u c t d a t a f i l e i n t h e f o l l o w i n g
+25 Data = l o a d ( ' ' ) ; % f o r . mat f o r m a t
+26 % Data = r e a d m a t r i x ( ' ' ) ; % f o r o t h e r f o r m a t s
+27 o u t p u t 2 = Data ;
+Case "repair" is for repairing solutions to keep them feasible, e.g., keeping the solutions within
+the box constraint. Lines 2 and 3 input the problem data and solutions (decision variables). Programs
+for repairing solutions should be written from line 5. Finally, the repaired solutions will be returned.
+1 c a s e ' r e p a i r ' % r e p a i r s o l u t i o n s
+2 Data = v a r a r g i n {1};
+3 Decs = v a r a r g i n {2};
+4 % d e f i n e methods f o r r e p a i r i n g s o l u t i o n s i n t h e f o l l o w i n g
+5
+6 o u t p u t 1 = Decs ;
+Case "evaluate" is for evaluating solutions’ fitness (objective values penalized by constraint
+violations). In detail, lines 2 and 3 input the problem data and solutions. The target problem’s
+objective function should be written from line 6. Constraint functions (if any) should be written from
+line 8. For the constrained problems, AutoOptLib follows the common practice of the metaheuristic
+community, i.e., using constraint violations as penalties to discount infeasible solutions. Constraint
+violation can be calculated in line 10 by Jain & Deb (2013):
+CV (x) =
+JX
+j=1
+⟨gj(x)⟩ +
+KX
+k=1
+|hk(x)|,
+where CV (x) is the constraint violation of solution x; gj(x) and hk(x) are the jth normalized in-
+equality constraint and kth normalized equality constraint, respectively, in which the normalization
+can be done by dividing the constraint functions by the constant in this constraint present (i.e., for
+gj(x) ≥ bj, the normalized constraint function becomes gj(x) = gj(x)/bj ≥ 0, and similarly
+hk(x) can be normalized equality constraint); the bracket operator ⟨gj(x)⟩ returns the negative of
+gj(x), if gj(x) < 0 and returns zeros, otherwise. During solution evaluation, accessory (intermedi-
+ate) data for understanding the solutions may be produced. This can be written from line 12. Finally,
+the objective values, constraint violations, and accessory data will be returned by lines 13-15.
+1 c a s e ' e v a l u a t e ' % e v a l u a t e s o l u t i o n ' s f i t n e s s
+2 Data = v a r a r g i n {1}; % l o a d problem d a t a
+3 Decs = v a r a r g i n {2}; % l o a d t h e c u r r e n t s o l u t i o n ( s )
+4
+5 % d e f i n e t h e o b j e c t i v e f u n c t i o n i n t h e f o l l o w i n g
+6
+7 % d e f i n e t h e i n e q u a l c o n s t r a i n t ( s ) i n t h e f o l l o w i n g , e q u a l
+c o n s t r a i n t s s h o u l d be t r a n s f o r m e d t o i n e q u a l ones
+8
+9 % c a l c u l a t e t h e c o n s t r a i n t v i o l a t i o n i n t h e f o l l o w i n g
+10
+11 % c o l l e c t a c c e s s o r y d a t a f o r u n d e r s t a n d i n g t h e s o l u t i o n s i n t h e
+f o l l o w i n g ( o p t i o n a l )
+12
+13 o u t p u t 1 = ; % m a t r i x f o r s a v i n g o b j e c t i v e f u n c t i o n v a l u e s
+14 o u t p u t 2 = ; % m a t r i x f o r s a v i n g c o n s t r a i n t v i o l a t i o n v a l u e s ( o p t i o n a l
+)
+15 o u t p u t 3 = ; % m a t r i x o r c e l l s f o r s a v i n g a c c e s s o r y d a t a ( o p t i o n a l ) , a
+s o l u t i o n ' s a c c e s s o r y d a t a s h o u l d be s a v e d i n a row
+8
+
+AutoOptLib Documentation November 2025
+Examples of problem implementation can be seen in the CEC 2005 benchmark problem files in
+the /Problems/CEC2005 Benchmarks folder. The implementation of a real constrained problem
+beamforming.m is given in the /Problems/Real-World/Beanformingfolder.
+Implement in Python:
+The Python port expects a callable with the same three-mode interface used by Matlab problems.
+The callable receives a list of problem descriptors, a list of instance indices (or decision vectors when
+evaluating), and a mode string. A minimal example is shown below; save it as my problem.py
+and import the callable and pass it directly in Python runs.
+1 import numpy as np
+2 def sphere_problem(problems, instances, mode):
+3 mode = str(mode).lower()
+4
+5 if mode == "construct":
+6 for prob, dim in zip(problems, instances):
+7 d = int(dim)
+8 prob.type = ["continuous", "static", "certain"]
+9 prob.bound = np.array([[-5.0] * d, [5.0] * d], dtype=float)
+10
+11 def _evaluate(_data, dec):
+12 decs = np.asarray(dec, dtype=float)
+13 obj = np.sum(decs**2, axis=1, keepdims=True)
+14 con = np.zeros_like(obj)
+15 return obj, con, None
+16
+17 prob.evaluate = _evaluate
+18 data = [None for _ in instances]
+19 return problems, data, None
+20
+21 if mode == "repair":
+22 return instances, None, None
+23
+24 if mode == "evaluate":
+25 decs = np.asarray(instances, dtype=float)
+26 obj = np.sum(decs**2, axis=1, keepdims=True)
+27 con = np.zeros_like(obj)
+28 return obj, con, None
+29
+30 raise ValueError(f"Unsupported mode: {mode}")
+This callable can be passed directly (Problem=sphere problem) when using the Python API.
+2.3.2 S TEP 2: D EFINE DESIGN SPACE
+AutoOptLib provides over 40 widely-used algorithm components for designing algorithms for con-
+tinuous, discrete, and permutation problems. Each component is packaged in an independent .m file
+in the /Components folder. The included components are listed in Table 1.
+The default design space for each type of problems covers all the involved components for this
+type, as shown in Listing 1. Users can either employ the default space with the furthest potential to
+discover novelty or define a narrow space in Space.m in the /Utilities folder according to interest.
+For example, when designing algorithms for continuous problems, the candidate Search components
+can be set by collecting the string of component file name in line 4. More components can be added,
+which will be detailed in Section 4.1.
+Code Listing 1: Design space
+1 s w i t c h Problem ( 1 ) . t y p e {1}
+2 c a s e ' c o n t i n u o u s '
+3 Choose = { ' c h o o s e t r a v e r s e ' ; ' c h o o s et o u r n a m e n t ' ; '
+c h o o s e r o u l e t t ew h e e l ' ; ' c h o o s e b r a i n s t o r m ' ; ' c h o o s en i c h ' } ;
+4 S e a r c h = { ' s e a r c h p s o ' ; ' s e a r c h d e c u r r e n t ' ; '
+s e a r c h d e c u r r e n t b e s t ' ; ' s e a r c h d e r a n d o m ' ; ' c r o s s a r i t h m e t i c '
+9
+
+AutoOptLib Documentation November 2025
+; ' c r o s s s i m b i n a r y ' ; ' c r o s s p o i n t o n e ' ; ' c r o s s p o i n t t w o ' ; '
+c r o s s p o i n t n ' ; ' c r o s s p o i n t u n i f o r m ' ; ' s e a r c hm u g a u s s i a n ' ; '
+s e a r c hm u c a u c h y ' ; ' s e a r c hm u p o l y n o m i a l ' ; ' s e a r c hm u u n i f o r m ' ;
+' s e a r c h e d a ' ; ' s e a r c h c m a ' ; r e i n i t c o n t i n u o u s '} ;
+5 Update = { ' u p d a t e g r e e d y ' ; ' u p d a t e r o u n d r o b i n ' ; ' u p d a t e p a i r w i s e '
+; ' u p d a t e a l w a y s ' ; ' u p d a t e s i m u l a t e da n n e a l i n g '} ;
+6
+7 c a s e ' d i s c r e t e '
+8 Choose = { ' c h o o s e t r a v e r s e ' ; ' c h o o s et o u r n a m e n t ' ; '
+c h o o s e r o u l e t t ew h e e l ' ; ' c h o o s e n i c h ' } ;
+9 S e a r c h = { ' c r o s s p o i n t o n e ' ; ' c r o s s p o i n t t w o ' ; '
+c r o s s p o i n t u n i f o r m ' ; ' c r o s s p o i n t n ' ; ' s e a r c h r e s e t o n e ' ; '
+s e a r c h r e s e t r a n d ' ; ' r e i n i t d i s c r e t e ' } ;
+10 Update = { ' u p d a t e g r e e d y ' ; ' u p d a t e r o u n d r o b i n ' ; ' u p d a t e p a i r w i s e '
+; ' u p d a t e a l w a y s ' ; ' u p d a t e s i m u l a t e da n n e a l i n g '} ;
+11
+12 c a s e ' p e r m u t a t i o n '
+13 Choose = { ' c h o o s e t r a v e r s e ' ; ' c h o o s et o u r n a m e n t ' ; '
+c h o o s e r o u l e t t ew h e e l ' ; ' c h o o s e n i c h ' } ;
+14 S e a r c h = { ' c r o s s o r d e r t w o ' ; ' c r o s s o r d e r n ' ; ' s e a r c h s w a p ' ; '
+s e a r c h s w a p m u l t i ' ; ' s e a r c h s c r a m b l e ' ; ' s e a r c h i n s e r t ' ; '
+r e i n i t p e r m u t a t i o n '} ;
+15 Update = { ' u p d a t e g r e e d y ' ; ' u p d a t e r o u n d r o b i n ' ; ' u p d a t e p a i r w i s e '
+; ' u p d a t e a l w a y s ' ; ' u p d a t e s i m u l a t e da n n e a l i n g '} ;
+16 end
+The same operator pools are used in the Python port, where the default space is generated by
+autooptlib.utils.space.space; customise it by modifying the Setting namespace be-
+fore invoking the design loop.
+2.3.3 S TEP 3: R UN AUTO OPTLIB
+Users can run AutoOptLib by Matlab command or GUI.
+Run by Command:
+Users can run AutoOptLib by the following Matlab command:
+AutoOpt("name1",value1,"name2",value2,...),
+where name and value refer to the input parameter’s name and value, respectively. The param-
+eters are introduced in Table 4. In particular, parameters Metric and Evaluate define the
+design objective and algorithm performance evaluation method, respectively. They are summa-
+rized in Tables 2 and 3, respectively. The Python port exposes the same parameters through the
+autoopt(**kwargs) function; see Section 3 for a runnable script.
+Parameters Problem, InstanceTrain, InstanceTest, and Mode are mandatory to input
+into the command. For other parameters, users can either use their default values without input
+to the command or input by themselves for sophisticated functionality. The default param-
+eter values can be seen in AutoOpt.m. As an example, AutoOpt("Mode", "design",
+"Problem", "beamforming", "InstanceTrain", [1,2], "InstanceTest",
+3, "Metric", "quality" is for designing algorithms with the best solution quality on the
+beamforming problem.
+There are also conditional parameters when certain options of the main parameters are chosen.
+For example, setting Metric to runtimeFE incurs conditional parameter Thres to define the
+algorithm performance threshold for counting the runtime. All conditional parameters have default
+values and are unnecessary to set in the command.
+After AutoOptLib running terminates, results will be saved as follows:
+• If running the design mode,
+– The designed algorithms’ graph representations, phenotypes, parameter values, and
+performance will be saved as .mat table in the root dictionary. Algorithms in the .mat
+10
+
+AutoOptLib Documentation November 2025
+Table 4: Parameters in the commands for running AutoOptLib.
+Parameter Type Description
+Parameters related to target problem:
+Problem character string Function of the target problem
+InstanceTrain positive integer Indexes of training instances of the target problem
+InstanceTest positive integer Indexes of test instances of the target problem
+Parameters related to designed algorithms:
+Mode character string Run mode. Options: design - design algorithms for the tar-
+get problem, solve - solve the target problem by a designed
+algorithm or an existing algorithm.
+AlgP positive integer Number of search pathways in a designed algorithm
+AlgQ positive integer Maximum number of search operators in a search pathway
+Archive character string Name of the archive(s) that will be used in the designed algo-
+rithms
+LSRange [0, 1] real number Range of inner parameter values that make the component
+perform local search∗.
+IncRate [0, 1] real number Minimum rate of solutions’ fitness improvement during 3
+consecutive iterations
+InnerFE positive integer Maximum number of function evaluations for each call of
+local search
+Parameters controlling design process:
+AlgN positive integer Number of algorithms to be designed
+AlgRuns positive integer Number of algorithm runs on each problem instance
+ProbN positive integer Population size of the designed algorithms on the target prob-
+lem instances
+ProbFE positive integer Number of fitness evaluations of the designed algorithms on
+the target problem instances
+Metric character string Metric for evaluating algorithms’ performance (the ob-
+jective of design). Options: quality, runtimeFE,
+runtimeSec, auc.
+Evaluate character string Method for evaluating algorithms’ performance. Options:
+exact, intensification, racing, surrogate.
+Compare character string Method for comparing the performance of algorithms. Op-
+tions: average, statistic
+AlgFE positive integer Maximum number of algorithm evaluations during the design
+process (termination condition of the design process)
+Tmax positive integer Maximum running time measured by the number of function
+evaluations or wall clock time
+Thres real number The lowest acceptable performance of the designed algo-
+rithms. The performance can be solution quality.
+RacingK positive integer Number of instances evaluated before the first round of racing
+Surro real number Number of exact performance evaluations when using surro-
+gate
+Parameters related to solving target problem:
+Alg character string Algorithm file name, e.g., Algs
+∗: Some search operators have inner parameters to control performing global or local search. For example, a large mutation probability of
+the uniform mutation operator indicates a global search, while a small probability indicates a local search over neighborhood region. As
+an example, in cases with LSRange= 0.2, the uniform mutation with probability lower than 0.2 is regarded as performing local search,
+and the probability equals or higher than 0.2 performs global search.
+table can later be called by the solve mode to apply to solve the target problem or
+make experimental comparisons with other algorithms.
+– A report of the designed algorithms’ pseudocode and performance will be saved as
+.csv and .xlsx tables, respectively. Users can read, analyze, and compare the algorithms
+through the report.
+– The convergence curve of the design process (algorithms’ performance versus the
+iteration of design) will be depicted and saved as.fig figure. Users can visually analyze
+the design process and compare different design techniques through the figure.
+• If running the solve mode,
+11
+
+AutoOptLib Documentation November 2025
+– Solutions to the target problem will be saved as .mat, .csv, and .xlsx tables, respec-
+tively.
+– Convergence curves of the problem-solving process (solution quality versus algorithm
+execution) will be plotted in .fig figure.
+Run by GUI:
+The GUI can be invoked by the command AutoOpt() without inputting parameters. It is shown
+in Figure 5. The GUI has three panels, i.e., Design, Solve, and Results:
+• The Design panel is for designing algorithms for a target problem. It has two subpanels,
+i.e., Input Problem and Set Parameters:
+– Users should load the function of their target problem (e.g., prob template.m or
+prob from py.m mentioned in Section 2.3.1) and set the indexes of training and test
+instances in the Input Problem subpanel.
+– Users can set the main and conditional parameters related to the design in the Set
+Parameters subpanel. All parameters have default values for non-expert users’ conve-
+nience. The objective of design, the method for comparing the designed algorithms,
+and the method for evaluating the algorithms can be chosen by the pop-up menus of
+the Metric, Compare, and Evaluate fields, respectively.
+After setting the problem and parameters, users can start the run by clicking the RUN
+bottom.
+• When the running starts, warnings and corresponding solutions to incorrect uses (if any)
+will be displayed in the text area at the top of the Results panel. The real-time stage and
+progress of the run will also be shown in the area. After the run terminates, results will be
+saved in the same format as done by running by commands. Results will also be displayed
+on the GUI as follows:
+– The convergence curve of the design process will be plotted in the axes area of the
+Results panel.
+– The pseudocode of the best algorithm found during the run will be written in the text
+area below the axes, as shown in Figure 5.
+– Users can use the pop-up menu at the bottom of the Results panel to export more
+results, e.g., other algorithms found during the run, and detailed performance of the
+algorithms on different problem instances.
+• The Solve panel is for solving the target problem by an algorithm. It follows a similar
+scheme to the Design panel. In particular, users can load an algorithm designed by Au-
+toOptLib in the Algorithm File field to solve the target problem. Alternatively, users can
+choose a classic algorithm as a comparison baseline through the pop-up menu of the Spec-
+ify Algorithm field. AutoOptLib now provides 17 classic metaheuristic algorithms in the
+menu. After the problem-solving terminates, the convergence curve and best solutions will
+be displayed in the axes and table areas of the Results panel, respectively; detailed results
+can be exported by the pop-up menu at the bottom.
+2.3.4 O THER USES
+Beyond the primary use of automatically designing algorithms, AutoOptLib provides functionalities
+of hyperparameter configuration, parameter importance analysis, and benchmark comparison.
+Hyperparameter Configuration:
+In many scenarios, users may have a preferred algorithm and only need to configure endogenous
+parameters (hyperparameters). In essence, hyperparameter configuration is equivalent to designing
+an algorithm with predefined component composition but unknown endogenous parameter values.
+Thus, it is easy to perform hyperparameter configuration in AutoOptLib by fixing the component
+composition and leaving the endogenous parameters tunable in the design space. Following the steps
+below to conduct hyperparameter configuration:
+1. Implement the target problem as illustrated in Section 2.3.1.
+12
+
+AutoOptLib Documentation November 2025
+Figure 5: GUI of AutoOptLib.
+2. Define the design space as illustrated in Section 2.3.1. In particular, the design space should
+only involve the components of the preferred algorithm. The components can be existing
+ones in the library or user implemented with the same interface as existing ones. Turn
+Setting.TunePara to true in space.m.
+1 S e t t i n g . TunePara = t r u e ; % t r u e / f a l s e , t r u e f o r h y p e r p a r a m e t e r
+c o n f i g u r a t i o n
+3. Run AutoOptLib as illustrated in Section 2.3.3.
+Parameter Importance Analysis:
+Users can further conduct parameter importance analysis by leaving only one tunable parameter
+in the design space. That is, users can define the design space with one tunable parameter and
+fix the component composition and other parameter values. Then, AutoOptLib runs and returns the
+algorithms found during the design process. These algorithms only differ in the values of the tunable
+parameter. Users can compare the performance of different parameter values and analyze the impact
+of parameter changes on the algorithm performance.
+Furthermore, by leaving different parameters tunable in different AutoOptLib runs, users can collect
+and compare the trends of each parameter’s changes versus algorithm performance, subsequently
+getting insight into each parameter’s importance to the algorithm performance.
+Benchmark Comparison:
+As illustrated in Section 2.2, different design objectives (Figure 2) and techniques (Figure 3) in
+AutoOptLib are implemented with the same architecture; more objectives and techniques can be
+added by the same interface. This ensures fair and reproducible comparisons among the objectives
+or techniques. The comparison can be conducted by assigning different objectives or techniques to
+different AutoOptLib runs on the same targeted problem instances.
+13
+
+AutoOptLib Documentation November 2025
+AutoOptLib can also be used to benchmark comparisons among different algorithms. Users can set
+AlgN> 1 in the running command or GUI, such that AutoOptLib will design multiple algorithms
+in a single run. These algorithms are built and evaluated in a uniform manner during the design
+process. Such uniformity ensures a fair comparison among the algorithms.
+3 E XAMPLE GALLERY
+This section gathers runnable scripts for quick experimentation. Each listing can be copied verbatim
+into a file and executed as noted.
+3.1 M ATLAB : D ESIGNING ALGORITHMS FOR BEAMFORMING
+Save the following script as examples/beamforming design.m and run it inside Matlab:
+1 % Beamforming d e s i g n example w i t h AutoOptLib ( Matlab )
+2 a d d p a t h ( ” p a t h / t o / AutoOptLib ” ) ;
+3
+4 AutoOpt ( ” Mode ” , ” d e s i g n ” , ...
+5 ” Problem ” , ” beamforming ” , ...
+6 ” I n s t a n c e T r a i n ” , [ 1 , 2 , 3 , 4 , 5 ] , ...
+7 ” I n s t a n c e T e s t ” , [ 6 , 7 , 8 , 9 , 1 0 ] , ...
+8 ” M e t r i c ” , ” q u a l i t y ” , ...
+9 ”AlgN ” , 3 , ...
+10 ” AlgFE ” , 5 0 0 , ...
+11 ” a r c h i v e ” , ” a r c h i v e b e s t ” ) ;
+The run produces Algs.mat, Algs perf final algs.csv, and the convergence curve.fig
+file.
+3.2 P YTHON : M INIMAL DESIGN EXPERIMENT
+Create examples/design demo.py with the code below and execute python
+examples/design demo.py:
+1 from autooptlib import autoopt
+2
+3 final_algs, alg_trace = autoopt(
+4 Mode="design",
+5 Problem="cec2013_f1",
+6 InstanceTrain=[10],
+7 InstanceTest=[10],
+8 AlgN=2,
+9 AlgFE=80,
+10 ProbN=20,
+11 ProbFE=800,
+12 Evaluate="exact",
+13 Compare="average",
+14 Archive=["archive_best"],
+15 )
+16
+17 print("Best validation metric:", final_algs[0].ave_perform_all().min())
+The Python run emits Algs.pkl, Algs perf final algs.csv, and related trace files.
+3.3 P YTHON : S OLVING WITH A BUILT-IN ALGORITHM
+Save as examples/solve demo.py and run python examples/solve demo.py:
+14
+
+AutoOptLib Documentation November 2025
+1 from autooptlib import autoopt
+2
+3 best_runs, all_runs = autoopt(
+4 Mode="solve",
+5 Problem="cec2013_f1",
+6 InstanceSolve=[10],
+7 AlgName="Continuous Random Search",
+8 AlgRuns=1,
+9 ProbN=30,
+10 ProbFE=2000,
+11 Metric="quality",
+12 )
+13
+14 print("Best fitness:", best_runs[0][0].fit)
+Result files include Solutions.pkl and Fitness all runs.csv.
+15
+
+AutoOptLib Documentation November 2025
+4 D EVELOPER GUIDE
+4.1 E XTEND AUTO OPTLIB
+AutoOptLib follows the open-closed principle Meyer (1997); Larman (2001). As illustrated in Fig-
+ure 2 and Section 2.2.3, metaheuristic algorithm components and design techniques are packaged
+and invoked independently. This allows users easily implement their algorithm components, design
+objectives, and algorithm performance evaluation techniques based on the current sources, and add
+the implementations to the library by a uniform interface. Taking Listing 2 as an example, new
+algorithm components can be added as follows.
+Code Listing 2: Implementation of the uniform mutation operator.
+1 f u n c t i o n [ o u t p u t 1 , o u t p u t 2 ] = s e a r c h m u u n i f o r m ( v a r a r g i n )
+2 mode = v a r a r g i n { end } ;
+3 s w i t c h mode
+4 c a s e ' e x e c u t e '
+5 P a r e n t = v a r a r g i n {1};
+6 Problem = v a r a r g i n {2};
+7 P a r a = v a r a r g i n {3};
+8 Aux = v a r a r g i n {4};
+9 i f ˜ i s n u m e r i c ( P a r e n t )
+10 O f f s p r i n g = P a r e n t . d e c s ;
+11 e l s e
+12 O f f s p r i n g = P a r e n t ;
+13 end
+14 Prob = P a r a ;
+15 [N,D] = s i z e ( O f f s p r i n g ) ;
+16 Lower = Problem . bound ( 1 , : ) ;
+17 Upper = Problem . bound ( 2 , : ) ;
+18 i n d = r a n d (N,D) < Prob ;
+19 Temp = u n i f r n d ( repmat ( Lower , N, 1 ) , repmat ( Upper , N, 1 ) ) ;
+20 O f f s p r i n g ( i n d ) = Temp ( i n d ) ;
+21 o u t p u t 1 = O f f s p r i n g ;
+22 o u t p u t 2 = Aux ;
+23 c a s e ' p a r a m e t e r '
+24 o u t p u t 1 = [ 0 , 0 . 3 ] ; % m u t a t i o n p r o b a b i l i t y
+25 c a s e ' b e h a v i o r '
+26 o u t p u t 1 = { ' LS ' , ' s m a l l ' ; 'GS ' , ' l a r g e ' } ; % s m a l l p r o b a b i l i t i e s
+p e r f o r m l o c a l s e a r c h
+27 end
+28 i f ˜ e x i s t ( ' o u t p u t 1 ' , ' v a r ' )
+29 o u t p u t 1 = [ ] ;
+30 end
+31 i f ˜ e x i s t ( ' o u t p u t 2 ' , ' v a r ' )
+32 o u t p u t 2 = [ ] ;
+33 end
+An algorithm component is implemented in an independentfunction with three main cases. Case
+execute refers to executing the component. There are seven optional inputs:
+1. Current solutions, i.e., Parent in line 5.
+2. The problem proprieties, i.e., Problem in line 6.
+3. The component’s inner parameters, i.e., Para in line 7.
+4. An auxiliary structure array for saving the component’s inner parameters that are changed
+during iteration (e.g., the velocity in particle swarm optimization (PSO)), i.e., Aux in line
+8.
+5. The algorithm’s generation counter G.
+6. The algorithm’s inner local search iteration counter innerG.
+7. The target problem’s input data Data.
+16
+
+AutoOptLib Documentation November 2025
+The component should be implemented from line 9. The outputs of lines 21 and 22 are mandatory,
+in which output1 returns solutions processed by the component, and output2 returns the Aux
+structure array. If the component has inner parameters that are changed during iteration, Aux is
+updated (e.g., update PSO’s velocity and save it inAux); otherwise, Aux will be the same as that in
+line 8.
+Case "parameter" defines the lower and upper bounds of the component’s inner parameter
+values. For example, the mutation probability is bounded within [0, 0.3] in line 24. For components
+with multiple inner parameters, each parameter’s lower and upper bounds should be saved in an
+independent row of the matrix output1.
+For search operators (components) with inner parameters controlling the search behavior, case
+behavior defines how the inner parameters control the search behavior. For example, line 26 in-
+dicates that the uniform mutation with smaller mutation probabilities performs local search and that
+with larger probabilities performs global search. For other operators,output1 in case behavior
+is left empty, i.e., output1={};.
+17
+
+AutoOptLib Documentation November 2025
+5 U SE CASE
+This section introduces a use case from the communication research community, which illustrates
+how to use AutoOptLib and how AutoOptLib benefit researchers and practitioners who have com-
+plicated optimization problem-solving demands but without the expertise to distinguish and manage
+suitable optimizers among various choices.
+5.1 P ROBLEM DESCRIPTION
+Reconfigurable intelligent surface (RIS) is an emerging technology to achieve cost-effective com-
+munications Mishra & Johansson (2019); Yuan et al. (2021). It is a planar passive radio structure
+with a number of reconfigurable passive elements. Each element can independently adjust the phase
+shift on the incident signal. Consequently, these elements collaboratively yield a directional beam
+to enhance the quality of the received signal. The active beamforming at the base station (BS) and
+RIS should be jointly considered to customize the propagation environment.
+The targeted problem considers a RIS-aided downlink multi-user multiple-input single-output (MU-
+MISO) system, in which a BS equipped with multiple antennas transmits signals toK single-antenna
+users, as shown in Figure 6. Decision variables of the problem are continual active beamforming of
+BS and discrete phase shifts of RIS. The objective is to maximize the sum rate of all users, subjecting
+to the transmit power constraint. The problem is formulated as Yan et al. (2022):
+max
+W,Θ
+KX
+k=1
+log2(1 +γk), (2a)
+s.t. θ n = βnejϕn, (2b)
+ϕn = τn2π
+2b , τn ∈ {0, ...,2b − 1}, (2c)
+KX
+k=1
+∥wk∥2 ≤ PT , (2d)
+where W = [w1, ...,wK] ∈ CM×K is the active beamforming at BS; Θ = diag(θ1, ..., θn, ..., θN )
+is the diagonal phase-shift matrix of RIS; γ is the signal-to-interference-plus-noise ratio of user k;
+βn and ϕn stand for the reflection coefficients and phase shift of element n, respectively; and (2d)
+indicates that the transmit power is not larger than PT .
+...
+RIS
+BS
+user k
+user 1
+user K
+G
+hr,khd,k
+... ...
+Figure 6: A downlink MU-MISO system with an RIS.
+This problem is a non-convex mixed integer problem, which is generally NP-hard. Furthermore, the
+fitness landscape analysis in Yan et al. (2022) revealed that the problem has a severe unstructured
+and rugged landscape, especially in cases with a large-sized RIS. While water-filling solutions Yu
+et al. (2004) can settle BS beamforming, the discrete phase shifts of RIS are non-trivial because the
+reconfigurable passive elements couple with each other. Existing solvers that decouple the elements
+and estimate each phase shift separately have been demonstrated to be ineligible Yan et al. (2022).
+Metaheuristics’ global search ability is promising in handling such unstructured, rugged and highly-
+coupled problem. AutoOptLib could benefit the problem researchers to quickly get access to an
+efficient metaheuristic solver from the variety of choices.
+18
+
+AutoOptLib Documentation November 2025
+5.2 U SE AUTO OPTLIB TO THE PROBLEM
+AutoOptLib is used according to the three steps in Sections 2.3.1, 2.3.2, and 2.3.3:
+1. Implement problem: The target problem is implemented according to the template
+prob template.m. In particular, in line 35, get_sum_rate is the user’s method for calcu-
+lating solutions’ objective values (constraint violations have been involved in the objective
+values).
+1 s w i t c h v a r a r g i n { end }
+2 c a s e ' c o n s t r u c t ' % d e f i n e problem p r o p e r t i e s
+3 Problem = v a r a r g i n {1};
+4 i n s t a n c e = v a r a r g i n {2};
+5
+6 o r g D a t a = l o a d ( ' Beanforming . mat ' , ' Data ' ) ;
+7 Data = o r g D a t a . Data ( ( i n s t a n c e ) ) ;
+8 f o r i = 1 : l e n g t h ( i n s t a n c e )
+9 D = s i z e ( Data ( i ) . G, 1 ) ;
+10 p h a s e s c n t = 2 ˆ Data ( i ) . b −1;
+11 l o w e r = z e r o s ( 1 ,D) ; % 1 *D, l o w e r bound o f t h e D−
+d i m e n s i o n d e c i s i o n s p a c e
+12 u p p e r = repmat ( p h a s e s c n t , 1 ,D) ; % 1 *D, u p p e r bound o f
+t h e D− d i m e n s i o n d e c i s i o n s p a c e
+13 Problem ( i ) . t y p e = { ' d i s c r e t e ' , ' s t a t i c ' , ' c e r t a i n ' } ;
+14 Problem ( i ) . bound = [ l o w e r ; u p p e r ] ;
+15 end
+16
+17 o u t p u t 1 = Problem ;
+18 o u t p u t 2 = Data ;
+19
+20 c a s e ' r e p a i r ' % r e p a i r s o l u t i o n s
+21 Decs = v a r a r g i n {2};
+22 o u t p u t 1 = Decs ;
+23
+24 c a s e ' e v a l u a t e ' % e v a l u a t e s o l u t i o n ' s f i t n e s s
+25 Data = v a r a r g i n {1}; % l o a d problem d a t a
+26 m = v a r a r g i n {2}; % l o a d t h e c u r r e n t s o l u t i o n ( s )
+27
+28 b = Data . b ;
+29 PT = Data . PT ;
+30 G = Data .G;
+31 Hd = Data . Hd ;
+32 Hr = Data . Hr ;
+33 omega = Data . omega ;
+34
+35 sR = g e t s u m r a t e (m, b , Hd , Hr , G, PT , omega ) ; % c a l c u l a t e
+o b j e c t i v e v a l u e
+36 sR = sR ' ; % N *1
+37
+38 o u t p u t 1 = sR ; % m a t r i x f o r s a v i n g o b j e c t i v e f u n c t i o n
+v a l u e s
+39 end
+40
+41 i f ˜ e x i s t ( ' o u t p u t 2 ' , ' v a r ' )
+42 o u t p u t 2 = [ ] ;
+43 end
+44 i f ˜ e x i s t ( ' o u t p u t 3 ' , ' v a r ' )
+45 o u t p u t 3 = [ ] ;
+46 end
+47 end
+2. Define design space: AutoOptLib’s default design space (with all components for discrete
+problems, as shown in Figure 1 and Listing 1, respectively) is utilized.
+19
+
+AutoOptLib Documentation November 2025
+Algorithm 1 Pseudocode of Alg∗
+1: S = initialize() // initialize solution set S
+2: while stopping criterion not met do
+3: S = choose nich(S)
+4: Snew = cross point uniform(0.1229, S)
+5: Snew = search reset one(Snew)
+6: S = update round robin(S, Snew)
+7: end while
+3. Run AutoOptLib: AutoOptLib is executed by the command AutoOpt("Mode",
+"design", "Problem", "beamforming", "InstanceTrain", [1:5],
+"InstanceTest", [6:10], "Metric", "quality"), where 10 problem
+instances with different numbers of RIS elements are considered; five of the instances are
+chosen as training instances; another five are for test; solution quality is set as the design
+objective (metric); other settings are kept default. Python users can reuse the scripts in
+Section 3, calling
+1 from beamforming import beamforming_problem
+2 from autooptlib import autoopt
+3
+4 final_algs, alg_trace = autoopt(
+5 Mode="design",
+6 Problem=beamforming_problem,
+7 InstanceTrain=[1, 2, 3, 4, 5],
+8 InstanceTest=[6, 7, 8, 9, 10],
+9 Metric="quality",
+10 Archive=["archive_best"],
+11 )
+to obtain identical outputs in .pkl/.csv formats.
+5.3 R ESULTS AND ANALYSIS
+After AutoOptLib running terminates, the best algorithm (termed Alg ∗) found during design is
+verified by the test instances. Alg ∗’s pseudocode is shown in Algorithm 1. Interestingly, the
+niching mechanism choose nich is involved, which restricts the following uniform crossover
+(cross point uniform with crossover rate of 0.1229) to be performed between solutions
+within a niching area. The reset operation (search reset one that resets one entity of the solu-
+tion) further exploits the niching area. Finally, the round-robin selection (update round robin)
+maintains diversity by probably selecting inferior solutions. All these designs indicate that main-
+taining solution diversity may be necessary for escaping local optima and exploring the unstructured
+and rugged landscape.
+To investigate the designed algorithm’s efficiency, the algorithm is compared with baselines, i.e.,
+random beamforming, sequential beamforming Di et al. (2020) 2, and three classic metaheuristic
+solvers, i.e., discrete genetic algorithm (GA), iterative local search (ILS), and simulated annealing
+(SA)3. The algorithms were executed through the Solve mode of AutoOptLib on the five test in-
+stances for experimental comparison. All the metaheuristic algorithms conducted population-based
+search with a population size of 50 for a fair comparison. All algorithms terminated after 50000
+function evaluations.
+The algorithms’ performance is summarized in Table 5. The performance is measured by final
+solutions’ fitness (reciprocal of the quality of service of all users). From Table 5, sequential beam-
+forming is inferior to most of the metaheuristic solvers. This result confirms the ineligibility of
+2Sequential beamforming refers to exhaustively enumerating the phase shift of each element one-by-one on
+the basis of random initial RIS phase shifts.
+3The discrete GA is consisted by tournament mating selection, uniform crossover, random mutation, and
+round-robin environmental selection; the crossover and mutation rates are both predefined to 0.2. The ILS and
+SA perform neighborhood search by randomly resetting one entity of the solution at each iteration.
+20
+
+AutoOptLib Documentation November 2025
+decoupling RIS elements and the need for global metaheuristic search. Among the metaheuris-
+tic solvers, Alg ∗ outperforms others, especially in instances with large numbers of RIS elements
+(induce high-dimensional rugged landscape). This performance can be attributed to its diversity
+maintenance ability. All the above demonstrates the efficiency of AutoOptLib’s automated design
+techniques on the problem.
+Table 5: Average and standard deviation of performance on the beamforming problem. Best results
+are in bold.
+Algorithm Number of RIS elements in the problem instances
+120 160 280 320 400
+Alg∗ 0.0332±5.05E-04 0.0312±4.84E-04 0.0281±1.57E-04 0.0272±6.76E-04 0.0260±1.11E-04
+Random 0.0442 ±7.94E-04 0.0425 ±6.56E-04 0.0402 ±8.30E-04 0.0390 ±6.67E-04 0.0375 ±1.88E-04
+Sequential 0.0382 ±6.19E-04 0.0387 ±6.75E-04 0.0374 ±4.17E-04 0.0369 ±4.38E-04 0.0354 ±8.27E-04
+GA 0.0369 ±3.30E-04 0.0356 ±1.00E-04 0.0337 ±4.26E-04 0.0333 ±1.04E-04 0.0322 ±6.96E-04
+ILS 0.0333 ±3.74E-04 0.0314 ±2.49E-04 0.0285 ±1.19E-04 0.0279 ±1.82E-04 0.0278 ±1.15E-04
+SA 0.0398 ±5.59E-04 0.0388 ±7.75E-04 0.0369 ±3.27E-04 0.0360 ±4.18E-04 0.0355 ±9.50E-04
+21
+
+AutoOptLib Documentation November 2025
+REFERENCES
+Boya Di, Hongliang Zhang, Lingyang Song, Yonghui Li, Zhu Han, and H Vincent Poor. Hybrid
+beamforming for reconfigurable intelligent surface based multi-user communications: Achievable
+rates with limited discrete phase shifts. IEEE Journal on Selected Areas in Communications, 38
+(8):1809–1822, Aug. 2020.
+Agoston E Eiben, James E Smith, et al. Introduction to evolutionary computing , volume 53.
+Springer, New York, NY , USA, 2003.
+David B Fogel. Artificial intelligence through simulated evolution. Wiley-IEEE Press, 1998.
+Frank Hutter, Holger H Hoos, Kevin Leyton-Brown, and Thomas St¨utzle. ParamILS: An automatic
+algorithm configuration framework. Journal of Artificial Intelligence Research, 36:267–306, Oct.
+2009.
+Himanshu Jain and Kalyanmoy Deb. An evolutionary many-objective optimization algorithm using
+reference-point based nondominated sorting approach, part ii: Handling constraints and extending
+to an adaptive approach. IEEE Transactions on evolutionary computation, 18(4):602–622, Aug.
+2013.
+Craig Larman. Protected variation: The importance of being closed. IEEE Software, 18(3):89–91,
+2001.
+Manuel L´opez-Ib´a˜nez, J´er´emie Dubois-Lacoste, Leslie P´erez C´aceres, Mauro Birattari, and Thomas
+St¨utzle. The irace package: Iterated racing for automatic algorithm configuration. Operations
+Research Perspectives, 3:43–58, Sept. 2016.
+Bertrand Meyer. Object-oriented software construction, volume 2. Prentice hall Englewood Cliffs,
+1997.
+Deepak Mishra and H ˚akan Johansson. Channel estimation and low-complexity beamforming de-
+sign for passive intelligent surface assisted miso wireless energy transfer. In IEEE International
+Conference on Acoustics, Speech and Signal Processing , pp. 4659–4663, Brighton, UK, 2019.
+IEEE.
+Bai Yan, Qi Zhao, Mengke Li, Jin Zhang, J Andrew Zhang, and Xin Yao. Fitness landscape analysis
+and niching genetic approach for hybrid beamforming in ris-aided communications. Applied Soft
+Computing, 131:109725, Dec. 2022.
+Furong Ye, Carola Doerr, Hao Wang, and Thomas B¨ack. Automated configuration of genetic algo-
+rithms by tuning for anytime performance. IEEE Transactions on Evolutionary Computation, 26
+(6):1526–1538, Dec. 2022.
+Wei Yu, Wonjong Rhee, Stephen Boyd, and John M Cioffi. Iterative water-filling for gaussian vector
+multiple-access channels. IEEE Transactions on Information Theory, 50(1):145–152, Jan. 2004.
+Jie Yuan, Ying-Chang Liang, Jingon Joung, Gang Feng, and Erik G Larsson. Intelligent reflecting
+surface-assisted cognitive radio system. IEEE Transactions on Communications, 69(1):675–687,
+Jan. 2021.
+Qi Zhao, Qiqi Duan, Bai Yan, Shi Cheng, and Yuhui Shi. A survey on automated design of meta-
+heuristic algorithms. arXiv preprint arXiv:2303.06532, 2023.
+22
